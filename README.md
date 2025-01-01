@@ -19,7 +19,8 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [ ] Escolha da fonte
 - [ ] Criação do Logo
 - [ ] Criação da SplashScreen 
-- [ ] Criação do Módulo de Registro
+- [ ] Criação do Módulo de Criar Conta
+- [ ] Criação do Módulo de Carrinho
 - [ ] Criação da Home (Pedido)
 - [ ] Criação do Módulo de Cadastro de Produtos
 - [ ] Criação do Módulo de Caixa
