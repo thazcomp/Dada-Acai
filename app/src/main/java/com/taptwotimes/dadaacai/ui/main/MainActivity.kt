@@ -15,14 +15,14 @@ class MainActivity: BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        auth = Firebase.auth
-//
-//        val currentUser = auth.currentUser
-//        if(currentUser != null){
-//            goToHome()
-//        }else{
+        auth = Firebase.auth
+
+        val currentUser = auth.currentUser
+        if(currentUser != null){
+            goToHome()
+        }else{
             goToLogin()
-//        }
+        }
     }
 
     private fun goToLogin() {
