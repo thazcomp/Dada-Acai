@@ -1,4 +1,4 @@
-package com.taptwotimes.dadaacai.ui
+package com.taptwotimes.dadaacai.ui.base
 
 import androidx.appcompat.app.AppCompatActivity
 

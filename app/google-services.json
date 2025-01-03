@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "860457355985",
+    "project_id": "acaimania-5ceb9",
+    "storage_bucket": "acaimania-5ceb9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860457355985:android:fcce14f601db02587093f0",
+        "android_client_info": {
+          "package_name": "com.taptwotimes.dadaacai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860457355985-c63mvmmqv4q5ppbo9ffqvp4r0ei5alvt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taptwotimes.dadaacai",
+            "certificate_hash": "2011eb7a88a64a8dd5889e9fdd7fa67e3aa7eec6"
+          }
+        },
+        {
+          "client_id": "860457355985-6dcvut5lna3aq6t6u4ncumuehtspd3l8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnXzUqw7Icyx9EIEz1EEbtFooFvEpdN1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860457355985-6dcvut5lna3aq6t6u4ncumuehtspd3l8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

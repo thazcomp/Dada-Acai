@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="vertical_margin_logo_1">96dp</dimen>
+    <dimen name="vertical_margin_logo_1">40dp</dimen>
+    <dimen name="login_margin_edit_top">8dp</dimen>
+    <dimen name="login_padding">8dp</dimen>
+    <dimen name="login_margin_google_start">56dp</dimen>
 </resources>
