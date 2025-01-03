@@ -6,4 +6,6 @@
     <string name="senha">Senha</string>
     <string name="pass_hint">********</string>
     <string name="login_button_text">Entrar</string>
+    <string name="criar_conta">Criar conta</string>
+    <string name="esqueceu_senha">Esqueceu a senha?</string>
 </resources>

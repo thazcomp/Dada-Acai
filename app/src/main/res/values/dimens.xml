@@ -2,6 +2,7 @@
 <resources>
     <dimen name="vertical_margin_logo_1">40dp</dimen>
     <dimen name="login_text_size_1">16sp</dimen>
+    <dimen name="login_text_size_2">24sp</dimen>
     <dimen name="login_margin_text_start">32dp</dimen>
     <dimen name="login_margin_text_top">16dp</dimen>
     <dimen name="login_margin_edit_top">8dp</dimen>
@@ -9,4 +10,5 @@
     <dimen name="login_edit_text_height">32dp</dimen>
     <dimen name="login_button_height">40dp</dimen>
     <dimen name="login_margin_google_start">56dp</dimen>
+    <dimen name="login_margin_link_top">24dp</dimen>
 </resources>
