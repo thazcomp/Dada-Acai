@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Dada Acai</string>
     <string name="content_description_acai_logo">Açaí Mania - Logo da Marca: Dinheiro não compra felicidade, mas compra Açaí.</string>
-    <string name="email">Email</string>
     <string name="email_hint">usuario@email.com</string>
     <string name="senha">Senha</string>
     <string name="pass_hint">********</string>
