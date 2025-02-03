@@ -74,7 +74,7 @@
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btEntrar"
+        android:id="@+id/btCarrinho"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_button_height"
         android:layout_marginStart="@dimen/login_margin_text_start"
@@ -90,7 +90,7 @@
         android:id="@+id/btGoogle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_button_height"
-        app:layout_constraintTop_toBottomOf="@id/btEntrar"
+        app:layout_constraintTop_toBottomOf="@id/btCarrinho"
         android:layout_marginTop="@dimen/login_margin_text_start"
         android:layout_marginStart="@dimen/login_margin_google_start"
         android:layout_marginEnd="@dimen/login_margin_google_start"
