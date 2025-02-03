@@ -6,6 +6,8 @@
     <string name="senha">Senha</string>
     <string name="pass_hint">********</string>
     <string name="login_button_text">Entrar</string>
+    <string name="home_button_text">+ Carrinho</string>
     <string name="criar_conta">Criar conta</string>
     <string name="esqueceu_senha">Esqueceu a senha?</string>
+    <string name="oauth_client_id">860457355985-6dcvut5lna3aq6t6u4ncumuehtspd3l8.apps.googleusercontent.com</string>
 </resources>
