@@ -56,52 +56,19 @@ class CartFragment : Fragment() {
                 CartItemAcai(0,
                     image,
                     getString(R.string.acai_completo),
-                    getString(R.string.leite_condensado),
                     getString(R.string.pacoca),
                     getString(R.string.morango),
-                    getString(R.string.total18)
+                    " ",
+                    getString(R.string.total16)
                 ),
                 CartItemAcai(0,
                     image,
                     getString(R.string.acai_completo),
                     getString(R.string.leite_condensado),
-                    getString(R.string.pacoca),
-                    getString(R.string.morango),
-                    getString(R.string.total18)
-                ),
-                CartItemAcai(0,
-                    image,
-                    getString(R.string.acai_completo),
-                    getString(R.string.leite_condensado),
-                    getString(R.string.pacoca),
-                    getString(R.string.morango),
-                    getString(R.string.total18)
-                ),
-                CartItemAcai(0,
-                    image,
-                    getString(R.string.acai_completo),
-                    getString(R.string.leite_condensado),
-                    getString(R.string.pacoca),
-                    getString(R.string.morango),
-                    getString(R.string.total18)
-                ),
-                CartItemAcai(0,
-                    image,
-                    getString(R.string.acai_completo),
-                    getString(R.string.leite_condensado),
-                    getString(R.string.pacoca),
-                    getString(R.string.morango),
-                    getString(R.string.total18)
-                ),
-                CartItemAcai(0,
-                    image,
-                    getString(R.string.acai_completo),
-                    getString(R.string.leite_condensado),
-                    getString(R.string.pacoca),
-                    getString(R.string.morango),
-                    getString(R.string.total18)
+                    " ",
+                    " ",
+                    getString(R.string.total14)
                 )
-
             )
         }
         return list

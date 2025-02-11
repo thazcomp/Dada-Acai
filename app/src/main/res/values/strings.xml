@@ -17,4 +17,6 @@
     <string name="acai_completo">Açaí Completo</string>
     <string name="morango">Morango</string>
     <string name="total18">Total: R$18,00</string>
+    <string name="total16">Total: R$16,00</string>
+    <string name="total14">Total: R$14,00</string>
 </resources>
