@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import com.taptwotimes.dadaacai.databinding.ActivityLoginBinding
 import com.taptwotimes.dadaacai.ui.base.BaseActivity
 import com.taptwotimes.dadaacai.ui.home.HomeActivity
+import com.taptwotimes.dadaacai.ui.signup.SignUpActivity
 
 
 class LoginActivity: BaseActivity()  {
@@ -24,6 +25,10 @@ class LoginActivity: BaseActivity()  {
     private fun setButtonsClickListener() {
         binding.btEntrar.setOnClickListener {
             val intent =  Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+        binding.tvCriarConta.setOnClickListener {
+            val intent =  Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
     }

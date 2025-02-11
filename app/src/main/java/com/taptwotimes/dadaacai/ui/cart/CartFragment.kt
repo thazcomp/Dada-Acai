@@ -27,16 +27,16 @@ class CartFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        createAdapter()
+    }
+
     private fun createAdapter() {
         val listview = binding.list
         context?.let{
             listview.adapter = CartListAdapter(listaAcai(), it)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        createAdapter()
     }
 
 
