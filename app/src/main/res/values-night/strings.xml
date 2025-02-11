@@ -7,4 +7,6 @@
     <string name="login_button_text">Entrar</string>
     <string name="criar_conta">Criar conta</string>
     <string name="esqueceu_senha">Esqueceu a senha?</string>
+    <string name="name">Nome:</string>
+    <string name="cpf">000.000.000-00</string>
 </resources>
