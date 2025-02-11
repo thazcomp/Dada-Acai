@@ -2,7 +2,9 @@
 <resources>
     <color name="verde1">#00BF63</color>
     <color name="verde2">#00AF89</color>
+    <color name="verde3">#FF03DAC5</color>
     <color name="roxo1">#571E9F</color>
+    <color name="roxo2">#FFBB86FC</color>
     <color name="cinza1">#909090</color>
     <color name="azul1">#FF3F53D9</color>
 

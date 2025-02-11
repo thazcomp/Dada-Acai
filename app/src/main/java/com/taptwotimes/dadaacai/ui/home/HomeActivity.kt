@@ -14,9 +14,8 @@ class HomeActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         replaceFragment(HomeFragment())
-
+        binding.bottomNav.selectedItemId = R.id.home_menu
         binding.bottomNav.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.home_menu -> replaceFragment(HomeFragment())

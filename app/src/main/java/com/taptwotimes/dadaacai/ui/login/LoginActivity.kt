@@ -1,13 +1,8 @@
 package com.taptwotimes.dadaacai.ui.login
 
 import android.content.Intent
-import android.credentials.CredentialOption
-import android.credentials.GetCredentialRequest
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption
-import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.databinding.ActivityLoginBinding
 import com.taptwotimes.dadaacai.ui.base.BaseActivity
 import com.taptwotimes.dadaacai.ui.home.HomeActivity

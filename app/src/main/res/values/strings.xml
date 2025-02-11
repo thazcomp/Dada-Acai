@@ -12,4 +12,9 @@
     <string name="oauth_client_id">860457355985-6dcvut5lna3aq6t6u4ncumuehtspd3l8.apps.googleusercontent.com</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="leite_condensado">Leite Condensado</string>
+    <string name="pacoca">Paçoca</string>
+    <string name="acai_completo">Açaí Completo</string>
+    <string name="morango">Morango</string>
+    <string name="total18">Total: R$18,00</string>
 </resources>
