@@ -17,7 +17,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/login_margin_text_start"
+        android:layout_marginHorizontal="@dimen/login_margin_text_start"
         android:layout_marginTop="@dimen/signup_margin_text_top"
         />
 
