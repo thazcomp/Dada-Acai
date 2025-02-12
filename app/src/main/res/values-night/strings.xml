@@ -11,4 +11,6 @@
     <string name="cpf">000.000.000-00</string>
     <string name="telefone">Telefone:</string>
     <string name="telefone_hint">(53)99999-9999</string>
+    <string name="nav_open">Menu Aberto</string>
+    <string name="nav_close">Menu Fechado</string>
 </resources>
