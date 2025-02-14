@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.taptwotimes.dadaacai"
-        minSdk 24
+        minSdk 27
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -78,7 +78,14 @@ dependencies {
     //google services firebase
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
 
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+    //circle image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
