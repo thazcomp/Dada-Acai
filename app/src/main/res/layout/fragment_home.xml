@@ -5,14 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/login_margin_text_top"
-        android:layout_marginVertical="@dimen/login_margin_text_top"
-        android:background="@drawable/card1">
-
-        <androidx.recyclerview.widget.RecyclerView
+        <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
             android:id="@+id/rv_recycler"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -22,7 +15,26 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_home" />
 
+        <ImageView
+            android:id="@+id/ivDireita"
+            android:layout_width="72dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/double_arrow_right"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/ivEsquerda"
+            android:layout_width="72dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/double_arrow_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,4 +13,5 @@
     <string name="telefone_hint">(53)99999-9999</string>
     <string name="nav_open">Menu Aberto</string>
     <string name="nav_close">Menu Fechado</string>
+    <string name="r_0_00">+R$0,00</string>
 </resources>

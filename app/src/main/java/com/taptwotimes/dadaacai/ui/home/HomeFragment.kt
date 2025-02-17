@@ -21,6 +21,7 @@ class HomeFragment : Fragment() {
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var adapter:RecyclerView.Adapter<HomeAdapter.ItemHomeViewHolder>
     private lateinit var itemList:ArrayList<ItemHome>
+    private var position:Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +63,8 @@ class HomeFragment : Fragment() {
                         Options("Recheio:", arrayListOf<Topping>(
                             Topping("Presunto e Queijo", 0.00)
                         )),
-                        Options("Bordas Recheadas:", arrayListOf<Topping>(
-                            Topping("Sim", 5.00)
+                        Options("B. Recheadas:", arrayListOf<Topping>(
+                            Topping("B. Recheadas: Sim", 5.00)
                         ))
                     ),
                     AppCompatResources.getDrawable(it, R.drawable.crepe),
@@ -83,7 +84,33 @@ class HomeFragment : Fragment() {
         binding.rvRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = HomeAdapter(itemList)
+            setInfinite(true)
+            setFlat(true)
+            setIntervalRatio(0.1f)
+            setOrientation(RecyclerView.HORIZONTAL)
         }
+
+        binding.ivEsquerda.setOnClickListener {
+            if(position){
+                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(0)
+                position = false
+            }else{
+                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(1)
+                position = true
+            }
+        }
+
+        binding.ivDireita.setOnClickListener {
+            if(position){
+                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(0)
+                position = false
+            }else{
+                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(1)
+                position = true
+            }
+        }
+
+
         return binding.root
     }
 }

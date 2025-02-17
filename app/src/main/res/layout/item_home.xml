@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/login_margin_text_top"
         android:layout_marginVertical="@dimen/login_margin_text_top"
-        android:background="@drawable/card1">
+        android:background="@drawable/card2">
 
         <TextView
             android:id="@+id/tvTitle"
@@ -76,32 +76,33 @@
             android:id="@+id/cvTopping1"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:background="@color/roxo1"
             android:backgroundTint="@color/white"
             app:cardCornerRadius="12dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSub">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clCard1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="16dp">
+                >
 
                 <TextView
-                    android:id="@+id/tvTopping1"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_ttitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginBottom="24dp"
                     android:gravity="center"
+                    android:text="Coberturas"
+                    android:background="@color/roxo2"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -110,12 +111,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="24dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
+                    android:text="Morango"
                     android:textColor="@color/roxo1"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvTopping1" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_ttitle" />
 
                 <TextView
                     android:id="@+id/tvPrice1"
@@ -123,49 +126,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="24dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:textColor="@color/roxo1"
                     android:textSize="16sp"
+                    android:layout_marginEnd="8dp"
                     android:textStyle="bold"
+                    android:text="@string/r_0_00"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvTopping1" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvTopping2"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/roxo1"
-            android:backgroundTint="@color/white"
-            app:cardCornerRadius="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cvTopping1">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clCard2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="16dp">
-
-                <TextView
-                    android:id="@+id/tvTopping2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="24dp"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_ttitle" />
 
                 <TextView
                     android:id="@+id/tvResult2"
@@ -174,11 +143,12 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="24dp"
                     android:gravity="center"
+                    android:text="L. Cond."
                     android:textColor="@color/roxo1"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvTopping2" />
+                    app:layout_constraintTop_toBottomOf="@id/tvResult1" />
 
                 <TextView
                     android:id="@+id/tvPrice2"
@@ -187,48 +157,13 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="24dp"
                     android:gravity="center"
+                    android:layout_marginEnd="8dp"
                     android:textColor="@color/roxo1"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    android:text="@string/r_0_00"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvTopping2" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvTopping3"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/roxo1"
-            android:backgroundTint="@color/white"
-            app:cardCornerRadius="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cvTopping2">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clCard3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="16dp">
-
-                <TextView
-                    android:id="@+id/tvTopping3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="24dp"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/tvResult1" />
 
                 <TextView
                     android:id="@+id/tvResult3"
@@ -237,11 +172,12 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="24dp"
                     android:gravity="center"
+                    android:text="Paçoca"
                     android:textColor="@color/roxo1"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvTopping3" />
+                    app:layout_constraintTop_toBottomOf="@id/tvResult2" />
 
                 <TextView
                     android:id="@+id/tvPrice3"
@@ -252,9 +188,112 @@
                     android:gravity="center"
                     android:textColor="@color/roxo1"
                     android:textSize="16sp"
+                    android:layout_marginEnd="8dp"
                     android:textStyle="bold"
+                    android:text="@string/r_0_00"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvTopping3" />
+                    app:layout_constraintTop_toBottomOf="@id/tvResult2" />
+
+                <TextView
+                    android:id="@+id/tvResult4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:gravity="center"
+                    android:text="Granulado"
+                    android:textColor="@color/roxo1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvResult3" />
+
+                <TextView
+                    android:id="@+id/tvPrice4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:gravity="center"
+                    android:textColor="@color/roxo1"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="8dp"
+                    android:textStyle="bold"
+                    android:text="@string/r_2_00"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvResult3" />
+
+                <TextView
+                    android:id="@+id/tvResult5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:gravity="center"
+                    android:text="Leite em Pó"
+                    android:textColor="@color/roxo1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvResult4" />
+
+                <TextView
+                    android:id="@+id/tvPrice5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:gravity="center"
+                    android:textColor="@color/roxo1"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="8dp"
+                    android:textStyle="bold"
+                    android:text="@string/r_2_00"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvResult4" />
+
+                <TextView
+                    android:id="@+id/tvResult6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:gravity="center"
+                    android:text="Disquete"
+                    android:textColor="@color/roxo1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvResult5" />
+
+                <TextView
+                    android:id="@+id/tvPrice6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:gravity="center"
+                    android:textColor="@color/roxo1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/r_2_00"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvResult5" />
+
+                <TextView
+                    android:id="@+id/tvResultFinal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:gravity="center"
+                    android:text="Clique para Adicionar"
+                    android:textColor="@color/roxo1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvResult6" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -272,7 +311,6 @@
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
