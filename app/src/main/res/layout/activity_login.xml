@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/verde1">
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/ivLogo"
@@ -11,10 +11,11 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/content_description_acai_logo"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/vertical_margin_logo_1"
-        android:src="@drawable/logo2"/>
+        android:src="@drawable/logo3"/>
 
     <TextView
         android:id="@+id/tvEmail"
@@ -25,15 +26,15 @@
         app:layout_constraintTop_toBottomOf="@id/ivLogo"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/vertical_margin_logo_1"
         android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginTop="@dimen/login_margin_text_top"
         />
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_edit_text_height"
-        android:background="@color/white"
+        android:background="@drawable/edit_shape"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/login_margin_text_start"
         android:layout_marginEnd="@dimen/login_margin_text_start"
@@ -61,7 +62,7 @@
         android:id="@+id/etPass"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_edit_text_height"
-        android:background="@color/white"
+        android:background="@drawable/edit_shape"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/login_margin_text_start"
         android:layout_marginEnd="@dimen/login_margin_text_start"
@@ -81,7 +82,7 @@
         android:layout_marginEnd="@dimen/login_margin_text_start"
         android:layout_marginTop="@dimen/login_margin_text_start"
         app:layout_constraintTop_toBottomOf="@id/etPass"
-        android:background="@color/cinza1"
+        android:background="@color/black"
         android:text="@string/login_button_text"
         android:textAllCaps="false"
     />
@@ -92,6 +93,7 @@
         android:layout_height="@dimen/login_button_height"
         app:layout_constraintTop_toBottomOf="@id/btEntrar"
         android:layout_marginTop="@dimen/login_margin_text_start"
+        app:isDarkTheme="true"
         android:layout_marginStart="@dimen/login_margin_google_start"
         android:layout_marginEnd="@dimen/login_margin_google_start"
         />

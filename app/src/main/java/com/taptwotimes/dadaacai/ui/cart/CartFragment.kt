@@ -43,7 +43,7 @@ class CartFragment : Fragment() {
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun listaAcai(): List<CartItemAcai>{
         var list = listOf<CartItemAcai>()
-        context?.getDrawable(R.drawable.acai)?.let{ image ->
+        context?.getDrawable(R.drawable.acai1)?.let{ image ->
             list = listOf(
                 CartItemAcai(0,
                     image,

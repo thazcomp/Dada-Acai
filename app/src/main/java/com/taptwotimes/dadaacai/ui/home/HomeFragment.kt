@@ -23,14 +23,6 @@ class HomeFragment : Fragment() {
     private lateinit var itemList:ArrayList<ItemHome>
     private var position:Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     fun createItemList(){
         activity?.let{
             itemList = arrayListOf<ItemHome>()
@@ -49,7 +41,7 @@ class HomeFragment : Fragment() {
                             Topping("Paçoca", 0.00)
                         ))
                     ),
-                    AppCompatResources.getDrawable(it, R.drawable.acai),
+                    AppCompatResources.getDrawable(it, R.drawable.acai1),
                     15.00
                 ),
 
@@ -84,9 +76,8 @@ class HomeFragment : Fragment() {
         binding.rvRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = HomeAdapter(itemList)
-            setInfinite(true)
-            setFlat(true)
-            setIntervalRatio(0.1f)
+            set3DItem(false)
+            setIntervalRatio(.7f)
             setOrientation(RecyclerView.HORIZONTAL)
         }
 

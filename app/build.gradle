@@ -87,7 +87,11 @@ dependencies {
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    //Home carousel
     implementation 'com.github.sparrow007:carouselrecyclerview:1.2.6'
+
+    //google button color change
+    implementation 'com.github.shobhitpuri:custom-google-signin-button:2.0.0'
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
