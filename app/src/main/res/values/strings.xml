@@ -29,4 +29,9 @@
     <string name="nav_close">Menu Fechado</string>
     <string name="r_0_00">+R$0,00</string>
     <string name="r_2_00">+R$2,00</string>
+    <string name="senha_hint">************</string>
+    <string name="rua">Rua:</string>
+    <string name="rua_hint">Rua Julio de Castilhos</string>
+    <string name="numero">Número:</string>
+    <string name="numero_hint">89</string>
 </resources>

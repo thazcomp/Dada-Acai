@@ -36,10 +36,9 @@
         <ImageView
             android:id="@+id/ivCopo"
             android:layout_width="wrap_content"
-            android:layout_height="280dp"
+            android:layout_height="240dp"
             android:layout_marginBottom="@dimen/acai_copo_margin"
-            android:src="@drawable/acai1"
-            android:scaleType="centerCrop"
+            android:src="@drawable/acai4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

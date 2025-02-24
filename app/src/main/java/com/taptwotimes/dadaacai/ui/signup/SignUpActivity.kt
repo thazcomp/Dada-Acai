@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.taptwotimes.dadaacai.databinding.ActivitySignupBinding
+import com.taptwotimes.dadaacai.ui.address.AddressActivity
 import com.taptwotimes.dadaacai.ui.base.BaseActivity
 import com.taptwotimes.dadaacai.ui.home.HomeActivity
 
@@ -22,10 +23,10 @@ class SignUpActivity: BaseActivity()  {
     }
 
     private fun setButtonsClickListener() {
-//        binding.btEntrar.setOnClickListener {
-//            val intent =  Intent(this, HomeActivity::class.java)
-//            startActivity(intent)
-//        }
+        binding.btAddress.setOnClickListener {
+            val intent =  Intent(this, AddressActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun verifyButtonEnabled() {

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/verde1">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -23,8 +23,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivFoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:src="@drawable/account_circle"
         app:civ_circle_background_color="@color/white"
         app:civ_border_width="2dp"
@@ -45,14 +45,13 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginTop="@dimen/signup_margin_text_top"
         />
 
     <EditText
         android:id="@+id/etNome"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_edit_text_height"
-        android:background="@color/white"
+        android:background="@drawable/edit_shape"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/login_margin_text_start"
         android:layout_marginEnd="@dimen/login_margin_text_start"
@@ -64,13 +63,43 @@
         />
 
     <TextView
+        android:id="@+id/tvSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/senha"
+        android:textSize="@dimen/singup_text_size_1"
+        app:layout_constraintTop_toBottomOf="@id/etNome"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/login_margin_text_start"
+        android:layout_marginTop="@dimen/signup_margin_text_top"
+        />
+
+    <EditText
+        android:id="@+id/etSenha"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_edit_text_height"
+        android:background="@drawable/edit_shape"
+        android:textColor="@color/black"
+        android:layout_marginStart="@dimen/login_margin_text_start"
+        android:layout_marginEnd="@dimen/login_margin_text_start"
+        app:layout_constraintTop_toBottomOf="@id/tvSenha"
+        android:layout_marginTop="@dimen/login_margin_edit_top"
+        android:inputType="textPassword"
+        android:hint="@string/senha_hint"
+        android:textColorHint="@color/grey"
+        android:paddingHorizontal="@dimen/login_padding"
+        />
+
+    <TextView
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/email"
         android:textSize="@dimen/singup_text_size_1"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etNome"
+        app:layout_constraintTop_toBottomOf="@id/etSenha"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/login_margin_text_start"
@@ -81,7 +110,7 @@
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_edit_text_height"
-        android:background="@color/white"
+        android:background="@drawable/edit_shape"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/login_margin_text_start"
         android:layout_marginEnd="@dimen/login_margin_text_start"
@@ -110,7 +139,7 @@
         android:id="@+id/etCpf"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_edit_text_height"
-        android:background="@color/white"
+        android:background="@drawable/edit_shape"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/login_margin_text_start"
         android:layout_marginEnd="@dimen/login_margin_text_start"
@@ -139,7 +168,7 @@
         android:id="@+id/etTelefone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_edit_text_height"
-        android:background="@color/white"
+        android:background="@drawable/edit_shape"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/login_margin_text_start"
         android:layout_marginEnd="@dimen/login_margin_text_start"
@@ -151,7 +180,7 @@
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btCarrinho"
+        android:id="@+id/btAddress"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_button_height"
         android:layout_marginHorizontal="32dp"
@@ -160,6 +189,7 @@
         android:text="Adicionar Endereço"
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@id/etTelefone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

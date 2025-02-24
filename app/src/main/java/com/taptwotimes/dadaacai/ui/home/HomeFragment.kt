@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
                             Topping("Paçoca", 0.00)
                         ))
                     ),
-                    AppCompatResources.getDrawable(it, R.drawable.acai1),
+                    AppCompatResources.getDrawable(it, R.drawable.acai4),
                     15.00
                 ),
 
@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
                             Topping("B. Recheadas: Sim", 5.00)
                         ))
                     ),
-                    AppCompatResources.getDrawable(it, R.drawable.crepe),
+                    AppCompatResources.getDrawable(it, R.drawable.crepe2),
                     15.00
                 ),
 
