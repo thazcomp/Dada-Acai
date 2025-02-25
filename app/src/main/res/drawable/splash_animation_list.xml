@@ -4,58 +4,198 @@
 
     <item
         android:duration="100"
-        android:drawable="@drawable/alternative3_000"/>
+        android:drawable="@drawable/essevai_000"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_001"/>
+        android:drawable="@drawable/essevai_001"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_002"/>
+        android:drawable="@drawable/essevai_002"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_003"/>
+        android:drawable="@drawable/essevai_003"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_004"/>
+        android:drawable="@drawable/essevai_004"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_005"/>
+        android:drawable="@drawable/essevai_005"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_006"/>
+        android:drawable="@drawable/essevai_006"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_007"/>
+        android:drawable="@drawable/essevai_007"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_008"/>
+        android:drawable="@drawable/essevai_008"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_009"/>
+        android:drawable="@drawable/essevai_009"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_010"/>
+        android:drawable="@drawable/essevai_010"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_011"/>
+        android:drawable="@drawable/essevai_011"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_012"/>
+        android:drawable="@drawable/essevai_012"/>
 
     <item
         android:duration="75"
-        android:drawable="@drawable/alternative3_013"/>
+        android:drawable="@drawable/essevai_013"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_014"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_015"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_016"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_017"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_018"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_019"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_020"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_021"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_022"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_023"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_024"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_025"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_026"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_027"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_028"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_029"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_030"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_031"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_032"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_033"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_034"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_035"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_036"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_037"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_038"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_039"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_040"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_041"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_042"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_043"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_044"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_045"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_046"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_047"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/essevai_048"/>
 
 </animation-list>

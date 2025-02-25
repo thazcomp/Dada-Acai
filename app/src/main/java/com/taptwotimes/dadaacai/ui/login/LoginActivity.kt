@@ -1,5 +1,6 @@
 package com.taptwotimes.dadaacai.ui.login
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -35,6 +36,11 @@ class LoginActivity: BaseActivity()  {
 
     private fun verifyButtonEnabled() {
         TODO("Not yet implemented")
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+
     }
 
 

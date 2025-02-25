@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/splash_animation_list"
-        android:scaleX="1.1"
+        android:scaleType="centerCrop"
+        android:scaleX="4"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
