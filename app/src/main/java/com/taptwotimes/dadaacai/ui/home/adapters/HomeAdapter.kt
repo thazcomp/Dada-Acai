@@ -94,6 +94,9 @@ class HomeAdapter(val homeItemList:ArrayList<ItemHome>):
 
             binding.ivCopo.setImageDrawable(item.image)
             binding.tvPreco.text = "R$ ${item.totalPrice}"
+            binding.clCard1.setOnClickListener {
+                
+            }
         }
     }
 

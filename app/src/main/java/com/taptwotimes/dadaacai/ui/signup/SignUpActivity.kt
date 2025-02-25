@@ -1,6 +1,7 @@
 package com.taptwotimes.dadaacai.ui.signup
 
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.taptwotimes.dadaacai.databinding.ActivitySignupBinding
