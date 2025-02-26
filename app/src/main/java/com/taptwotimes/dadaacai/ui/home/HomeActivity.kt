@@ -13,7 +13,9 @@ import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.databinding.ActivityHomeBinding
 import com.taptwotimes.dadaacai.ui.base.BaseActivity
 import com.taptwotimes.dadaacai.ui.cart.CartFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityHomeBinding
     lateinit var drawerLayout: DrawerLayout

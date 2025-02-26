@@ -3,6 +3,7 @@ package com.taptwotimes.dadaacai.ui.home.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.taptwotimes.dadaacai.databinding.ItemHomeBinding
 import com.taptwotimes.dadaacai.model.ItemHome
@@ -92,7 +93,9 @@ class HomeAdapter(val homeItemList:ArrayList<ItemHome>):
                 binding.tvResultFinal.visibility = View.VISIBLE
             }
 
-            binding.ivCopo.setImageDrawable(item.image)
+            binding.ivCopo.setImageDrawable(
+                AppCompatResources.getDrawable(binding.root.context, item.image!!))
+
             binding.tvPreco.text = "R$ ${item.totalPrice}"
             binding.clCard1.setOnClickListener {
                 

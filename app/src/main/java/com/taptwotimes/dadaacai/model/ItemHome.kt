@@ -5,6 +5,6 @@ data class ItemHome(
     val title:String,
     val subtitle:String,
     val options:ArrayList<Options>,
-    val image:Drawable?,
+    val image:Int?,
     val totalPrice:Double
 )

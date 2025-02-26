@@ -8,7 +8,7 @@ import com.taptwotimes.dadaacai.databinding.ActivityLoginBinding
 import com.taptwotimes.dadaacai.ui.base.BaseActivity
 import com.taptwotimes.dadaacai.ui.home.HomeActivity
 import com.taptwotimes.dadaacai.ui.signup.SignUpActivity
-
+import dagger.hilt.android.AndroidEntryPoint
 
 class LoginActivity: BaseActivity()  {
     private lateinit var binding: ActivityLoginBinding
