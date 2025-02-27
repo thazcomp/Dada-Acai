@@ -1,72 +1,63 @@
 package com.taptwotimes.dadaacai.data.repository.home
 
-import android.content.Context
-import androidx.appcompat.content.res.AppCompatResources
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 import com.taptwotimes.dadaacai.R
-import com.taptwotimes.dadaacai.data.results.APIResult
-import com.taptwotimes.dadaacai.model.ItemHome
-import com.taptwotimes.dadaacai.model.Options
+import com.taptwotimes.dadaacai.model.AcaiProductHome
+import com.taptwotimes.dadaacai.model.CrepeProductHome
+import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
+import kotlinx.coroutines.tasks.await
 
 class HomeRepositoryImpl:HomeRepository {
 
-    override fun getHome(): ArrayList<ItemHome> {
-        return createItemList()
+    val db = Firebase.firestore
+    val productsCollection = db.collection("Products")
+
+
+    override suspend fun getHome(): ArrayList<ProductHome> {
+        val itemList = arrayListOf<ProductHome>()
+        try {
+            val querySnapshot = productsCollection.get().await()
+            var data = querySnapshot.documents[0].data
+
+            itemList.add(AcaiProductHome(
+                title = data?.get("title") as String?,
+                subtitle = data?.get("subtitle") as String?,
+                coberturas = createAcaiOptions(),
+                image = R.drawable.acai4,
+                basePrice = data?.get("basePrice") as String?
+            ))
+
+            data = querySnapshot.documents[1].data
+            itemList.add(CrepeProductHome(
+                title = data?.get("title") as String?,
+                subtitle = data?.get("subtitle") as String?,
+                coberturas = createCrepeOptions(),
+                image = R.drawable.crepe2,
+                basePrice = data?.get("basePrice") as String?
+            ))
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return itemList
     }
 
-    fun createItemList():ArrayList<ItemHome> {
-        val itemList = arrayListOf<ItemHome>()
-        itemList.add(
-            ItemHome(
-                "Açaí Mania",
-                "Refresque o seu dia com o melhor Açaí da cidade!",
-                arrayListOf<Options>(
-                    Options(
-                        "Topping 1:", arrayListOf<Topping>(
-                            Topping("Leite Condensado", 0.00)
-                        )
-                    ),
-                    Options(
-                        "Topping 2:", arrayListOf<Topping>(
-                            Topping("Morango", 0.00)
-                        )
-                    ),
-                    Options(
-                        "Topping 1:", arrayListOf<Topping>(
-                            Topping("Paçoca", 0.00)
-                        )
-                    )
-                ),
-                R.drawable.acai4,
-                15.00
-            ),
+    fun createAcaiOptions():ArrayList<Topping>{
+        val topping = arrayListOf<Topping>(
+            Topping("Leite Condensado", "0,00"),
+            Topping("Morango", "0,00"),
+            Topping("Paçoca", "0,00")
+        )
+        return topping
+    }
 
-            )
-
-        itemList.add(
-            ItemHome(
-                "Crepe Mania",
-                "Subtitulo!!",
-                arrayListOf<Options>(
-                    Options(
-                        "Recheio:", arrayListOf<Topping>(
-                            Topping("Presunto e Queijo", 0.00)
-                        )
-                    ),
-                    Options(
-                        "B. Recheadas:", arrayListOf<Topping>(
-                            Topping("B. Recheadas: Sim", 5.00)
-                        )
-                    )
-                ),
-                R.drawable.crepe2,
-                15.00
-            ),
-
-            )
-        return itemList
+    fun createCrepeOptions():ArrayList<Topping>{
+        val topping = arrayListOf<Topping>(
+            Topping("Frango vom Queijo", "0,00"),
+            Topping("Bordas Rechedas: Sim", "5,00"),
+        )
+        return topping
     }
 }

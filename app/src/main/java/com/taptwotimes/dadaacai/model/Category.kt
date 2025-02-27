@@ -1,6 +1,6 @@
 package com.taptwotimes.dadaacai.model
 
-data class Topping(
+data class Category(
     val name:String,
-    val price: String
+    val products:ArrayList<Topping>
 )
