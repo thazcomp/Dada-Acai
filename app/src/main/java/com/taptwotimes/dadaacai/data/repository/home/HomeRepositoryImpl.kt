@@ -14,26 +14,27 @@ class HomeRepositoryImpl:HomeRepository {
     val db = Firebase.firestore
     val productsCollection = db.collection("Products")
 
-
     override suspend fun getHome(): ArrayList<ProductHome> {
         val itemList = arrayListOf<ProductHome>()
         try {
-            val querySnapshot = productsCollection.get().await()
-            var data = querySnapshot.documents[0].data
+            val productsSnapshot = productsCollection.get().await()
+            var document = productsSnapshot.documents[0]
+            var data = document.data
 
-            itemList.add(AcaiProductHome(
-                title = data?.get("title") as String?,
-                subtitle = data?.get("subtitle") as String?,
-                coberturas = createAcaiOptions(),
-                image = R.drawable.acai4,
-                basePrice = data?.get("basePrice") as String?
-            ))
+            itemList.add(
+                AcaiProductHome(
+                    title = data?.get("title") as String?,
+                    subtitle = data?.get("subtitle") as String?,
+                    image = R.drawable.acai4,
+                    basePrice = data?.get("basePrice") as String?
+                )
+            )
 
-            data = querySnapshot.documents[1].data
+            document = productsSnapshot.documents[1]
+            data = document.data
             itemList.add(CrepeProductHome(
                 title = data?.get("title") as String?,
                 subtitle = data?.get("subtitle") as String?,
-                coberturas = createCrepeOptions(),
                 image = R.drawable.crepe2,
                 basePrice = data?.get("basePrice") as String?
             ))
@@ -44,20 +45,18 @@ class HomeRepositoryImpl:HomeRepository {
         return itemList
     }
 
-    fun createAcaiOptions():ArrayList<Topping>{
-        val topping = arrayListOf<Topping>(
-            Topping("Leite Condensado", "0,00"),
-            Topping("Morango", "0,00"),
-            Topping("Paçoca", "0,00")
-        )
-        return topping
-    }
+    override suspend fun getToppings(id: String): java.util.ArrayList<Topping> {
+        val toppingsCollection = productsCollection.document(id)
+            .collection("Coberturas")
+            .document("Categorias")
+            .collection("Cobertura")
 
-    fun createCrepeOptions():ArrayList<Topping>{
-        val topping = arrayListOf<Topping>(
-            Topping("Frango vom Queijo", "0,00"),
-            Topping("Bordas Rechedas: Sim", "5,00"),
-        )
-        return topping
+        val toppinsSnapshot = toppingsCollection.get().await()
+        return  toppinsSnapshot.documents.map { toppingDocument ->
+            Topping(
+                name = toppingDocument.getString("name") ?: "",
+                price = toppingDocument.getString("price") ?: ""
+            )
+        } as ArrayList<Topping>
     }
 }

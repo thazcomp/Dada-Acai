@@ -1,24 +1,14 @@
 package com.taptwotimes.dadaacai.ui.home
 
-import android.app.AlertDialog
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.databinding.FragmentHomeBinding
-import com.taptwotimes.dadaacai.model.ProductHome
-import com.taptwotimes.dadaacai.model.Options
-import com.taptwotimes.dadaacai.model.Topping
 import com.taptwotimes.dadaacai.ui.home.adapters.HomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,7 +56,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeItemHome() {
-        viewModel.response.observe(viewLifecycleOwner){ response ->
+        viewModel.home.observe(viewLifecycleOwner){ response ->
             binding.rvRecycler.apply {
                 layoutManager = LinearLayoutManager(activity)
                 adapter = HomeAdapter(response)

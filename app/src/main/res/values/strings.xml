@@ -34,4 +34,5 @@
     <string name="rua_hint">Rua Julio de Castilhos</string>
     <string name="numero">Número:</string>
     <string name="numero_hint">89</string>
+    <string name="clique_para_adicionar">Clique para Adicionar</string>
 </resources>

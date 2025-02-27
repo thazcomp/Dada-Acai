@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 data class CrepeProductHome(
     override var title: String?,
     override var subtitle: String?,
-    override var coberturas:ArrayList<Topping>?,
     override var image:Int?,
     override var basePrice:String?,
     override var maxTopping:Int? = 2
