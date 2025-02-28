@@ -14,14 +14,16 @@ import com.taptwotimes.dadaacai.model.Category
 import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
+import com.taptwotimes.dadaacai.ui.base.BaseFragment
 import com.taptwotimes.dadaacai.ui.home.adapters.HomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private var position: Boolean = false
-    private var options:ArrayList<Topping> = arrayListOf()
+    private var topOptions:ArrayList<Topping> = arrayListOf()
+    private var bottomOptions:ArrayList<Topping> = arrayListOf()
     private var index:Int = 0
     private var itemCount = 2
 
@@ -65,8 +67,10 @@ class HomeFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    options.clear()
-                    viewModel.clearOptions()
+                    topOptions.clear()
+                    bottomOptions.clear()
+                    viewModel.clearTopOptions()
+                    viewModel.clearBottomOptions()
                     getToppings()
                 }
             }
@@ -85,38 +89,50 @@ class HomeFragment : Fragment() {
         selectedProduct = viewModel.getSelectedItemValue(index)
 
         if(selectedProduct is CrepeProductHome){
-            options.clear()
+            topOptions.clear()
+            bottomOptions.clear()
             createCrepeToppings()
         }else if(selectedProduct is AcaiProductHome){
-            options.clear()
+            topOptions.clear()
+            bottomOptions.clear()
             createAcaiToppings()
         }
     }
 
     private fun createAcaiToppings() {
-        options.clear()
-        viewModel.clearOptions()
-        createToppingList("Acai", "Coberturas", "Cobertura")
-        createToppingList("Acai", "Coberturas","Frutas")
+        topOptions.clear()
+        bottomOptions.clear()
+        viewModel.clearTopOptions()
+        viewModel.clearBottomOptions()
+        createToppingList("Acai", "Coberturas", "Cobertura", "Frutas")
     }
 
     private fun createCrepeToppings() {
-        options.clear()
-        viewModel.clearOptions()
-        createToppingList("Crepes", "Recheios", "Salgados")
-        createToppingList("Crepes", "Recheios", "Doces")
+        topOptions.clear()
+        bottomOptions.clear()
+        viewModel.clearTopOptions()
+        viewModel.clearBottomOptions()
+        createToppingList("Crepes", "Recheios", "Salgados", "Doces")
     }
 
     private fun observeItemHome() {
 
-        viewModel.options.observe(viewLifecycleOwner){ response ->
-            options.addAll(response)
+        viewModel.topOptions.observe(viewLifecycleOwner){ response ->
+            topOptions.addAll(response)
+        }
+
+        viewModel.bottomOptions.observe(viewLifecycleOwner){ response ->
+            bottomOptions.addAll(response)
+        }
+
+        viewModel.selecteToppings.observe(viewLifecycleOwner){response ->
+
         }
 
         viewModel.home.observe(viewLifecycleOwner){ response ->
             binding.rvRecycler.apply {
                 layoutManager = LinearLayoutManager(activity)
-                adapter = HomeAdapter(response, options)
+                adapter = HomeAdapter(context, viewModel, response, topOptions, bottomOptions)
                 set3DItem(false)
                 setIntervalRatio(.7f)
                 setOrientation(RecyclerView.HORIZONTAL)
@@ -135,7 +151,8 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun createToppingList(id:String, name:String, category:String){
-        viewModel.getOptions(id, name, category)
+    private fun createToppingList(id:String, name:String, topCategory:String, bottomCategory: String){
+        viewModel.getTopOptions(id, name, topCategory)
+        viewModel.getBottomOptions(id, name, bottomCategory)
     }
 }

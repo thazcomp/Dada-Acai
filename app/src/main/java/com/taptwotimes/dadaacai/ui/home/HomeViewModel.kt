@@ -19,14 +19,14 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     private val _home: MutableLiveData<ArrayList<ProductHome>> = MutableLiveData()
     val home: LiveData<ArrayList<ProductHome>> = _home
 
-    private val _options: MutableLiveData<ArrayList<Topping>> = MutableLiveData()
-    val options: LiveData<ArrayList<Topping>> = _options
+    private val _topOptions: MutableLiveData<ArrayList<Topping>> = MutableLiveData()
+    val topOptions: LiveData<ArrayList<Topping>> = _topOptions
+
+    private val _bottomOptions: MutableLiveData<ArrayList<Topping>> = MutableLiveData()
+    val bottomOptions: LiveData<ArrayList<Topping>> = _bottomOptions
 
     private val _selectedToppings: MutableLiveData<ArrayList<Topping>> = MutableLiveData()
     val selecteToppings: LiveData<ArrayList<Topping>> = _selectedToppings
-
-    private val _selectedItemType: MutableLiveData<ProductHome> = MutableLiveData()
-    val selectedItemType: LiveData<ProductHome> = _selectedItemType
 
     fun getHome() = viewModelScope.launch {
         _home.value = homeUseCase.getHome()
@@ -36,27 +36,32 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
         _selectedToppings.value = homeUseCase.getToppings(id)
     }
 
-    fun getOptions(id:String) = viewModelScope.launch {
-        _options.value = homeUseCase.getToppings(id)
+    fun addSelectedTopping(topping: Topping) = viewModelScope.launch {
+        _selectedToppings.value?.add(topping)
     }
 
-    fun getOptions(id:String, name:String, category:String) = viewModelScope.launch {
-        _options.value = homeUseCase.getToppings(id, name, category)
+    fun removeSelectedTopping(topping: Topping) = viewModelScope.launch {
+        _selectedToppings.value?.remove(topping)
     }
 
-    fun getItemType(type:Any) = viewModelScope.launch {
-        when(type){
-            is AcaiProductHome -> { _selectedItemType.value = type }
-            is CrepeProductHome -> {  _selectedItemType.value = type }
-        }
+    fun getTopOptions(id:String, name:String, category:String) = viewModelScope.launch {
+        _topOptions.value = homeUseCase.getToppings(id, name, category)
+    }
+
+    fun clearTopOptions(){
+        _topOptions.value = arrayListOf()
+    }
+
+    fun getBottomOptions(id:String, name:String, category:String) = viewModelScope.launch {
+        _bottomOptions.value = homeUseCase.getToppings(id, name, category)
+    }
+
+    fun clearBottomOptions(){
+        _bottomOptions.value = arrayListOf()
     }
 
     fun getSelectedItemValue(index:Int):ProductHome?{
         return _home.value?.get(index)
-    }
-
-    fun clearOptions(){
-        _options.value = arrayListOf()
     }
 
 }
