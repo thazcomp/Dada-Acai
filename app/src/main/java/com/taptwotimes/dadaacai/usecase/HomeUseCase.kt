@@ -15,4 +15,8 @@ class HomeUseCase @Inject constructor(private val homeRepository: HomeRepository
     suspend fun getToppings(id:String):ArrayList<Topping> {
         return homeRepository.getToppings(id)
     }
+
+    suspend fun getToppings(id:String, name:String, category:String):ArrayList<Topping> {
+        return homeRepository.getToppings(id, name, category)
+    }
 }

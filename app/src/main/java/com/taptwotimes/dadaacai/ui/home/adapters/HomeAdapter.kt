@@ -18,19 +18,17 @@ import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
 
-class HomeAdapter(val homeItemList:ArrayList<ProductHome>):
+class HomeAdapter(val homeItemList:ArrayList<ProductHome>,
+                  val toppings: ArrayList<Topping>):
     RecyclerView.Adapter<HomeAdapter.ItemHomeViewHolder>() {
 
-    class ItemHomeViewHolder(val binding:ItemHomeBinding):RecyclerView.ViewHolder(binding.root){
+    class ItemHomeViewHolder(val binding:ItemHomeBinding,
+                             val toppings: ArrayList<Topping>)
+        :RecyclerView.ViewHolder(binding.root){
+
         fun bind(item:ProductHome){
             binding.tvTitle.text = item.title
             binding.tvSub.text = item.subtitle
-
-//            if(item is AcaiProductHome){
-//                createAcaiProduct(item)
-//            }else if(item is CrepeProductHome){
-//                createCrepeProduct(item)
-//            }
 
             item.image?.let{
                 binding.ivCopo.setImageDrawable(
@@ -39,123 +37,11 @@ class HomeAdapter(val homeItemList:ArrayList<ProductHome>):
 
             binding.tvPreco.text = "R$ ${item.basePrice}"
             binding.clCard1.setOnClickListener {
-                showCustomAlertDialog(binding.root.context)
+                showCustomAlertDialog(binding.root.context, toppings)
             }
         }
 
-        private fun createAcaiProduct(item:ProductHome) {
-            //Topping1
-            try {
-                binding.tvPrice1.visibility = View.VISIBLE
-//                binding.tvResult1.text = item.coberturas?.get(0)?.name
-//                binding.tvPrice1.text = item.coberturas?.get(0)?.price
-            }catch (e:IndexOutOfBoundsException){
-                binding.tvResult1.visibility = View.GONE
-                binding.tvPrice1.visibility = View.GONE
-                e.printStackTrace()
-            }
-
-            //Topping2
-            try {
-                binding.tvResult2.visibility = View.VISIBLE
-                binding.tvPrice2.visibility = View.VISIBLE
-//                binding.tvResult2.text = item.coberturas?.get(1)?.name
-//                binding.tvPrice2.text = item.coberturas?.get(1)?.price
-            }catch (e:IndexOutOfBoundsException){
-                binding.tvResult2.visibility = View.GONE
-                binding.tvPrice2.visibility = View.GONE
-                //Deixa invisivel se o item acima estiver vazio
-                e.printStackTrace()
-            }
-
-            //Topping3
-            try {
-                binding.tvResult3.visibility = View.VISIBLE
-                binding.tvPrice3.visibility = View.VISIBLE
-//                binding.tvResult3.text = item.coberturas?.get(2)?.name
-//                binding.tvPrice3.text = item.coberturas?.get(2)?.price
-            }catch (e:IndexOutOfBoundsException){
-                binding.tvResult3.visibility = View.GONE
-                binding.tvPrice3.visibility = View.GONE
-                e.printStackTrace()
-            }
-
-            if(isTopping3Selected(binding)){
-                binding.tvResultFinal.visibility = View.GONE
-            }else{
-                binding.tvResultFinal.visibility = View.VISIBLE
-            }
-        }
-
-        private fun createCrepeProduct(item:ProductHome) {
-            //Topping1
-            try {
-                binding.tvPrice1.visibility = View.VISIBLE
-//                binding.tvResult1.text = item.coberturas?.get(0)?.name
-//                binding.tvPrice1.text = item.coberturas?.get(0)?.price
-            }catch (e:IndexOutOfBoundsException){
-                binding.tvResult1.visibility = View.GONE
-                binding.tvPrice1.visibility = View.GONE
-                e.printStackTrace()
-            }
-
-            //Topping2
-            try {
-                binding.tvResult2.visibility = View.VISIBLE
-                binding.tvPrice2.visibility = View.VISIBLE
-//                binding.tvResult2.text = item.coberturas?.get(1)?.name
-//                binding.tvPrice2.text = item.coberturas?.get(1)?.price
-            }catch (e:IndexOutOfBoundsException){
-                binding.tvResult2.visibility = View.GONE
-                binding.tvPrice2.visibility = View.GONE
-                //Deixa invisivel se o item acima estiver vazio
-                e.printStackTrace()
-            }
-
-            //Topping3
-            binding.tvResult3.visibility = View.GONE
-            binding.tvPrice3.visibility = View.GONE
-
-            if(isTopping2Selected(binding)){
-                binding.tvResultFinal.visibility = View.GONE
-            }else{
-                binding.tvResultFinal.visibility = View.VISIBLE
-            }
-
-        }
-
-        fun isTopping2Selected(binding:ItemHomeBinding):Boolean = binding.tvResult2.visibility == View.VISIBLE
-        fun isTopping3Selected(binding:ItemHomeBinding):Boolean = binding.tvResult3.visibility == View.VISIBLE
-
-        private fun createToppingList(): ArrayList<Topping> {
-            val condimentos:ArrayList<Topping> = arrayListOf()
-            condimentos.add(
-                Topping(
-                    "Leite Condensado", "0,00"
-                )
-            )
-            condimentos.add(
-                Topping(
-                    "Paçoca", "0,00"
-                )
-            )
-            return condimentos
-        }
-
-        private fun createFruitList(): ArrayList<Topping> {
-            val frutas:ArrayList<Topping> = arrayListOf()
-            frutas.add(
-                Topping(
-                    "Banana", "0,00"
-                )
-            )
-            frutas.add(Topping(
-                "Morango", "0,00"
-            ))
-            return frutas
-        }
-
-        private fun showCustomAlertDialog(context: Context) {
+        private fun showCustomAlertDialog(context: Context, toppings: ArrayList<Topping>) {
             val builder = AlertDialog.Builder(context)
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val dialogView = inflater.inflate(R.layout.custom_select_topping, null)
@@ -171,13 +57,13 @@ class HomeAdapter(val homeItemList:ArrayList<ProductHome>):
             sub.text = "Coberturas"
             recycler.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = CategoryAdapter(createToppingList())
+                adapter = CategoryAdapter(toppings)
             }
 
             sub2.text = "Frutas"
             recycler2.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = CategoryAdapter(createFruitList())
+                adapter = CategoryAdapter(toppings)
             }
 
             builder.setView(dialogView)
@@ -195,7 +81,7 @@ class HomeAdapter(val homeItemList:ArrayList<ProductHome>):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHomeViewHolder {
         val binding = ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ItemHomeViewHolder(binding)
+        return ItemHomeViewHolder(binding, toppings)
     }
 
     override fun getItemCount(): Int {

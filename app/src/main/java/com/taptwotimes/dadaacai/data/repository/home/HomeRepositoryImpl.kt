@@ -59,4 +59,19 @@ class HomeRepositoryImpl:HomeRepository {
             )
         } as ArrayList<Topping>
     }
+
+    override suspend fun getToppings(id: String, name:String, category:String): java.util.ArrayList<Topping> {
+        val toppingsCollection = productsCollection.document(id)
+            .collection(name)
+            .document("Categorias")
+            .collection(category)
+
+        val toppinsSnapshot = toppingsCollection.get().await()
+        return  toppinsSnapshot.documents.map { toppingDocument ->
+            Topping(
+                name = toppingDocument.getString("name") ?: "",
+                price = toppingDocument.getString("price") ?: ""
+            )
+        } as ArrayList<Topping>
+    }
 }
