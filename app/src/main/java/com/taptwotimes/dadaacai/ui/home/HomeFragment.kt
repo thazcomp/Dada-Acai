@@ -125,14 +125,13 @@ class HomeFragment : BaseFragment() {
             bottomOptions.addAll(response)
         }
 
-        viewModel.selecteToppings.observe(viewLifecycleOwner){response ->
-
+        viewModel.selecteTopping1.observe(viewLifecycleOwner){response ->
         }
 
         viewModel.home.observe(viewLifecycleOwner){ response ->
             binding.rvRecycler.apply {
                 layoutManager = LinearLayoutManager(activity)
-                adapter = HomeAdapter(context, viewModel, response, topOptions, bottomOptions)
+                adapter = HomeAdapter(context, viewModel, viewLifecycleOwner, response, topOptions, bottomOptions)
                 set3DItem(false)
                 setIntervalRatio(.7f)
                 setOrientation(RecyclerView.HORIZONTAL)

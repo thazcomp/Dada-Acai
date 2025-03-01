@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.taptwotimes.dadaacai.data.preferences.ProducrPrefs
 import com.taptwotimes.dadaacai.model.AcaiProductHome
 import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
@@ -25,23 +26,35 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     private val _bottomOptions: MutableLiveData<ArrayList<Topping>> = MutableLiveData()
     val bottomOptions: LiveData<ArrayList<Topping>> = _bottomOptions
 
-    private val _selectedToppings: MutableLiveData<ArrayList<Topping>> = MutableLiveData()
-    val selecteToppings: LiveData<ArrayList<Topping>> = _selectedToppings
+    private val _selectedTopping1: MutableLiveData<Topping?> = MutableLiveData()
+    val selecteTopping1: LiveData<Topping?> = _selectedTopping1
+
+    private val _selectedTopping2: MutableLiveData<Topping?> = MutableLiveData()
+    val selecteTopping2: LiveData<Topping?> = _selectedTopping2
+
+    private val _selectedTopping3: MutableLiveData<Topping?> = MutableLiveData()
+    val selecteTopping3: LiveData<Topping?> = _selectedTopping3
 
     fun getHome() = viewModelScope.launch {
         _home.value = homeUseCase.getHome()
     }
 
-    fun getSelectedToppings(id:String) = viewModelScope.launch {
-        _selectedToppings.value = homeUseCase.getToppings(id)
+    fun setSelectedTopping1() = viewModelScope.launch {
+        ProducrPrefs.getAcaiTopping1()?.let{
+            _selectedTopping1.value = it
+        }
     }
 
-    fun addSelectedTopping(topping: Topping) = viewModelScope.launch {
-        _selectedToppings.value?.add(topping)
+    fun setSelectedTopping2() = viewModelScope.launch {
+        ProducrPrefs.getAcaiTopping1()?.let{
+            _selectedTopping2.value = it
+        }
     }
 
-    fun removeSelectedTopping(topping: Topping) = viewModelScope.launch {
-        _selectedToppings.value?.remove(topping)
+    fun setSelectedTopping3() = viewModelScope.launch {
+        ProducrPrefs.getAcaiTopping1()?.let{
+            _selectedTopping3.value = it
+        }
     }
 
     fun getTopOptions(id:String, name:String, category:String) = viewModelScope.launch {

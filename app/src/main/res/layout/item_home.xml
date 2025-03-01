@@ -107,7 +107,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvResult1"
+                    android:id="@+id/tv_topping_name_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -122,7 +122,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_ttitle" />
 
                 <TextView
-                    android:id="@+id/tvPrice1"
+                    android:id="@+id/tv_topping_price_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -139,7 +139,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_ttitle" />
 
                 <TextView
-                    android:id="@+id/tvResult2"
+                    android:id="@+id/tv_topping_name_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -150,10 +150,10 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvResult1" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_topping_name_1" />
 
                 <TextView
-                    android:id="@+id/tvPrice2"
+                    android:id="@+id/tv_topping_price_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -165,10 +165,10 @@
                     android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvResult1" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_topping_name_1" />
 
                 <TextView
-                    android:id="@+id/tvResult3"
+                    android:id="@+id/tv_topping_name_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -179,10 +179,10 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvResult2" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_topping_name_2" />
 
                 <TextView
-                    android:id="@+id/tvPrice3"
+                    android:id="@+id/tv_topping_price_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -194,7 +194,7 @@
                     android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvResult2" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_topping_name_2" />
 
 
 
@@ -210,7 +210,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvResult3" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_topping_name_3" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

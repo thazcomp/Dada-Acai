@@ -13,4 +13,12 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+
+    <style name="AcaiCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlActivated">@color/roxo2</item>
+    </style>
+
+
 </resources>
