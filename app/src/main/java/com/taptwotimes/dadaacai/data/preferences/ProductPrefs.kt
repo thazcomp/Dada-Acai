@@ -56,11 +56,11 @@ object ProducrPrefs {
         put(topping, ACAI_TOPPING_3)
     }
 
-    fun setCrepeTopping1(topping: Topping) {
+    fun setCrepeTopping1(topping: Topping?) {
         put(topping, CREPE_TOPPING_1)
     }
 
-    fun setCrepeTopping2(topping: Topping) {
+    fun setCrepeTopping2(topping: Topping?) {
         put(topping, CREPE_TOPPING_2)
     }
 

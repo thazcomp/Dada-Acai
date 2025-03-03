@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taptwotimes.dadaacai.data.preferences.ProducrPrefs
-import com.taptwotimes.dadaacai.model.AcaiProductHome
-import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
 import com.taptwotimes.dadaacai.usecase.HomeUseCase
@@ -26,40 +24,62 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     private val _bottomOptions: MutableLiveData<ArrayList<Topping>> = MutableLiveData()
     val bottomOptions: LiveData<ArrayList<Topping>> = _bottomOptions
 
-    private val _selectedTopping1: MutableLiveData<Topping?> = MutableLiveData()
-    val selecteTopping1: LiveData<Topping?> = _selectedTopping1
+    private val _selectedAcaiTopping1: MutableLiveData<Topping?> = MutableLiveData()
+    val selecteAcaiTopping1: LiveData<Topping?> = _selectedAcaiTopping1
 
-    private val _selectedTopping2: MutableLiveData<Topping?> = MutableLiveData()
-    val selecteTopping2: LiveData<Topping?> = _selectedTopping2
+    private val _selectedCrepeTopping1: MutableLiveData<Topping?> = MutableLiveData()
+    val selecteCrepeTopping1: LiveData<Topping?> = _selectedCrepeTopping1
 
-    private val _selectedTopping3: MutableLiveData<Topping?> = MutableLiveData()
-    val selecteTopping3: LiveData<Topping?> = _selectedTopping3
+    private val _selectedAcaiTopping2: MutableLiveData<Topping?> = MutableLiveData()
+    val selecteAcaiTopping2: LiveData<Topping?> = _selectedAcaiTopping2
+
+    private val _selectedCrepeTopping2: MutableLiveData<Topping?> = MutableLiveData()
+    val selecteCrepeTopping2: LiveData<Topping?> = _selectedCrepeTopping2
+
+    private val _selectedAcaiTopping3: MutableLiveData<Topping?> = MutableLiveData()
+    val selecteAcaiTopping3: LiveData<Topping?> = _selectedAcaiTopping3
 
     fun getHome() = viewModelScope.launch {
         _home.value = homeUseCase.getHome()
     }
 
-    fun setSelectedTopping1() = viewModelScope.launch {
+    fun setSelectedAcaiTopping1() = viewModelScope.launch {
         ProducrPrefs.getAcaiTopping1()?.let{
-            _selectedTopping1.value = it
+            _selectedAcaiTopping1.value = it
         }?:run{
-            _selectedTopping1.value = null
+            _selectedAcaiTopping1.value = null
         }
     }
 
-    fun setSelectedTopping2() = viewModelScope.launch {
+    fun setSelectedAcaiTopping2() = viewModelScope.launch {
         ProducrPrefs.getAcaiTopping2()?.let{
-            _selectedTopping2.value = it
+            _selectedAcaiTopping2.value = it
         }?:run{
-            _selectedTopping2.value = null
+            _selectedAcaiTopping2.value = null
         }
     }
 
-    fun setSelectedTopping3() = viewModelScope.launch {
+    fun setSelectedAcaiTopping3() = viewModelScope.launch {
         ProducrPrefs.getAcaiTopping3()?.let{
-            _selectedTopping3.value = it
+            _selectedAcaiTopping3.value = it
         }?:run{
-            _selectedTopping3.value = null
+            _selectedAcaiTopping3.value = null
+        }
+    }
+
+    fun setSelectedCrepeTopping1() = viewModelScope.launch {
+        ProducrPrefs.getCrepeTopping1()?.let{
+            _selectedCrepeTopping1.value = it
+        }?:run{
+            _selectedCrepeTopping1.value = null
+        }
+    }
+
+    fun setSelectedCrepeTopping2() = viewModelScope.launch {
+        ProducrPrefs.getCrepeTopping2()?.let{
+            _selectedCrepeTopping2.value = it
+        }?:run{
+            _selectedCrepeTopping2.value = null
         }
     }
 

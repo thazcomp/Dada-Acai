@@ -1,7 +1,6 @@
 package com.taptwotimes.dadaacai.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taptwotimes.dadaacai.data.preferences.ProducrPrefs
 import com.taptwotimes.dadaacai.databinding.FragmentHomeBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
-import com.taptwotimes.dadaacai.model.Category
 import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
@@ -128,7 +126,7 @@ class HomeFragment : BaseFragment() {
             bottomOptions.addAll(response)
         }
 
-        viewModel.selecteTopping1.observe(viewLifecycleOwner){response ->
+        viewModel.selecteAcaiTopping1.observe(viewLifecycleOwner){ response ->
         }
 
         viewModel.home.observe(viewLifecycleOwner){ response ->
