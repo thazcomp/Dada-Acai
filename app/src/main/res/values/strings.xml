@@ -35,4 +35,6 @@
     <string name="numero">Número:</string>
     <string name="numero_hint">89</string>
     <string name="clique_para_adicionar">Clique para Adicionar</string>
+    <string name="sim">Sim</string>
+    <string name="n_o">Não</string>
 </resources>

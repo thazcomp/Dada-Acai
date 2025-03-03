@@ -9,12 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.databinding.ItemHomeBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
@@ -44,7 +47,6 @@ class HomeAdapter(
 
         private var acaiAlertDialog: AlertDialog? = null
         private var crepeAlertDialog: AlertDialog? = null
-        private var alertDialog: AlertDialog? = null
         private lateinit var dialogView: View
         private lateinit var builder: AlertDialog.Builder
         private lateinit var player: MediaPlayer
@@ -59,12 +61,16 @@ class HomeAdapter(
                     if (acaiAlertDialog == null) {
                         createAcaiCustomAlertDialog(context, topList, bottomList, item)
                     }
+                    observeAcaiProduct()
+                    binding.cvBordas.visibility = View.GONE
                 }
 
                 is CrepeProductHome -> {
                     if (crepeAlertDialog == null) {
                         createCrepeCustomAlertDialog(context, topList, bottomList, item)
                     }
+                    observeCrepeProduct()
+                    binding.cvBordas.visibility = View.VISIBLE
                 }
             }
 
@@ -74,19 +80,8 @@ class HomeAdapter(
                 )
             }
 
-            binding.tvPreco.text = "R$ ${item.basePrice}"
             binding.clCard1.setOnClickListener {
                 showCustomAlertDialog()
-            }
-
-            when (item) {
-                is AcaiProductHome -> {
-                    observeAcaiProduct()
-                }
-
-                is CrepeProductHome -> {
-                    observeCrepeProduct()
-                }
             }
         }
 
