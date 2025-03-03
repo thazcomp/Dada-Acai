@@ -48,9 +48,6 @@ class HomeAdapter(val context: Context,
         private var alertDialog: AlertDialog? = null
         private lateinit var dialogView: View
         private lateinit var builder: AlertDialog.Builder
-
-        var selectionCounter: Int = 0
-        val maxCounter: Int = 3
         private lateinit var player: MediaPlayer
 
         fun bind(
@@ -74,24 +71,39 @@ class HomeAdapter(val context: Context,
             }
 
             viewModel.selecteTopping1.observe(viewLifecycleOwner){response->
-                binding.tvToppingName1.text = response?.name
-                binding.tvToppingPrice1.text = response?.price
-                binding.tvToppingPrice1.visibility = View.VISIBLE
-                binding.tvToppingName1.visibility = View.VISIBLE
+                response?.let{
+                    binding.tvToppingName1.text = response?.name
+                    binding.tvToppingPrice1.text = response?.price
+                    binding.tvToppingPrice1.visibility = View.VISIBLE
+                    binding.tvToppingName1.visibility = View.VISIBLE
+                }?:run{
+                    binding.tvToppingPrice1.visibility = View.GONE
+                    binding.tvToppingName1.visibility = View.GONE
+                }
             }
 
             viewModel.selecteTopping2.observe(viewLifecycleOwner){response->
-                binding.tvToppingName2.text = response?.name
-                binding.tvToppingPrice2.text = response?.price
-                binding.tvToppingPrice2.visibility = View.VISIBLE
-                binding.tvToppingName2.visibility = View.VISIBLE
+                response?.let{
+                    binding.tvToppingName2.text = response?.name
+                    binding.tvToppingPrice2.text = response?.price
+                    binding.tvToppingPrice2.visibility = View.VISIBLE
+                    binding.tvToppingName2.visibility = View.VISIBLE
+                }?:run{
+                    binding.tvToppingPrice2.visibility = View.GONE
+                    binding.tvToppingName2.visibility = View.GONE
+                }
             }
 
             viewModel.selecteTopping3.observe(viewLifecycleOwner){response->
-                binding.tvToppingName3.text = response?.name
-                binding.tvToppingPrice3.text = response?.price
-                binding.tvToppingPrice3.visibility = View.VISIBLE
-                binding.tvToppingName3.visibility = View.VISIBLE
+                response?.let {
+                    binding.tvToppingName3.text = response?.name
+                    binding.tvToppingPrice3.text = response?.price
+                    binding.tvToppingPrice3.visibility = View.VISIBLE
+                    binding.tvToppingName3.visibility = View.VISIBLE
+                }?:run{
+                    binding.tvToppingPrice3.visibility = View.GONE
+                    binding.tvToppingName3.visibility = View.GONE
+                }
             }
         }
 
@@ -132,9 +144,6 @@ class HomeAdapter(val context: Context,
 
             recycler.apply {
                 layoutManager = LinearLayoutManager(context)
-                verifyTopping3Selected()
-                verifyTopping2Selected()
-                verifyTopping1Selected()
                 adapter = CategoryAdapter(
                     topList,
                     viewModel
@@ -156,108 +165,78 @@ class HomeAdapter(val context: Context,
 
         }
 
-        private fun verifyTopping3Selected() {
-            val auxItem = ProducrPrefs.getAcaiTopping3()?.name
-            topList.forEachIndexed(){index, item->
-                if(item.name.equals(auxItem)){
-                    topList[index].isChecked = true
-                }
-            }
-        }
-
-        private fun verifyTopping2Selected() {
-            val auxItem = ProducrPrefs.getAcaiTopping2()?.name
-            topList.forEachIndexed(){index, item->
-                if(item.name.equals(auxItem)){
-                    topList[index].isChecked = true
-                }
-            }
-        }
-
-        private fun verifyTopping1Selected() {
-            val auxItem = ProducrPrefs.getAcaiTopping1()?.name
-            topList.forEachIndexed(){index, item->
-                if(item.name.equals(auxItem)){
-                    topList[index].isChecked = true
-                }
-            }
-        }
-
         private fun showCustomAlertDialog() {
 
             alertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             alertDialog?.show()
             ProducrPrefs.clear()
-            viewModel.setSelectedTopping1()
-            viewModel.setSelectedTopping2()
-            viewModel.setSelectedTopping3()
         }
 
-        private fun createCheckboxListener(
-            product: ProductHome,
-            context: Context,
-            copo: ImageView
-        ): MaterialCheckBox.OnCheckedStateChangedListener {
-            return MaterialCheckBox.OnCheckedStateChangedListener { checkBox, state ->
-                if (checkBox.isChecked) {
-                    if (selectionCounter < maxCounter) {
-                        selectionCounter++
-                        if (product is AcaiProductHome) {
-                            animateCopinho(copo, context)
-                        } else {
-                            copo.visibility = View.GONE
-                        }
-                    }
-                } else {
-                    if (selectionCounter > 0) {
-                        selectionCounter--
-                        if (product is AcaiProductHome) {
-                            animateCopinho(copo, context)
-                        } else {
-                            copo.visibility = View.GONE
-                        }
-                    }
-                }
-            }
-        }
-
-        private fun animateCopinho(copo: ImageView, context: Context) {
-            when (selectionCounter) {
-                0 -> {
-                    copo.visibility = View.GONE
-                }
-
-                1 -> {
-                    copo.visibility = View.VISIBLE
-                    Glide.with(context)
-                        .load(context.getDrawable(R.drawable.copinho_parte_baixo))
-                        .into(copo)
-                }
-
-                2 -> {
-                    copo.visibility = View.VISIBLE
-                    Glide.with(context)
-                        .load(context.getDrawable(R.drawable.copinho_parte_meio))
-                        .into(copo)
-                }
-
-                3 -> {
-                    copo.visibility = View.VISIBLE
-                    Glide.with(context)
-                        .load(context.getDrawable(R.drawable.copinho_parte_topo))
-                        .into(copo)
-                }
-            }
-            playSound(R.raw.plaft, 0)
-        }
-
-        fun playSound(sound: Int, time: Long) {
-            val handler = Handler(context.mainLooper)
-            handler.postDelayed({
-                player = MediaPlayer.create(context, sound)
-                player.start()
-            }, time)
-        }
+//        private fun createCheckboxListener(
+//            product: ProductHome,
+//            context: Context,
+//            copo: ImageView
+//        ): MaterialCheckBox.OnCheckedStateChangedListener {
+//            return MaterialCheckBox.OnCheckedStateChangedListener { checkBox, state ->
+//                if (checkBox.isChecked) {
+//                    if (selectionCounter < maxCounter) {
+//                        selectionCounter++
+//                        if (product is AcaiProductHome) {
+//                            animateCopinho(copo, context)
+//                        } else {
+//                            copo.visibility = View.GONE
+//                        }
+//                    }
+//                } else {
+//                    if (selectionCounter > 0) {
+//                        selectionCounter--
+//                        if (product is AcaiProductHome) {
+//                            animateCopinho(copo, context)
+//                        } else {
+//                            copo.visibility = View.GONE
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//        private fun animateCopinho(copo: ImageView, context: Context) {
+//            when (selectionCounter) {
+//                0 -> {
+//                    copo.visibility = View.GONE
+//                }
+//
+//                1 -> {
+//                    copo.visibility = View.VISIBLE
+//                    Glide.with(context)
+//                        .load(context.getDrawable(R.drawable.copinho_parte_baixo))
+//                        .into(copo)
+//                }
+//
+//                2 -> {
+//                    copo.visibility = View.VISIBLE
+//                    Glide.with(context)
+//                        .load(context.getDrawable(R.drawable.copinho_parte_meio))
+//                        .into(copo)
+//                }
+//
+//                3 -> {
+//                    copo.visibility = View.VISIBLE
+//                    Glide.with(context)
+//                        .load(context.getDrawable(R.drawable.copinho_parte_topo))
+//                        .into(copo)
+//                }
+//            }
+//            playSound(R.raw.plaft, 0)
+//        }
+//
+//        fun playSound(sound: Int, time: Long) {
+//            val handler = Handler(context.mainLooper)
+//            handler.postDelayed({
+//                player = MediaPlayer.create(context, sound)
+//                player.start()
+//            }, time)
+//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHomeViewHolder {

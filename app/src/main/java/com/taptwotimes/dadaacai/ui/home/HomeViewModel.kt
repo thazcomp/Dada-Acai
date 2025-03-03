@@ -42,18 +42,24 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     fun setSelectedTopping1() = viewModelScope.launch {
         ProducrPrefs.getAcaiTopping1()?.let{
             _selectedTopping1.value = it
+        }?:run{
+            _selectedTopping1.value = null
         }
     }
 
     fun setSelectedTopping2() = viewModelScope.launch {
-        ProducrPrefs.getAcaiTopping1()?.let{
+        ProducrPrefs.getAcaiTopping2()?.let{
             _selectedTopping2.value = it
+        }?:run{
+            _selectedTopping2.value = null
         }
     }
 
     fun setSelectedTopping3() = viewModelScope.launch {
-        ProducrPrefs.getAcaiTopping1()?.let{
+        ProducrPrefs.getAcaiTopping3()?.let{
             _selectedTopping3.value = it
+        }?:run{
+            _selectedTopping3.value = null
         }
     }
 

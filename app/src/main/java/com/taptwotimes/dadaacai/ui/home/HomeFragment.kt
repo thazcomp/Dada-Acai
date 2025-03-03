@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.taptwotimes.dadaacai.data.preferences.ProducrPrefs
 import com.taptwotimes.dadaacai.databinding.FragmentHomeBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
 import com.taptwotimes.dadaacai.model.Category
@@ -40,6 +41,8 @@ class HomeFragment : BaseFragment() {
 
         binding = FragmentHomeBinding.inflate(layoutInflater)
         observeItemHome()
+
+        ProducrPrefs.clear()
 
         binding.ivEsquerda.setOnClickListener {
             getToppings()

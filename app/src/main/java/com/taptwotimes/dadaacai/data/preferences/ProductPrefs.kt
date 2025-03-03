@@ -44,15 +44,15 @@ object ProducrPrefs {
         return get<Topping>(CREPE_TOPPING_2)
     }
 
-    fun setAcaiTopping1(topping: Topping) {
+    fun setAcaiTopping1(topping: Topping?) {
         put(topping, ACAI_TOPPING_1)
     }
 
-    fun setAcaiTopping2(topping: Topping) {
+    fun setAcaiTopping2(topping: Topping?) {
         put(topping, ACAI_TOPPING_2)
     }
 
-    fun setAcaiTopping3(topping: Topping) {
+    fun setAcaiTopping3(topping: Topping?) {
         put(topping, ACAI_TOPPING_3)
     }
 
@@ -78,6 +78,7 @@ object ProducrPrefs {
 
     fun clear(){
         preferences.edit().clear().apply()
+        acaiSelectionCounter = 0
     }
 
     fun hasAcaiTopping1():Boolean {

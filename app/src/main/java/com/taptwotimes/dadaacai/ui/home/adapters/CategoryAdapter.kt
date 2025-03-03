@@ -24,38 +24,72 @@ class CategoryAdapter(
         fun bind(item: Topping) {
             binding.tvName.text = item.name
             binding.tvValor.text = item.price
+
+            binding.mcbCheckBox.setOnClickListener {
+                if(binding.mcbCheckBox.isChecked){
+                    item.isChecked = true
+                    binding.mcbCheckBox.isClickable = true
+                    addTopping(item)
+                }else{
+                    removeTopping()
+                }
+            }
+
             if(ProducrPrefs.getAcaiSelectionCounter() == 3){
-                binding.mcbCheckBox.isEnabled = false
+                binding.mcbCheckBox.isClickable = false
+                if(item.isChecked){
+                    binding.mcbCheckBox.isChecked = true
+                    binding.mcbCheckBox.isClickable = true
+                }else{
+                    binding.mcbCheckBox.isChecked = false
+                }
+            }else {
+                binding.mcbCheckBox.isClickable = true
+                if(item.isChecked){
+                    binding.mcbCheckBox.isChecked = true
+                    binding.mcbCheckBox.isClickable = true
+                }else{
+                    binding.mcbCheckBox.isChecked = false
+                }
             }
-            if(item.isChecked){
-                binding.mcbCheckBox.isChecked = true
-                addTopping(item)
-            }
-
-            binding.mcbCheckBox.addOnCheckedStateChangedListener { checkBox, state ->
-                addTopping(item)
-            }
-
         }
 
         private fun addTopping(item: Topping) {
             if(!ProducrPrefs.hasAcaiTopping1()){
                 ProducrPrefs.setAcaiTopping1(item)
-                ProducrPrefs.increaseAcaiSelectionCounter()
                 viewModel.setSelectedTopping1()
             }else{
                 if(!ProducrPrefs.hasAcaiTopping2()){
                     ProducrPrefs.setAcaiTopping2(item)
-                    ProducrPrefs.increaseAcaiSelectionCounter()
                     viewModel.setSelectedTopping2()
                 }else{
                     if(!ProducrPrefs.hasAcaiTopping3()){
                         ProducrPrefs.setAcaiTopping3(item)
-                        ProducrPrefs.increaseAcaiSelectionCounter()
                         viewModel.setSelectedTopping3()
+                        refresh()
                     }
                 }
             }
+            ProducrPrefs.increaseAcaiSelectionCounter()
+        }
+
+        private fun removeTopping() {
+            if(ProducrPrefs.hasAcaiTopping3()){
+                ProducrPrefs.setAcaiTopping3(null)
+                viewModel.setSelectedTopping3()
+                refresh()
+            }else{
+                if(ProducrPrefs.hasAcaiTopping2()){
+                    ProducrPrefs.setAcaiTopping2(null)
+                    viewModel.setSelectedTopping2()
+                }else{
+                    if(ProducrPrefs.hasAcaiTopping1()){
+                        ProducrPrefs.setAcaiTopping1(null)
+                        viewModel.setSelectedTopping1()
+                    }
+                }
+            }
+            ProducrPrefs.decreaseAcaiSelectionCounter()
         }
     }
 
@@ -63,7 +97,7 @@ class CategoryAdapter(
         val binding =
             CustomToppingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ToppingViewHolder({
-            notifyItemRangeChanged(0, list.size)
+            notifyDataSetChanged()
         },binding, viewModel)
     }
 
