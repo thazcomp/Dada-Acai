@@ -22,13 +22,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
-    private var topOptions:ArrayList<Topping> = arrayListOf()
-    private var bottomOptions:ArrayList<Topping> = arrayListOf()
+    private var topOptions: ArrayList<Topping> = arrayListOf()
+    private var bottomOptions: ArrayList<Topping> = arrayListOf()
     private var position = 0
 
     private val viewModel: HomeViewModel by viewModels()
 
-    private var selectedProduct:ProductHome? = null
+    private var selectedProduct: ProductHome? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,66 +43,39 @@ class HomeFragment : BaseFragment() {
         ProducrPrefs.clear()
 
         binding.ivEsquerda.setOnClickListener {
-            if(position>0) position--
+            if (position > 0) position--
             binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(position)
 
             topOptions.clear()
             bottomOptions.clear()
             viewModel.clearTopOptions()
             viewModel.clearBottomOptions()
-            when(position){
-                0 -> { createAcaiToppings() }
-                1 -> { createCrepeToppings() }
-                2 -> { }
-                3 -> { }
-            }
+            getToppings()
         }
 
         binding.ivDireita.setOnClickListener {
-            if(position<3) position++
+            if (position < 3) position++
             binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(position)
 
             topOptions.clear()
             bottomOptions.clear()
             viewModel.clearTopOptions()
             viewModel.clearBottomOptions()
-            when(position){
-                0 -> { createAcaiToppings() }
-                1 -> { createCrepeToppings() }
-                2 -> { }
-                3 -> { }
-            }
+            getToppings()
         }
 
-        when(position){
-            0 -> { createAcaiToppings() }
-            1 -> { createCrepeToppings() }
-            2 -> { }
-            3 -> { }
-        }
-
-
+        getToppings()
         return binding.root
     }
 
-//    private fun getToppings() {
-//        if(index==(itemCount-1)){
-//            index--
-//        }else{
-//            index++
-//        }
-//        selectedProduct = viewModel.getSelectedItemValue(index)
-//
-//        if(selectedProduct is CrepeProductHome){
-//            topOptions.clear()
-//            bottomOptions.clear()
-//            createCrepeToppings()
-//        }else if(selectedProduct is AcaiProductHome){
-//            topOptions.clear()
-//            bottomOptions.clear()
-//            createAcaiToppings()
-//        }
-//    }
+    private fun getToppings() {
+        when (position) {
+            0 -> { createAcaiToppings() }
+            1 -> { createCrepeToppings() }
+            2 -> {}
+            3 -> {}
+        }
+    }
 
     private fun createAcaiToppings() {
         topOptions.clear()
@@ -136,11 +109,11 @@ class HomeFragment : BaseFragment() {
 
     private fun observeItemHome() {
 
-        viewModel.topOptions.observe(viewLifecycleOwner){ response ->
+        viewModel.topOptions.observe(viewLifecycleOwner) { response ->
             topOptions.addAll(response)
         }
 
-        viewModel.bottomOptions.observe(viewLifecycleOwner){ response ->
+        viewModel.bottomOptions.observe(viewLifecycleOwner) { response ->
             bottomOptions.addAll(response)
         }
 
@@ -150,7 +123,7 @@ class HomeFragment : BaseFragment() {
             }
         }
 
-        viewModel.home.observe(viewLifecycleOwner){ response ->
+        viewModel.home.observe(viewLifecycleOwner) { response ->
             binding.rvRecycler.apply {
 
                 val acai = response.get(0) as AcaiProductHome
@@ -164,7 +137,14 @@ class HomeFragment : BaseFragment() {
                 list.add(3, bebidas)
 
                 layoutManager = myLinearLayoutManager
-                adapter = HomeAdapter(context, viewModel, viewLifecycleOwner, list, topOptions, bottomOptions)
+                adapter = HomeAdapter(
+                    context,
+                    viewModel,
+                    viewLifecycleOwner,
+                    list,
+                    topOptions,
+                    bottomOptions
+                )
                 set3DItem(false)
                 setIntervalRatio(.7f)
                 setIsScrollingEnabled(false)
@@ -172,16 +152,19 @@ class HomeFragment : BaseFragment() {
             }
             selectedProduct = response[0]
 
-            when(selectedProduct){
+            when (selectedProduct) {
                 is AcaiProductHome -> {
                     createAcaiToppings()
                 }
+
                 is CrepeProductHome -> {
                     createCrepeToppings()
                 }
+
                 is BoloProductHome -> {
                     createBoloToppings()
                 }
+
                 is BebidasProductHome -> {
                     createBebidasToppings()
                 }
@@ -190,7 +173,12 @@ class HomeFragment : BaseFragment() {
 
     }
 
-    private fun createToppingList(id:String, name:String, topCategory:String, bottomCategory: String){
+    private fun createToppingList(
+        id: String,
+        name: String,
+        topCategory: String,
+        bottomCategory: String
+    ) {
         viewModel.getTopOptions(id, name, topCategory)
         viewModel.getBottomOptions(id, name, bottomCategory)
     }
