@@ -4,6 +4,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.model.AcaiProductHome
+import com.taptwotimes.dadaacai.model.BebidasProductHome
+import com.taptwotimes.dadaacai.model.BoloProductHome
 import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
@@ -32,12 +34,34 @@ class HomeRepositoryImpl:HomeRepository {
 
             document = productsSnapshot.documents[1]
             data = document.data
-            itemList.add(CrepeProductHome(
+            itemList.add(BebidasProductHome(
                 title = data?.get("title") as String?,
                 subtitle = data?.get("subtitle") as String?,
-                image = R.drawable.crepe2,
+                image = R.drawable.bebidas,
                 basePrice = data?.get("basePrice") as String?
             ))
+
+            document = productsSnapshot.documents[2]
+            data = document.data
+            itemList.add(
+                BoloProductHome(
+                    title = data?.get("title") as String?,
+                    subtitle = data?.get("subtitle") as String?,
+                    image = R.drawable.bolo,
+                    basePrice = data?.get("basePrice") as String?
+                )
+            )
+
+            document = productsSnapshot.documents[3]
+            data = document.data
+            itemList.add(
+                CrepeProductHome(
+                    title = data?.get("title") as String?,
+                    subtitle = data?.get("subtitle") as String?,
+                    image = R.drawable.crepe2,
+                    basePrice = data?.get("basePrice") as String?
+                )
+            )
 
         } catch (e: Exception) {
             e.printStackTrace()

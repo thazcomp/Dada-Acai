@@ -14,14 +14,15 @@ import com.taptwotimes.dadaacai.ui.home.HomeViewModel
 class CategoryAdapter(
     open val list: ArrayList<Topping>,
     open val viewModel: HomeViewModel,
-    open val product:ProductHome
-) :RecyclerView.Adapter<CategoryAdapter.ToppingViewHolder>() {
+    open val product: ProductHome
+) : RecyclerView.Adapter<CategoryAdapter.ToppingViewHolder>() {
 
     class ToppingViewHolder(
-        open val refresh:() -> Unit,
-        open val product:ProductHome,
+        open val refresh: () -> Unit,
+        open val product: ProductHome,
         open val binding: CustomToppingBinding,
-        open val viewModel: HomeViewModel) :
+        open val viewModel: HomeViewModel
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         open fun bind(item: Topping) {
@@ -32,31 +33,51 @@ class CategoryAdapter(
                 if (binding.mcbCheckBox.isChecked) {
                     item.isChecked = true
                     binding.mcbCheckBox.isClickable = true
-                    when(product){
+                    when (product) {
                         is AcaiProductHome -> {
                             addAcaiTopping(item)
-                        }is CrepeProductHome -> {
+                        }
+
+                        is CrepeProductHome -> {
                             addCrepeTopping(item)
                         }
                     }
                 } else {
-                    when(product){
+                    when (product) {
                         is AcaiProductHome -> {
                             removeAcaiTopping(item)
-                        }is CrepeProductHome -> {
+                        }
+
+                        is CrepeProductHome -> {
                             removeCrepeTopping(item)
                         }
                     }
                 }
             }
 
-            if (ProducrPrefs.getAcaiSelectionCounter() == 3) {
-                binding.mcbCheckBox.isClickable = false
-                setItemChecked(item)
-            } else {
-                binding.mcbCheckBox.isClickable = true
-                setItemChecked(item)
+            when (product) {
+                is AcaiProductHome -> {
+                    if (ProducrPrefs.getAcaiSelectionCounter() == 3) {
+                        binding.mcbCheckBox.isClickable = false
+                        setItemChecked(item)
+                    } else {
+                        binding.mcbCheckBox.isClickable = true
+                        setItemChecked(item)
+                    }
+                }
+
+                is CrepeProductHome -> {
+                    if (ProducrPrefs.getCrepeSelectionCounter() == 2) {
+                        binding.mcbCheckBox.isClickable = false
+                        setItemChecked(item)
+                    } else {
+                        binding.mcbCheckBox.isClickable = true
+                        setItemChecked(item)
+                    }
+                }
             }
+
+
         }
 
         private fun setItemChecked(item: Topping) {
@@ -119,7 +140,7 @@ class CategoryAdapter(
                     refresh()
                 }
             }
-            ProducrPrefs.increaseAcaiSelectionCounter()
+            ProducrPrefs.increaseCrepeSelectionCounter()
         }
 
         fun removeCrepeTopping(item: Topping) {
@@ -134,7 +155,7 @@ class CategoryAdapter(
                 }
             }
             item.isChecked = false
-            ProducrPrefs.decreaseAcaiSelectionCounter()
+            ProducrPrefs.decreaseCrepeSelectionCounter()
         }
     }
 

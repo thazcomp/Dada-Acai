@@ -21,6 +21,8 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.databinding.ItemHomeBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
+import com.taptwotimes.dadaacai.model.BebidasProductHome
+import com.taptwotimes.dadaacai.model.BoloProductHome
 import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
@@ -71,6 +73,14 @@ class HomeAdapter(
                     }
                     observeCrepeProduct()
                     binding.cvBordas.visibility = View.VISIBLE
+                }
+
+                is BoloProductHome -> {
+                    binding.cvBordas.visibility = View.GONE
+                }
+
+                is BebidasProductHome -> {
+                    binding.cvBordas.visibility = View.GONE
                 }
             }
 

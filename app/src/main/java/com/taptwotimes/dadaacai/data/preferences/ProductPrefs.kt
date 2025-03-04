@@ -22,7 +22,7 @@ object ProducrPrefs {
     private val PREFERENCES_FILE_NAME = "PREFERENCES"
 
     private var acaiSelectionCounter:Int = 0
-    private val crepeSelectionCounter:Int = 0
+    private var crepeSelectionCounter:Int = 0
 
     fun getAcaiTopping1():Topping? {
         return get<Topping>(ACAI_TOPPING_1)
@@ -72,13 +72,26 @@ object ProducrPrefs {
         acaiSelectionCounter--
     }
 
+    fun increaseCrepeSelectionCounter(){
+        crepeSelectionCounter++
+    }
+
+    fun decreaseCrepeSelectionCounter(){
+        crepeSelectionCounter--
+    }
+
     fun getAcaiSelectionCounter():Int{
         return acaiSelectionCounter
+    }
+
+    fun getCrepeSelectionCounter():Int{
+        return crepeSelectionCounter
     }
 
     fun clear(){
         preferences.edit().clear().apply()
         acaiSelectionCounter = 0
+        crepeSelectionCounter = 0
     }
 
     fun hasAcaiTopping1():Boolean {

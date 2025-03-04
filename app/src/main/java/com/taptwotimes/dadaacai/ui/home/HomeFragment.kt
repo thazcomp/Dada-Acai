@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taptwotimes.dadaacai.data.preferences.ProducrPrefs
 import com.taptwotimes.dadaacai.databinding.FragmentHomeBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
+import com.taptwotimes.dadaacai.model.BebidasProductHome
+import com.taptwotimes.dadaacai.model.BoloProductHome
 import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
@@ -20,11 +22,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
-    private var position: Boolean = false
     private var topOptions:ArrayList<Topping> = arrayListOf()
     private var bottomOptions:ArrayList<Topping> = arrayListOf()
     private var index:Int = 0
     private var itemCount = 2
+    private var position = 0
 
     private val viewModel: HomeViewModel by viewModels()
 
@@ -44,24 +46,14 @@ class HomeFragment : BaseFragment() {
 
         binding.ivEsquerda.setOnClickListener {
             getToppings()
-            if (position) {
-                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(0)
-                position = false
-            } else {
-                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(1)
-                position = true
-            }
+            if(position>0) position--
+            binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(position)
         }
 
         binding.ivDireita.setOnClickListener {
             getToppings()
-            if (position) {
-                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(0)
-                position = false
-            } else {
-                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(1)
-                position = true
-            }
+            if(position<3) position++
+            binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(position)
         }
 
         binding.rvRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -108,6 +100,22 @@ class HomeFragment : BaseFragment() {
         createToppingList("Acai", "Coberturas", "Cobertura", "Frutas")
     }
 
+    private fun createBoloToppings() {
+        topOptions.clear()
+        bottomOptions.clear()
+        viewModel.clearTopOptions()
+        viewModel.clearBottomOptions()
+        createToppingList("Acai", "Coberturas", "Cobertura", "Frutas")
+    }
+
+    private fun createBebidasToppings() {
+        topOptions.clear()
+        bottomOptions.clear()
+        viewModel.clearTopOptions()
+        viewModel.clearBottomOptions()
+        createToppingList("Acai", "Coberturas", "Cobertura", "Frutas")
+    }
+
     private fun createCrepeToppings() {
         topOptions.clear()
         bottomOptions.clear()
@@ -126,13 +134,25 @@ class HomeFragment : BaseFragment() {
             bottomOptions.addAll(response)
         }
 
-        viewModel.selecteAcaiTopping1.observe(viewLifecycleOwner){ response ->
+        val myLinearLayoutManager = object : LinearLayoutManager(activity) {
+            override fun canScrollHorizontally(): Boolean {
+                return false
+            }
         }
 
         viewModel.home.observe(viewLifecycleOwner){ response ->
             binding.rvRecycler.apply {
-                layoutManager = LinearLayoutManager(activity)
-                adapter = HomeAdapter(context, viewModel, viewLifecycleOwner, response, topOptions, bottomOptions)
+                val acai = response.get(0) as AcaiProductHome
+                val bebidas = response.get(1) as BebidasProductHome
+                val bolo = response.get(2) as BoloProductHome
+                val crepe = response.get(3) as CrepeProductHome
+                val list = arrayListOf<ProductHome>()
+                list.add(0, acai)
+                list.add(1, crepe)
+                list.add(2, bolo)
+                list.add(3, bebidas)
+                layoutManager = myLinearLayoutManager
+                adapter = HomeAdapter(context, viewModel, viewLifecycleOwner, list, topOptions, bottomOptions)
                 set3DItem(false)
                 setIntervalRatio(.7f)
                 setOrientation(RecyclerView.HORIZONTAL)
@@ -145,6 +165,12 @@ class HomeFragment : BaseFragment() {
                 }
                 is CrepeProductHome -> {
                     createCrepeToppings()
+                }
+                is BoloProductHome -> {
+                    createBoloToppings()
+                }
+                is BebidasProductHome -> {
+                    createBebidasToppings()
                 }
             }
         }
