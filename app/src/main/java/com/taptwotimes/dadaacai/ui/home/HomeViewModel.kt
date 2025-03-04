@@ -103,4 +103,20 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
         return _home.value?.get(index)
     }
 
+    fun getNextItemValue(index:Int):ProductHome?{
+        return try{
+            _home.value?.get(index+1)
+        }catch (e:IndexOutOfBoundsException){
+            null
+        }
+    }
+
+    fun getPreviousItemValue(index:Int):ProductHome?{
+        return try{
+            _home.value?.get(index-1)
+        }catch (e:IndexOutOfBoundsException){
+            null
+        }
+    }
+
 }

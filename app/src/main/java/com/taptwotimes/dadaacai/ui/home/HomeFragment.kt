@@ -24,8 +24,6 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private var topOptions:ArrayList<Topping> = arrayListOf()
     private var bottomOptions:ArrayList<Topping> = arrayListOf()
-    private var index:Int = 0
-    private var itemCount = 2
     private var position = 0
 
     private val viewModel: HomeViewModel by viewModels()
@@ -45,52 +43,66 @@ class HomeFragment : BaseFragment() {
         ProducrPrefs.clear()
 
         binding.ivEsquerda.setOnClickListener {
-            getToppings()
             if(position>0) position--
             binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(position)
+
+            topOptions.clear()
+            bottomOptions.clear()
+            viewModel.clearTopOptions()
+            viewModel.clearBottomOptions()
+            when(position){
+                0 -> { createAcaiToppings() }
+                1 -> { createCrepeToppings() }
+                2 -> { }
+                3 -> { }
+            }
         }
 
         binding.ivDireita.setOnClickListener {
-            getToppings()
             if(position<3) position++
             binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(position)
+
+            topOptions.clear()
+            bottomOptions.clear()
+            viewModel.clearTopOptions()
+            viewModel.clearBottomOptions()
+            when(position){
+                0 -> { createAcaiToppings() }
+                1 -> { createCrepeToppings() }
+                2 -> { }
+                3 -> { }
+            }
         }
 
-        binding.rvRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    topOptions.clear()
-                    bottomOptions.clear()
-                    viewModel.clearTopOptions()
-                    viewModel.clearBottomOptions()
-                    getToppings()
-                }
-            }
-        })
+        when(position){
+            0 -> { createAcaiToppings() }
+            1 -> { createCrepeToppings() }
+            2 -> { }
+            3 -> { }
+        }
 
 
         return binding.root
     }
 
-    private fun getToppings() {
-        if(index==(itemCount-1)){
-            index--
-        }else{
-            index++
-        }
-        selectedProduct = viewModel.getSelectedItemValue(index)
-
-        if(selectedProduct is CrepeProductHome){
-            topOptions.clear()
-            bottomOptions.clear()
-            createCrepeToppings()
-        }else if(selectedProduct is AcaiProductHome){
-            topOptions.clear()
-            bottomOptions.clear()
-            createAcaiToppings()
-        }
-    }
+//    private fun getToppings() {
+//        if(index==(itemCount-1)){
+//            index--
+//        }else{
+//            index++
+//        }
+//        selectedProduct = viewModel.getSelectedItemValue(index)
+//
+//        if(selectedProduct is CrepeProductHome){
+//            topOptions.clear()
+//            bottomOptions.clear()
+//            createCrepeToppings()
+//        }else if(selectedProduct is AcaiProductHome){
+//            topOptions.clear()
+//            bottomOptions.clear()
+//            createAcaiToppings()
+//        }
+//    }
 
     private fun createAcaiToppings() {
         topOptions.clear()
@@ -105,7 +117,6 @@ class HomeFragment : BaseFragment() {
         bottomOptions.clear()
         viewModel.clearTopOptions()
         viewModel.clearBottomOptions()
-        createToppingList("Acai", "Coberturas", "Cobertura", "Frutas")
     }
 
     private fun createBebidasToppings() {
@@ -113,7 +124,6 @@ class HomeFragment : BaseFragment() {
         bottomOptions.clear()
         viewModel.clearTopOptions()
         viewModel.clearBottomOptions()
-        createToppingList("Acai", "Coberturas", "Cobertura", "Frutas")
     }
 
     private fun createCrepeToppings() {
@@ -142,6 +152,7 @@ class HomeFragment : BaseFragment() {
 
         viewModel.home.observe(viewLifecycleOwner){ response ->
             binding.rvRecycler.apply {
+
                 val acai = response.get(0) as AcaiProductHome
                 val bebidas = response.get(1) as BebidasProductHome
                 val bolo = response.get(2) as BoloProductHome
@@ -151,10 +162,12 @@ class HomeFragment : BaseFragment() {
                 list.add(1, crepe)
                 list.add(2, bolo)
                 list.add(3, bebidas)
+
                 layoutManager = myLinearLayoutManager
                 adapter = HomeAdapter(context, viewModel, viewLifecycleOwner, list, topOptions, bottomOptions)
                 set3DItem(false)
                 setIntervalRatio(.7f)
+                setIsScrollingEnabled(false)
                 setOrientation(RecyclerView.HORIZONTAL)
             }
             selectedProduct = response[0]
