@@ -11,8 +11,10 @@ import com.bumptech.glide.Glide
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.databinding.ItemCartBinding
 import com.taptwotimes.dadaacai.model.FirebaseCartItem
+import com.taptwotimes.dadaacai.ui.cart.CartViewModel
 
 class CartListAdapter(private val list:ArrayList<FirebaseCartItem>,
+                      val viewModel: CartViewModel,
                       private val context: Context
 ): BaseAdapter() {
 
@@ -81,11 +83,28 @@ class CartListAdapter(private val list:ArrayList<FirebaseCartItem>,
 
             binding.tvPrice.text = currentItem.totalPrice
             loadImage(AppCompatResources.getDrawable(context, R.drawable.acai1)!!)
+
+            binding.ivDelete.setOnClickListener {
+                val iterator = list.iterator()
+                while (iterator.hasNext()){
+                    val item = iterator.next()
+                    if (item.id == currentItem.id){
+                        viewModel.delete(currentItem.id)
+                        iterator.remove()
+                    }
+                }
+                notifyDataSetChanged()
+            }
         }
     }
 
     private fun loadImage(image:Drawable) {
         Glide.with(context).load(image).into(binding.ivImage)
+    }
+
+    fun clear(){
+        list.clear()
+        notifyDataSetChanged()
     }
 
 }

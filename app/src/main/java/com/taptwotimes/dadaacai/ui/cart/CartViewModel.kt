@@ -19,4 +19,12 @@ class CartViewModel @Inject constructor(private val cartUseCase: CartUseCase):Vi
     fun getCart() = viewModelScope.launch {
         _cart.value = cartUseCase.getCartList()
     }
+
+    fun clean() = viewModelScope.launch {
+        cartUseCase.clean()
+    }
+
+    fun delete(id:Int) = viewModelScope.launch {
+        cartUseCase.delete(id)
+    }
 }

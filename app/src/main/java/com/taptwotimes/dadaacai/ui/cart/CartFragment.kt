@@ -29,6 +29,11 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCartBinding.inflate(inflater, container, false)
+
+        binding.btLimpar.setOnClickListener {
+            viewModel.clean()
+            (binding.list.adapter as CartListAdapter).clear()
+        }
         return binding.root
     }
 
@@ -43,9 +48,8 @@ class CartFragment : Fragment() {
     }
 
     private fun createAdapter() {
-        val listview = binding.list
         context?.let{ c ->
-            listview.adapter = CartListAdapter(listaAcai(), c)
+            binding.list.adapter = CartListAdapter(listaAcai(), viewModel, c)
         }
     }
 

@@ -21,11 +21,26 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_button_height"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/black"
             android:text="Finalizar Compra"
             android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@id/list"
+            app:layout_constraintBottom_toTopOf="@id/btLimpar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btLimpar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_button_height"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:text="Limpar Carrinho"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@id/btCarrinho"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>

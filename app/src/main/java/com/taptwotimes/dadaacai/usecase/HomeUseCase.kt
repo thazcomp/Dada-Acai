@@ -12,8 +12,8 @@ class HomeUseCase @Inject constructor(private val homeRepository: HomeRepository
         return homeRepository.getHome()
     }
 
-    suspend fun addCartItem(product: ProductHome, toppings:ArrayList<String>) {
-        return homeRepository.saveToCart(product, toppings)
+    suspend fun addCartItem(id:Int, product: ProductHome, toppings:ArrayList<String>) {
+        return homeRepository.saveToCart(id, product, toppings)
     }
 
     suspend fun getToppings(id:String, name:String, category:String):ArrayList<Topping> {

@@ -132,8 +132,8 @@ class HomeAdapter(
         private fun observeAcaiProduct() {
             viewModel.selecteAcaiTopping1.observe(viewLifecycleOwner) { response ->
                 response?.let {
-                    binding.tvToppingName1.text = response?.name
-                    binding.tvToppingPrice1.text = response?.price
+                    binding.tvToppingName1.text = response.name
+                    binding.tvToppingPrice1.text = response.price
                     binding.tvToppingPrice1.visibility = View.VISIBLE
                     binding.tvToppingName1.visibility = View.VISIBLE
                 } ?: run {
@@ -144,8 +144,8 @@ class HomeAdapter(
 
             viewModel.selecteAcaiTopping2.observe(viewLifecycleOwner) { response ->
                 response?.let {
-                    binding.tvToppingName2.text = response?.name
-                    binding.tvToppingPrice2.text = response?.price
+                    binding.tvToppingName2.text = response.name
+                    binding.tvToppingPrice2.text = response.price
                     binding.tvToppingPrice2.visibility = View.VISIBLE
                     binding.tvToppingName2.visibility = View.VISIBLE
                 } ?: run {
@@ -156,8 +156,8 @@ class HomeAdapter(
 
             viewModel.selecteAcaiTopping3.observe(viewLifecycleOwner) { response ->
                 response?.let {
-                    binding.tvToppingName3.text = response?.name
-                    binding.tvToppingPrice3.text = response?.price
+                    binding.tvToppingName3.text = response.name
+                    binding.tvToppingPrice3.text = response.price
                     binding.tvToppingPrice3.visibility = View.VISIBLE
                     binding.tvToppingName3.visibility = View.VISIBLE
                     binding.tvAdicionar.visibility = View.GONE
@@ -172,8 +172,8 @@ class HomeAdapter(
         private fun observeCrepeProduct() {
             viewModel.selecteCrepeTopping1.observe(viewLifecycleOwner) { response ->
                 response?.let {
-                    binding.tvToppingName1.text = response?.name
-                    binding.tvToppingPrice1.text = response?.price
+                    binding.tvToppingName1.text = response.name
+                    binding.tvToppingPrice1.text = response.price
                     binding.tvToppingPrice1.visibility = View.VISIBLE
                     binding.tvToppingName1.visibility = View.VISIBLE
                 } ?: run {
@@ -184,8 +184,8 @@ class HomeAdapter(
 
             viewModel.selecteCrepeTopping2.observe(viewLifecycleOwner) { response ->
                 response?.let {
-                    binding.tvToppingName2.text = response?.name
-                    binding.tvToppingPrice2.text = response?.price
+                    binding.tvToppingName2.text = response.name
+                    binding.tvToppingPrice2.text = response.price
                     binding.tvToppingPrice2.visibility = View.VISIBLE
                     binding.tvToppingName2.visibility = View.VISIBLE
                     binding.tvAdicionar.visibility = View.GONE

@@ -19,6 +19,7 @@ object ProductPrefs {
 
     private var acaiSelectionCounter:Int = 0
     private var crepeSelectionCounter:Int = 0
+    private var cartCounter:Int = 0
 
     fun getAcaiTopping1():Topping? {
         return get<Topping>(ACAI_TOPPING_1)
@@ -66,6 +67,18 @@ object ProductPrefs {
 
     fun decreaseAcaiSelectionCounter(){
         acaiSelectionCounter--
+    }
+
+    fun getCartCounter():Int{
+        return cartCounter
+    }
+
+    fun increaseCartCounter(){
+        cartCounter++
+    }
+
+    fun decreaseCartCounter(){
+        cartCounter--
     }
 
     fun increaseCrepeSelectionCounter(){

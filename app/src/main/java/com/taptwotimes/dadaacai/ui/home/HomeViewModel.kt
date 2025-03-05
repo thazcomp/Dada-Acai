@@ -100,7 +100,8 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     }
 
     fun saveToCart(productHome: ProductHome, toppings:ArrayList<String>) = viewModelScope.launch {
-        homeUseCase.addCartItem(productHome, toppings)
+        homeUseCase.addCartItem(ProductPrefs.getCartCounter(), productHome, toppings)
+        ProductPrefs.increaseCartCounter()
     }
 
 }

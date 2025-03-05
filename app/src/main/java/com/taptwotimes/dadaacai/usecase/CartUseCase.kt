@@ -13,4 +13,12 @@ class CartUseCase @Inject constructor(private val repository: CartRepository, pr
     suspend fun getCartList():ArrayList<FirebaseCartItem> {
         return repository.getCart()
     }
+
+    suspend fun clean() {
+        return repository.clean()
+    }
+
+    suspend fun delete(id:Int){
+        return repository.delete(id)
+    }
 }

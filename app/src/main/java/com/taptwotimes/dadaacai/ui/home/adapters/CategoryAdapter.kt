@@ -76,8 +76,6 @@ class CategoryAdapter(
                     }
                 }
             }
-
-
         }
 
         private fun setItemChecked(item: Topping) {

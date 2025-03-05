@@ -101,8 +101,8 @@ class HomeRepositoryImpl:HomeRepository {
         } as ArrayList<Topping>
     }
 
-    override suspend fun saveToCart(product: ProductHome, toppings:ArrayList<String>){
-        val cartItem = FirebaseCartItem(product.title, toppings, product.basePrice)
+    override suspend fun saveToCart(id: Int, product: ProductHome, toppings:ArrayList<String>){
+        val cartItem = FirebaseCartItem(id, product.title, toppings, product.basePrice)
 
         db.collection("Users").document("User").collection("Cart").add(cartItem)
             .addOnSuccessListener {
