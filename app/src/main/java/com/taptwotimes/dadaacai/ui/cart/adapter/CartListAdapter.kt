@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import androidx.appcompat.content.res.AppCompatResources
 import com.bumptech.glide.Glide
+import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.databinding.ItemCartBinding
-import com.taptwotimes.dadaacai.model.CartItemAcai
+import com.taptwotimes.dadaacai.model.FirebaseCartItem
 
-class CartListAdapter(private val list:List<CartItemAcai>,
+class CartListAdapter(private val list:ArrayList<FirebaseCartItem>,
                       private val context: Context
 ): BaseAdapter() {
 
@@ -34,19 +36,52 @@ class CartListAdapter(private val list:List<CartItemAcai>,
             binding = ItemCartBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
             view = binding.root
         }
-        val currentItem = getItem(position) as CartItemAcai
+        val currentItem = getItem(position) as FirebaseCartItem
         loadContent(currentItem)
 
         return view
     }
 
-    private fun loadContent(currentItem: CartItemAcai) {
-        binding.tvTitle.text = currentItem.title
-        binding.tvTop1.text = currentItem.top1
-        binding.tvTop2.text = currentItem.top2
-        binding.tvTop3.text = currentItem.top3
-        binding.tvPrice.text = currentItem.total
-        loadImage(currentItem.image)
+    private fun loadContent(currentItem: FirebaseCartItem) {
+        if(currentItem.itemName != ""){
+            binding.tvTitle.text = currentItem.itemName
+
+            try{
+                if(currentItem.toppings[0] != ""){
+                    binding.tvTop1.visibility = View.VISIBLE
+                    binding.tvTop1.text = currentItem.toppings[0]
+                }else{
+                    binding.tvTop1.visibility = View.GONE
+                }
+            }catch (e:IndexOutOfBoundsException){
+                binding.tvTop1.visibility = View.GONE
+            }
+
+            try{
+                if(currentItem.toppings[1] != ""){
+                    binding.tvTop2.visibility = View.VISIBLE
+                    binding.tvTop2.text = currentItem.toppings[1]
+                }else{
+                    binding.tvTop2.visibility = View.GONE
+                }
+            }catch (e:IndexOutOfBoundsException){
+                binding.tvTop2.visibility = View.GONE
+            }
+
+            try{
+                if(currentItem.toppings[2] != ""){
+                    binding.tvTop3.visibility = View.VISIBLE
+                    binding.tvTop3.text = currentItem.toppings[2]
+                }else{
+                    binding.tvTop3.visibility = View.GONE
+                }
+            }catch (e:IndexOutOfBoundsException){
+                binding.tvTop3.visibility = View.GONE
+            }
+
+            binding.tvPrice.text = currentItem.totalPrice
+            loadImage(AppCompatResources.getDrawable(context, R.drawable.acai1)!!)
+        }
     }
 
     private fun loadImage(image:Drawable) {

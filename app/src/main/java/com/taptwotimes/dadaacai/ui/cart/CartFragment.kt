@@ -2,18 +2,23 @@ package com.taptwotimes.dadaacai.ui.cart
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.databinding.FragmentCartBinding
-import com.taptwotimes.dadaacai.model.CartItemAcai
+import com.taptwotimes.dadaacai.model.FirebaseCartItem
 import com.taptwotimes.dadaacai.ui.cart.adapter.CartListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CartFragment : Fragment() {
 
     private lateinit var binding: FragmentCartBinding
+    private val viewModel:CartViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,49 +34,25 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        createAdapter()
+        viewModel.getCart()
+
+        viewModel.cart.observe(viewLifecycleOwner){
+            createAdapter()
+        }
+
     }
 
     private fun createAdapter() {
         val listview = binding.list
-        context?.let{
-            listview.adapter = CartListAdapter(listaAcai(), it)
+        context?.let{ c ->
+            listview.adapter = CartListAdapter(listaAcai(), c)
         }
     }
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun listaAcai(): List<CartItemAcai>{
-        var list = listOf<CartItemAcai>()
-        context?.getDrawable(R.drawable.acai1)?.let{ image ->
-            list = listOf(
-                CartItemAcai(0,
-                    image,
-                    getString(R.string.acai_completo),
-                    getString(R.string.leite_condensado),
-                    getString(R.string.pacoca),
-                    getString(R.string.morango),
-                    getString(R.string.total18)
-                ),
-                CartItemAcai(0,
-                    image,
-                    getString(R.string.acai_completo),
-                    getString(R.string.pacoca),
-                    getString(R.string.morango),
-                    " ",
-                    getString(R.string.total16)
-                ),
-                CartItemAcai(0,
-                    image,
-                    getString(R.string.acai_completo),
-                    getString(R.string.leite_condensado),
-                    " ",
-                    " ",
-                    getString(R.string.total14)
-                )
-            )
-        }
-        return list
+    private fun listaAcai(): ArrayList<FirebaseCartItem>{
+        return viewModel.cart.value!!
     }
 
 }

@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.taptwotimes.dadaacai.data.preferences.ProducrPrefs
+import com.taptwotimes.dadaacai.R
+import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
 import com.taptwotimes.dadaacai.databinding.FragmentHomeBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
 import com.taptwotimes.dadaacai.model.BebidasProductHome
@@ -16,6 +18,7 @@ import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
 import com.taptwotimes.dadaacai.ui.base.BaseFragment
+import com.taptwotimes.dadaacai.ui.cart.CartFragment
 import com.taptwotimes.dadaacai.ui.home.adapters.HomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,7 +43,7 @@ class HomeFragment : BaseFragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         observeItemHome()
 
-        ProducrPrefs.clear()
+        ProductPrefs.clear()
 
         binding.ivEsquerda.setOnClickListener {
             if (position > 0) position--
@@ -139,6 +142,7 @@ class HomeFragment : BaseFragment() {
                 layoutManager = myLinearLayoutManager
                 adapter = HomeAdapter(
                     context,
+                    activity?.supportFragmentManager,
                     viewModel,
                     viewLifecycleOwner,
                     list,

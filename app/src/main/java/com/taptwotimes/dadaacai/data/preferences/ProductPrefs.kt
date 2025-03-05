@@ -3,14 +3,10 @@ package com.taptwotimes.dadaacai.data.preferences
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import com.google.gson.GsonBuilder
 import com.taptwotimes.dadaacai.model.Topping
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-object ProducrPrefs {
+object ProductPrefs {
     private val ACAI_TOPPING_1: String = "acai_topping_1"
     private val ACAI_TOPPING_2: String = "acai_topping_2"
     private val ACAI_TOPPING_3: String = "acai_topping_3"

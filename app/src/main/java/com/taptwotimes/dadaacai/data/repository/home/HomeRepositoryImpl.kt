@@ -1,5 +1,6 @@
 package com.taptwotimes.dadaacai.data.repository.home
 
+import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.taptwotimes.dadaacai.R
@@ -7,6 +8,7 @@ import com.taptwotimes.dadaacai.model.AcaiProductHome
 import com.taptwotimes.dadaacai.model.BebidasProductHome
 import com.taptwotimes.dadaacai.model.BoloProductHome
 import com.taptwotimes.dadaacai.model.CrepeProductHome
+import com.taptwotimes.dadaacai.model.FirebaseCartItem
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
 import kotlinx.coroutines.tasks.await
@@ -25,30 +27,30 @@ class HomeRepositoryImpl:HomeRepository {
 
             itemList.add(
                 AcaiProductHome(
-                    title = data?.get("title") as String?,
+                    title = data?.get("title") as String,
                     subtitle = data?.get("subtitle") as String?,
                     image = R.drawable.acai4,
-                    basePrice = data?.get("basePrice") as String?
+                    basePrice = data?.get("basePrice") as String
                 )
             )
 
             document = productsSnapshot.documents[1]
             data = document.data
             itemList.add(BebidasProductHome(
-                title = data?.get("title") as String?,
-                subtitle = data?.get("subtitle") as String?,
+                title = data?.get("title") as String,
+                subtitle = data?.get("subtitle") as String,
                 image = R.drawable.bebidas,
-                basePrice = data?.get("basePrice") as String?
+                basePrice = data?.get("basePrice") as String
             ))
 
             document = productsSnapshot.documents[2]
             data = document.data
             itemList.add(
                 BoloProductHome(
-                    title = data?.get("title") as String?,
+                    title = data?.get("title") as String,
                     subtitle = data?.get("subtitle") as String?,
                     image = R.drawable.bolo,
-                    basePrice = data?.get("basePrice") as String?
+                    basePrice = data?.get("basePrice") as String
                 )
             )
 
@@ -56,10 +58,10 @@ class HomeRepositoryImpl:HomeRepository {
             data = document.data
             itemList.add(
                 CrepeProductHome(
-                    title = data?.get("title") as String?,
+                    title = data?.get("title") as String,
                     subtitle = data?.get("subtitle") as String?,
                     image = R.drawable.crepe2,
-                    basePrice = data?.get("basePrice") as String?
+                    basePrice = data?.get("basePrice") as String
                 )
             )
 
@@ -97,5 +99,16 @@ class HomeRepositoryImpl:HomeRepository {
                 price = toppingDocument.getString("price") ?: ""
             )
         } as ArrayList<Topping>
+    }
+
+    override suspend fun saveToCart(product: ProductHome, toppings:ArrayList<String>){
+        val cartItem = FirebaseCartItem(product.title, toppings, product.basePrice)
+
+        db.collection("Users").document("User").collection("Cart").add(cartItem)
+            .addOnSuccessListener {
+                Log.d("Firestore", "DocumentSnapshot successfully written!")
+            }.addOnFailureListener { e->
+                Log.w("Firestore", "Error writing document", e)
+            }
     }
 }

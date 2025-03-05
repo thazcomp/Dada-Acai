@@ -2,10 +2,13 @@ package com.taptwotimes.dadaacai.di.modules
 
 import android.app.Application
 import android.content.Context
+import com.taptwotimes.dadaacai.data.repository.cart.CartRepository
+import com.taptwotimes.dadaacai.data.repository.cart.CartRepositoryImpl
 import com.taptwotimes.dadaacai.data.repository.home.HomeRepository
 import com.taptwotimes.dadaacai.data.repository.home.HomeRepositoryImpl
 import com.taptwotimes.dadaacai.data.repository.login.LoginRepository
 import com.taptwotimes.dadaacai.data.repository.login.LoginRepositoryImpl
+import com.taptwotimes.dadaacai.usecase.CartUseCase
 import com.taptwotimes.dadaacai.usecase.HomeUseCase
 import com.taptwotimes.dadaacai.usecase.LoginUseCase
 import dagger.Module
@@ -37,7 +40,22 @@ object ApplicationModule {
     }
 
     @Provides
+    fun provideHomeUseCase(): HomeUseCase {
+        return HomeUseCase(provideHomeRepository(), provideCoroutineScope())
+    }
+
+    @Provides
+    fun provideCartUseCase(): CartUseCase {
+        return CartUseCase(provideCartRepository(), provideCoroutineScope())
+    }
+
+    @Provides
     fun provideHomeRepository():HomeRepository{
         return HomeRepositoryImpl()
+    }
+
+    @Provides
+    fun provideCartRepository(): CartRepository {
+        return CartRepositoryImpl()
     }
 }

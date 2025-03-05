@@ -10,4 +10,5 @@ interface HomeRepository {
     suspend fun getHome(): ArrayList<ProductHome>
     suspend fun getToppings(id: String): java.util.ArrayList<Topping>
     suspend fun getToppings(id: String, name:String, category:String): java.util.ArrayList<Topping>
+    suspend fun saveToCart(product: ProductHome, toppings:ArrayList<String>)
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.taptwotimes.dadaacai.data.preferences.ProducrPrefs
+import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
 import com.taptwotimes.dadaacai.usecase.HomeUseCase
@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     }
 
     fun setSelectedAcaiTopping1() = viewModelScope.launch {
-        ProducrPrefs.getAcaiTopping1()?.let{
+        ProductPrefs.getAcaiTopping1()?.let{
             _selectedAcaiTopping1.value = it
         }?:run{
             _selectedAcaiTopping1.value = null
@@ -52,7 +52,7 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     }
 
     fun setSelectedAcaiTopping2() = viewModelScope.launch {
-        ProducrPrefs.getAcaiTopping2()?.let{
+        ProductPrefs.getAcaiTopping2()?.let{
             _selectedAcaiTopping2.value = it
         }?:run{
             _selectedAcaiTopping2.value = null
@@ -60,7 +60,7 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     }
 
     fun setSelectedAcaiTopping3() = viewModelScope.launch {
-        ProducrPrefs.getAcaiTopping3()?.let{
+        ProductPrefs.getAcaiTopping3()?.let{
             _selectedAcaiTopping3.value = it
         }?:run{
             _selectedAcaiTopping3.value = null
@@ -68,7 +68,7 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     }
 
     fun setSelectedCrepeTopping1() = viewModelScope.launch {
-        ProducrPrefs.getCrepeTopping1()?.let{
+        ProductPrefs.getCrepeTopping1()?.let{
             _selectedCrepeTopping1.value = it
         }?:run{
             _selectedCrepeTopping1.value = null
@@ -76,7 +76,7 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     }
 
     fun setSelectedCrepeTopping2() = viewModelScope.launch {
-        ProducrPrefs.getCrepeTopping2()?.let{
+        ProductPrefs.getCrepeTopping2()?.let{
             _selectedCrepeTopping2.value = it
         }?:run{
             _selectedCrepeTopping2.value = null
@@ -99,24 +99,8 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
         _bottomOptions.value = arrayListOf()
     }
 
-    fun getSelectedItemValue(index:Int):ProductHome?{
-        return _home.value?.get(index)
-    }
-
-    fun getNextItemValue(index:Int):ProductHome?{
-        return try{
-            _home.value?.get(index+1)
-        }catch (e:IndexOutOfBoundsException){
-            null
-        }
-    }
-
-    fun getPreviousItemValue(index:Int):ProductHome?{
-        return try{
-            _home.value?.get(index-1)
-        }catch (e:IndexOutOfBoundsException){
-            null
-        }
+    fun saveToCart(productHome: ProductHome, toppings:ArrayList<String>) = viewModelScope.launch {
+        homeUseCase.addCartItem(productHome, toppings)
     }
 
 }

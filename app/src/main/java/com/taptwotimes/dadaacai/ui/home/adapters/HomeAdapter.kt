@@ -9,16 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.taptwotimes.dadaacai.R
+import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
 import com.taptwotimes.dadaacai.databinding.ItemHomeBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
 import com.taptwotimes.dadaacai.model.BebidasProductHome
@@ -26,10 +25,14 @@ import com.taptwotimes.dadaacai.model.BoloProductHome
 import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
+import com.taptwotimes.dadaacai.ui.cart.CartFragment
+import com.taptwotimes.dadaacai.ui.home.HomeActivity
+import com.taptwotimes.dadaacai.ui.home.HomeFragment
 import com.taptwotimes.dadaacai.ui.home.HomeViewModel
 
 class HomeAdapter(
     val context: Context,
+    val fragmentManager:FragmentManager?,
     val viewModel: HomeViewModel,
     val viewLifecycleOwner: LifecycleOwner,
     val homeItemList: ArrayList<ProductHome>,
@@ -40,6 +43,7 @@ class HomeAdapter(
 
     class ItemHomeViewHolder(
         val context: Context,
+        val fragmentManager:FragmentManager?,
         val viewModel: HomeViewModel,
         val viewLifecycleOwner: LifecycleOwner,
         val binding: ItemHomeBinding,
@@ -93,6 +97,36 @@ class HomeAdapter(
             binding.clCard1.setOnClickListener {
                 showCustomAlertDialog()
             }
+
+            binding.btCarrinho.setOnClickListener {
+                viewModel.saveToCart(item, getToppings(item))
+
+                fragmentManager?.beginTransaction()?.
+                    replace(R.id.frameLayout, CartFragment())?.
+                    commit()
+
+            }
+        }
+
+        private fun getToppings(item: ProductHome): java.util.ArrayList<String> {
+            val list:ArrayList<String> = arrayListOf()
+            when(item){
+                is AcaiProductHome -> {
+                    if(ProductPrefs.hasAcaiTopping3()){
+                        list.add(ProductPrefs.getAcaiTopping3()!!.name)
+                    }
+                    if(ProductPrefs.hasAcaiTopping2()){
+                        list.add(ProductPrefs.getAcaiTopping2()!!.name)
+                    }
+                    if(ProductPrefs.hasAcaiTopping1()){
+                        list.add(ProductPrefs.getAcaiTopping1()!!.name)
+                    }
+                }
+                is CrepeProductHome -> { }
+                is BoloProductHome -> { }
+                is BebidasProductHome -> { }
+            }
+            return list
         }
 
         private fun observeAcaiProduct() {
@@ -358,6 +392,7 @@ class HomeAdapter(
         val binding = ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemHomeViewHolder(
             context,
+            fragmentManager,
             viewModel,
             viewLifecycleOwner,
             binding,
