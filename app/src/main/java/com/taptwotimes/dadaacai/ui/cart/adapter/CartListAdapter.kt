@@ -85,14 +85,9 @@ class CartListAdapter(private val list:ArrayList<FirebaseCartItem>,
             loadImage(AppCompatResources.getDrawable(context, R.drawable.acai1)!!)
 
             binding.ivDelete.setOnClickListener {
-                val iterator = list.iterator()
-                while (iterator.hasNext()){
-                    val item = iterator.next()
-                    if (item.id == currentItem.id){
-                        viewModel.delete(currentItem.id)
-                        iterator.remove()
-                    }
-                }
+                val itemsToRemove = list.filter { it.id == currentItem.id }
+                list.removeAll(itemsToRemove)
+                itemsToRemove.forEach { viewModel.delete(it.id) }
                 notifyDataSetChanged()
             }
         }
