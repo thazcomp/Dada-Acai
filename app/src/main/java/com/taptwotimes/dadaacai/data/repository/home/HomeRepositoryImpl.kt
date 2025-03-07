@@ -1,6 +1,7 @@
 package com.taptwotimes.dadaacai.data.repository.home
 
 import android.util.Log
+import com.example.coxinhaminha.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.taptwotimes.dadaacai.R
@@ -16,6 +17,7 @@ import kotlinx.coroutines.tasks.await
 class HomeRepositoryImpl:HomeRepository {
 
     val db = Firebase.firestore
+    val usersCollection = db.collection("Users")
     val productsCollection = db.collection("Products")
 
     override suspend fun getHome(): ArrayList<ProductHome> {
@@ -110,5 +112,20 @@ class HomeRepositoryImpl:HomeRepository {
             }.addOnFailureListener { e->
                 Log.w("Firestore", "Error writing document", e)
             }
+    }
+
+    override suspend fun getUser(id: String): User {
+        val collectionId = "Data"
+
+        val dataSnapshot = usersCollection.document(id).collection(collectionId).get().await()
+        val users = dataSnapshot.documents.map { dataDocument ->
+            User(
+                id = dataDocument.getString("id") ?: "",
+                nome = dataDocument.getString("name") ?: "",
+                email = dataDocument.getString("email") ?: ""
+            )
+        }
+        val user = users[0]
+        return user
     }
 }

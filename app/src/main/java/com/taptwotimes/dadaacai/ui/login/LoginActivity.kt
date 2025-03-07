@@ -7,21 +7,21 @@ import androidx.activity.viewModels
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.databinding.ActivityLoginBinding
 import com.taptwotimes.dadaacai.ui.base.BaseActivity
 import com.taptwotimes.dadaacai.ui.home.HomeActivity
 import com.taptwotimes.dadaacai.ui.signup.SignUpActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 
+@AndroidEntryPoint
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var auth: FirebaseAuth
-    private val uid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -30,19 +30,23 @@ class LoginActivity : BaseActivity() {
 
     private fun setButtonsClickListener() {
         binding.btEntrar.setOnClickListener {
-            auth.signInWithEmailAndPassword(getLoginString(), getPassString())
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        val intent = Intent(this, HomeActivity::class.java)
-                        startActivity(intent)
-                    }
-                }
+            viewModel.doLogin(
+                getLoginString(),
+                getPassString(),
+                this,
+                ::goToHome
+            )
         }
 
         binding.tvCriarConta.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun goToHome() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
     }
 
     private fun verifyButtonEnabled() {

@@ -8,7 +8,7 @@ import com.taptwotimes.dadaacai.model.Topping
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
-class CartUseCase @Inject constructor(private val repository: CartRepository, private val viewModelScope: CoroutineScope) {
+class CartUseCase @Inject constructor(private val repository: CartRepository) {
 
     suspend fun getCartList():ArrayList<FirebaseCartItem> {
         return repository.getCart()

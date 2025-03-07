@@ -36,17 +36,17 @@ object ApplicationModule {
 
     @Provides
     fun provideLoginUseCase(): LoginUseCase {
-        return LoginUseCase(provideLoginRepository(), provideCoroutineScope())
+        return LoginUseCase(provideLoginRepository())
     }
 
     @Provides
     fun provideHomeUseCase(): HomeUseCase {
-        return HomeUseCase(provideHomeRepository(), provideCoroutineScope())
+        return HomeUseCase(provideHomeRepository())
     }
 
     @Provides
     fun provideCartUseCase(): CartUseCase {
-        return CartUseCase(provideCartRepository(), provideCoroutineScope())
+        return CartUseCase(provideCartRepository())
     }
 
     @Provides

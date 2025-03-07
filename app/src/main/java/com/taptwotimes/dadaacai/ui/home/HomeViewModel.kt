@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
+import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
 import com.taptwotimes.dadaacai.usecase.HomeUseCase
@@ -102,6 +103,10 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
     fun saveToCart(productHome: ProductHome, toppings:ArrayList<String>) = viewModelScope.launch {
         homeUseCase.addCartItem(ProductPrefs.getCartCounter(), productHome, toppings)
         ProductPrefs.increaseCartCounter()
+    }
+
+    fun getUserData(success:()->Unit) = viewModelScope.launch {
+        homeUseCase.getUser(UserPrefs.getUserId()!!, success)
     }
 
 }

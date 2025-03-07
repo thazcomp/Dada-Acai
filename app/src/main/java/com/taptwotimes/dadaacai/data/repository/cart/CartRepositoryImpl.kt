@@ -3,6 +3,7 @@ package com.taptwotimes.dadaacai.data.repository.cart
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.firestore
+import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.model.FirebaseCartItem
 import com.taptwotimes.dadaacai.model.Topping
 import kotlinx.coroutines.tasks.await
@@ -14,7 +15,10 @@ class CartRepositoryImpl:CartRepository {
 
     @Suppress("UNCHECKED_CAST")
     override suspend fun getCart(): ArrayList<FirebaseCartItem> {
-        val userId = "User"
+        var userId = "User"
+        UserPrefs.getUserId()?.let{
+            userId = it
+        }
         val cartId = "Cart"
         val cartSnapshot = usersCollection.document(userId).collection(cartId).get().await()
 

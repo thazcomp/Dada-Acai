@@ -9,21 +9,25 @@
     android:background="@color/roxo2">
 
     <ImageView
+        android:id="@+id/ivImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:src="@drawable/account_circle"/>
+
     <TextView
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="José da Silva Sauro"
         android:textColor="@color/white"
         android:textStyle="bold"/>
+
     <TextView
+        android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="usuario@email.com"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:layout_marginBottom="16dp"/>
+
 </LinearLayout>

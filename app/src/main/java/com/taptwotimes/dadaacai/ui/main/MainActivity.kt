@@ -17,12 +17,13 @@ class MainActivity: BaseActivity(){
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
 
-        val currentUser = auth.currentUser
-        if(currentUser != null){
-            goToHome()
-        }else{
-            goToLogin()
-        }
+//        val currentUser = auth.currentUser
+//        if(currentUser != null){
+//            goToHome()
+//        }else{
+//            goToLogin()
+//        }
+        goToLogin()
     }
 
     private fun goToLogin() {

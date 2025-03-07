@@ -10,13 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddressViewModel @Inject constructor(private val loginUseCase: LoginUseCase): ViewModel() {
 
-    suspend fun doLogin(userLogin: UserLogin):User?{
-        return loginUseCase.doLogin(userLogin)
-    }
+//    suspend fun doLogin(userLogin: UserLogin):User?{
+//        return loginUseCase.doLogin(userLogin)
+//    }
 }
-
-data class SignUpUiState(
-    val user: User? = null,
-    val isLoading:Boolean = false,
-    val isError:Boolean = false
-)

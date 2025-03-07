@@ -1,22 +1,17 @@
 package com.taptwotimes.dadaacai.ui.login
 
 import androidx.lifecycle.ViewModel
-import com.example.coxinhaminha.model.User
-import com.example.coxinhaminha.model.UserLogin
+import androidx.lifecycle.viewModelScope
+import com.taptwotimes.dadaacai.ui.base.BaseActivity
 import com.taptwotimes.dadaacai.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase): ViewModel() {
 
-    suspend fun doLogin(userLogin: UserLogin):User?{
-        return loginUseCase.doLogin(userLogin)
+    fun doLogin(email:String, pass:String, activity: BaseActivity, success:() -> Unit) = viewModelScope.launch {
+        loginUseCase.doLogin(email, pass, activity, success)
     }
 }
-
-data class UserLoginUiState(
-    val user: User? = null,
-    val isLoading:Boolean = false,
-    val isError:Boolean = false
-)
