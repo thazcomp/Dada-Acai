@@ -1,6 +1,8 @@
 package com.taptwotimes.dadaacai
 
 import android.app.Application
+import com.google.firebase.Firebase
+import com.google.firebase.initialize
 import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
 import dagger.hilt.android.HiltAndroidApp
 
@@ -11,6 +13,7 @@ class AcaiApplication: Application() {
         super.onCreate()
         ProductPrefs.with(this)
         ProductPrefs.clear()
+        Firebase.initialize(this)
     }
 
 }

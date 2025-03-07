@@ -2,16 +2,15 @@ package com.taptwotimes.dadaacai.ui.cart
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.taptwotimes.dadaacai.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.taptwotimes.dadaacai.databinding.FragmentCartBinding
 import com.taptwotimes.dadaacai.model.FirebaseCartItem
-import com.taptwotimes.dadaacai.ui.cart.adapter.CartListAdapter
+import com.taptwotimes.dadaacai.ui.cart.adapter.CartAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,7 +31,7 @@ class CartFragment : Fragment() {
 
         binding.btLimpar.setOnClickListener {
             viewModel.clean()
-            (binding.list.adapter as CartListAdapter).clear()
+            (binding.list.adapter as CartAdapter).clear()
         }
         return binding.root
     }
@@ -47,9 +46,22 @@ class CartFragment : Fragment() {
 
     }
 
+    val myLinearLayoutManager = object : LinearLayoutManager(activity) {
+        override fun canScrollHorizontally(): Boolean {
+            return false
+        }
+    }
+
     private fun createAdapter() {
         context?.let{ c ->
-            binding.list.adapter = CartListAdapter(listaAcai(), viewModel, c)
+            binding.list.apply {
+                layoutManager = myLinearLayoutManager
+                adapter = CartAdapter(
+                    listaAcai(),
+                    viewModel,
+                    context
+                )
+            }
         }
     }
 
