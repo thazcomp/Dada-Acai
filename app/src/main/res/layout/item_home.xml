@@ -304,6 +304,7 @@
             android:background="@color/black"
             android:text="@string/home_button_text"
             android:textAllCaps="false"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

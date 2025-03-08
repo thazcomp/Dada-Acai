@@ -8,6 +8,8 @@ import com.taptwotimes.dadaacai.data.repository.home.HomeRepository
 import com.taptwotimes.dadaacai.data.repository.home.HomeRepositoryImpl
 import com.taptwotimes.dadaacai.data.repository.login.LoginRepository
 import com.taptwotimes.dadaacai.data.repository.login.LoginRepositoryImpl
+import com.taptwotimes.dadaacai.data.repository.signup.SignUpRepository
+import com.taptwotimes.dadaacai.data.repository.signup.SignUpRepositoryImpl
 import com.taptwotimes.dadaacai.usecase.CartUseCase
 import com.taptwotimes.dadaacai.usecase.HomeUseCase
 import com.taptwotimes.dadaacai.usecase.LoginUseCase
@@ -57,5 +59,10 @@ object ApplicationModule {
     @Provides
     fun provideCartRepository(): CartRepository {
         return CartRepositoryImpl()
+    }
+
+    @Provides
+    fun provideSignUpRepository(): SignUpRepository {
+        return SignUpRepositoryImpl()
     }
 }

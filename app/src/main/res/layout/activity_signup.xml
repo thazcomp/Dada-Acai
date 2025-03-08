@@ -187,6 +187,7 @@
         android:layout_marginTop="32dp"
         android:background="@color/black"
         android:text="Adicionar Endereço"
+        android:textColor="@color/white"
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@id/etTelefone"
         app:layout_constraintBottom_toBottomOf="parent"

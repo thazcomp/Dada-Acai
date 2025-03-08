@@ -59,11 +59,11 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun getLoginString(): String {
-        return binding.etEmail.text.toString()
+        return binding.tilEmail.editText?.text.toString()
     }
 
     private fun getPassString(): String {
-        return binding.etPass.text.toString()
+        return binding.tilPass.editText?.text.toString()
     }
 
 }

@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     android:layout_gravity="start"
     tools:openDrawer="start"
+    android:background="@color/grey"
     tools:context=".ui.home.HomeActivity"
     app:menu="@menu/drawer"
     >

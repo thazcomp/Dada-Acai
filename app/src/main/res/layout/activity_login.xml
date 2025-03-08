@@ -11,68 +11,64 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/content_description_acai_logo"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tvEmail"
+        app:layout_constraintBottom_toTopOf="@id/tilEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/vertical_margin_logo_1"
         android:src="@drawable/logo3"/>
 
-    <TextView
-        android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEmail"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/email"
-        android:textSize="@dimen/login_text_size_1"
         app:layout_constraintTop_toBottomOf="@id/ivLogo"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        style="@style/TextInputLayoutStyle"
+        android:includeFontPadding="false"
+        android:layout_marginStart="@dimen/login_margin_text_start"
+        android:layout_marginEnd="@dimen/login_margin_text_start"
         android:layout_marginTop="@dimen/vertical_margin_logo_1"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        />
+        app:hintTextColor="@color/black"
+        >
 
-    <EditText
-        android:id="@+id/etEmail"
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:hint="@string/email"
+            android:textColorHint="@color/black"
+            app:hintTextColor="@color/black"
+            android:inputType="textEmailAddress"
+            />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPass"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/login_edit_text_height"
-        android:background="@drawable/edit_shape"
-        android:textColor="@color/black"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginEnd="@dimen/login_margin_text_start"
-        app:layout_constraintTop_toBottomOf="@id/tvEmail"
-        android:layout_marginTop="@dimen/login_margin_edit_top"
-        android:hint="@string/email_hint"
-        android:textColorHint="@color/grey"
-        android:paddingHorizontal="@dimen/login_padding"
-        />
-
-    <TextView
-        android:id="@+id/tvPass"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/senha"
-        android:textSize="@dimen/login_text_size_1"
-        app:layout_constraintTop_toBottomOf="@id/etEmail"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginTop="@dimen/login_margin_text_top"
-        />
-
-    <EditText
-        android:id="@+id/etPass"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/login_edit_text_height"
-        android:background="@drawable/edit_shape"
-        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tilEmail"
+        style="@style/TextInputLayoutStyle"
+        android:includeFontPadding="false"
         android:layout_marginStart="@dimen/login_margin_text_start"
         android:layout_marginEnd="@dimen/login_margin_text_start"
-        app:layout_constraintTop_toBottomOf="@id/tvPass"
         android:layout_marginTop="@dimen/login_margin_edit_top"
-        android:hint="@string/pass_hint"
-        android:inputType="textPassword"
-        android:textColorHint="@color/grey"
-        android:paddingHorizontal="@dimen/login_padding"
-        />
+        app:hintTextColor="@color/black"
+        app:endIconMode="password_toggle"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:hint="@string/senha"
+            android:textColorHint="@color/black"
+            app:hintTextColor="@color/black"
+            android:inputType="textPassword"
+            />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btEntrar"
@@ -81,10 +77,11 @@
         android:layout_marginStart="@dimen/login_margin_text_start"
         android:layout_marginEnd="@dimen/login_margin_text_start"
         android:layout_marginTop="@dimen/login_margin_text_start"
-        app:layout_constraintTop_toBottomOf="@id/etPass"
+        app:layout_constraintTop_toBottomOf="@id/tilPass"
         android:background="@color/black"
         android:text="@string/login_button_text"
         android:textAllCaps="false"
+        android:textColor="@color/white"
     />
 
     <com.google.android.gms.common.SignInButton

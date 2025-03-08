@@ -78,6 +78,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btCarrinho"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_button_height"
         android:layout_marginHorizontal="32dp"

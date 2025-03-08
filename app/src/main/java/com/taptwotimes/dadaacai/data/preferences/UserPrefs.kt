@@ -3,6 +3,7 @@ package com.taptwotimes.dadaacai.data.preferences
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import com.google.gson.GsonBuilder
 
 object UserPrefs {
@@ -12,6 +13,9 @@ object UserPrefs {
     private val USER_ID: String = "user_id"
     private val USER_NAME: String = "user_name"
     private val USER_EMAIL: String = "user_email"
+    private val USER_CPF: String = "user_cpf"
+    private val USER_PHONE: String = "user_phone"
+    private val USER_PHOTO: String = "user_photo"
 
     fun with(application: Application) {
         preferences = application.getSharedPreferences(
@@ -50,5 +54,29 @@ object UserPrefs {
 
     fun setUserEmail(email:String){
         put(email, USER_EMAIL)
+    }
+
+    fun getUserCpf():String?{
+        return get<String>(USER_CPF)
+    }
+
+    fun setUserCpf(cpf:String){
+        put(cpf, USER_CPF)
+    }
+
+    fun getUserPhone():String?{
+        return get<String>(USER_PHONE)
+    }
+
+    fun setUserPhone(phone:String){
+        put(phone, USER_PHONE)
+    }
+
+    fun getUserPhoto(): Uri?{
+        return get<Uri>(USER_PHOTO)
+    }
+
+    fun setUserPhoto(uri:Uri){
+        put(uri, USER_PHOTO)
     }
 }
