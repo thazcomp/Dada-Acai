@@ -13,5 +13,6 @@ interface LoginRepository {
     suspend fun doLogin(email:String,
                         pass:String,
                         activity: BaseActivity,
-                        success:()->Unit)
+                        success:()->Unit,
+                        error:() -> Unit)
 }

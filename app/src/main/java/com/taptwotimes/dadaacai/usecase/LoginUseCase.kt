@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class LoginUseCase @Inject constructor(private val loginRepository: LoginRepository) {
 
-    suspend fun doLogin(email:String, senha:String, activity: BaseActivity, success:()->Unit){
-        loginRepository.doLogin(email, senha, activity, success)
+    suspend fun doLogin(email:String, senha:String, activity: BaseActivity, success:()->Unit, error:() -> Unit){
+        loginRepository.doLogin(email, senha, activity, success, error)
     }
 }

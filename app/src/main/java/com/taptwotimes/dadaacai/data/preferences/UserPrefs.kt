@@ -3,12 +3,11 @@ package com.taptwotimes.dadaacai.data.preferences
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
 import com.google.gson.GsonBuilder
 
 object UserPrefs {
     lateinit var preferences: SharedPreferences
-    private val PREFERENCES_FILE_NAME = "USERPREFERENCES"
+    private val PREFERENCES_FILE_NAME = "USER_PREFERENCES"
 
     private val USER_ID: String = "user_id"
     private val USER_NAME: String = "user_name"
@@ -24,11 +23,11 @@ object UserPrefs {
 
     fun <T> put(`object`: T, key: String) {
         val jsonString = GsonBuilder().create().toJson(`object`)
-        ProductPrefs.preferences.edit().putString(key, jsonString).apply()
+        preferences.edit().putString(key, jsonString).apply()
     }
 
     inline fun <reified T> get(key: String): T? {
-        val value = ProductPrefs.preferences.getString(key, null)
+        val value = preferences.getString(key, null)
         return GsonBuilder().create().fromJson(value, T::class.java)
     }
 
@@ -72,11 +71,11 @@ object UserPrefs {
         put(phone, USER_PHONE)
     }
 
-    fun getUserPhoto(): Uri?{
-        return get<Uri>(USER_PHOTO)
+    fun getUserPhoto(): String?{
+        return get<String>(USER_PHOTO)
     }
 
-    fun setUserPhoto(uri:Uri){
+    fun setUserPhoto(uri:String){
         put(uri, USER_PHOTO)
     }
 }

@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase): ViewModel() {
 
-    fun doLogin(email:String, pass:String, activity: BaseActivity, success:() -> Unit) = viewModelScope.launch {
-        loginUseCase.doLogin(email, pass, activity, success)
+    fun doLogin(email:String, pass:String, activity: BaseActivity, success:() -> Unit, error:() -> Unit) = viewModelScope.launch {
+        loginUseCase.doLogin(email, pass, activity, success, error)
     }
 }

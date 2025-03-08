@@ -24,21 +24,22 @@
         app:layout_constraintTop_toBottomOf="@id/ivLogo"
         style="@style/TextInputLayoutStyle"
         android:includeFontPadding="false"
+        app:errorEnabled="true"
         android:layout_marginStart="@dimen/login_margin_text_start"
         android:layout_marginEnd="@dimen/login_margin_text_start"
         android:layout_marginTop="@dimen/vertical_margin_logo_1"
         app:hintTextColor="@color/black"
+        app:errorTextColor="@color/red"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:hint="@string/email"
-            android:textColorHint="@color/black"
-            app:hintTextColor="@color/black"
             android:inputType="textEmailAddress"
-            />
+            android:textColorHint="@color/black"
+            android:textSize="16sp"
+            app:hintTextColor="@color/black" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -54,6 +55,8 @@
         android:layout_marginEnd="@dimen/login_margin_text_start"
         android:layout_marginTop="@dimen/login_margin_edit_top"
         app:hintTextColor="@color/black"
+        app:errorEnabled="true"
+        app:errorTextColor="@color/red"
         app:endIconMode="password_toggle"
         >
 

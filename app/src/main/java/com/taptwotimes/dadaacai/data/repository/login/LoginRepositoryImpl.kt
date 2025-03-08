@@ -26,7 +26,7 @@ class LoginRepositoryImpl() : LoginRepository {
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
 
-    override suspend fun doLogin(email: String, pass: String, activity: BaseActivity, success:()->Unit) {
+    override suspend fun doLogin(email: String, pass: String, activity: BaseActivity, success:()->Unit, error:() -> Unit) {
         auth = Firebase.auth
         auth.signInWithEmailAndPassword(email, pass)
             .addOnCompleteListener(activity) { task ->
@@ -35,6 +35,8 @@ class LoginRepositoryImpl() : LoginRepository {
                         UserPrefs.setUserId(it.uid)
                         success()
                     }
+                }else{
+                    error()
                 }
             }
     }
