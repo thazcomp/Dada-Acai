@@ -1,9 +1,6 @@
 package com.taptwotimes.dadaacai.ui.signup
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
@@ -136,7 +133,7 @@ class SignUpActivity: BaseActivity()  {
 
     private fun verifyPhoneField(editText: EditText?) {
         editText?.let {
-            if(it.text.toString().length == 11){
+            if(it.text.toString().length == 15){
                 it.error = null
                 phoneError = false
                 UserPrefs.setUserPhone(it.text.toString())
@@ -203,13 +200,7 @@ class SignUpActivity: BaseActivity()  {
     }
 
     private fun hasError() :Boolean{
-        return (nameError && emailError && passError && cpfError && phoneError && hasPhoto)
+        return (nameError or emailError or passError or cpfError or phoneError or !hasPhoto)
     }
-
-    private fun verifyButtonEnabled() {
-        TODO("Not yet implemented")
-    }
-
-
 
 }
