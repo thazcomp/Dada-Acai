@@ -27,10 +27,11 @@ class SignUpRepositoryImpl:SignUpRepository {
             User(
                 id = dataDocument.getString("id") ?: "",
                 nome = dataDocument.getString("name") ?: "",
-                email = dataDocument.getString("email") ?: ""
+                email = dataDocument.getString("email") ?: "",
+                cpf = dataDocument.getString("cpf") ?: "",
+                phone = dataDocument.getString("phone") ?: ""
             )
         }
-        val user = users[0]
-        return user
+        return users[0]
     }
 }

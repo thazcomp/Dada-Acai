@@ -12,7 +12,7 @@
     <dimen name="login_margin_google_start">56dp</dimen>
     <dimen name="login_margin_link_top">24dp</dimen>
     <dimen name="acai_copo_margin">80dp</dimen>
-    <dimen name="singup_text_size_1">24sp</dimen>
-    <dimen name="singup_text_size_2">16sp</dimen>
+    <dimen name="singup_text_size_1">20sp</dimen>
+    <dimen name="singup_text_size_2">14sp</dimen>
     <dimen name="signup_margin_text_top">16dp</dimen>
 </resources>

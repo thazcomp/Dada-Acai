@@ -15,6 +15,10 @@ object UserPrefs {
     private val USER_CPF: String = "user_cpf"
     private val USER_PHONE: String = "user_phone"
     private val USER_PHOTO: String = "user_photo"
+    private val USER_BAIRRO: String = "user_bairro"
+    private val USER_RUA: String = "user_rua"
+    private val USER_NUM: String = "user_num"
+    private val USER_COMP: String = "user_comp"
 
     fun with(application: Application) {
         preferences = application.getSharedPreferences(
@@ -77,5 +81,37 @@ object UserPrefs {
 
     fun setUserPhoto(uri:String){
         put(uri, USER_PHOTO)
+    }
+
+    fun getUserBairro(): String?{
+        return get<String>(USER_BAIRRO)
+    }
+
+    fun setUserBairro(bairro:String){
+        put(bairro, USER_BAIRRO)
+    }
+
+    fun getUserRua(): String?{
+        return get<String>(USER_RUA)
+    }
+
+    fun setUserRua(rua:String){
+        put(rua, USER_RUA)
+    }
+
+    fun getUserNum(): String?{
+        return get<String>(USER_NUM)
+    }
+
+    fun setUserNum(num:String){
+        put(num, USER_NUM)
+    }
+
+    fun getUserComp(): String?{
+        return get<String>(USER_COMP)
+    }
+
+    fun setUserComp(comp:String){
+        put(comp, USER_COMP)
     }
 }
