@@ -20,10 +20,10 @@
     <string name="total16">Total: R$16,00</string>
     <string name="total14">Total: R$14,00</string>
     <string name="name_hint">João da Silva Sauro</string>
-    <string name="name">Nome:</string>
-    <string name="cpf">Cpf:</string>
+    <string name="name">Nome</string>
+    <string name="cpf">Cpf</string>
     <string name="cpf_hint">000.000.000-00</string>
-    <string name="telefone">Telefone:</string>
+    <string name="telefone">Telefone</string>
     <string name="telefone_hint">(53)99999-9999</string>
     <string name="nav_open">Menu Aberto</string>
     <string name="nav_close">Menu Fechado</string>
@@ -37,4 +37,5 @@
     <string name="clique_para_adicionar">Clique para Adicionar</string>
     <string name="sim">Sim</string>
     <string name="n_o">Não</string>
+    <string name="cad_done_title">Recebemos os seus dados de cadastro. Você receberá uma notificação assim que seu cadastro for concluído.</string>
 </resources>

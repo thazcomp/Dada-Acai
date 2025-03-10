@@ -1,198 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_width="match_parent">
 
-    <TextView
-        android:id="@+id/tvTitle"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Insira os seus dados para o cadastro:"
-        android:textSize="@dimen/singup_text_size_1"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="@dimen/login_margin_text_start"
-        android:layout_marginTop="@dimen/signup_margin_text_top"
-        />
+        android:background="@color/white">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivFoto"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:src="@drawable/account_circle"
-        app:civ_circle_background_color="@color/white"
-        app:civ_border_width="2dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/signup_margin_text_top"/>
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/login_margin_text_start"
+            android:layout_marginTop="@dimen/signup_margin_text_top"
+            android:gravity="center"
+            android:text="Insira os seus dados para o cadastro:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/singup_text_size_1"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-    <TextView
-        android:id="@+id/tvNome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:textSize="@dimen/singup_text_size_1"
-        app:layout_constraintTop_toBottomOf="@id/ivFoto"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        />
-
-    <EditText
-        android:id="@+id/etNome"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/login_edit_text_height"
-        android:background="@drawable/edit_shape"
-        android:textColor="@color/black"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginEnd="@dimen/login_margin_text_start"
-        app:layout_constraintTop_toBottomOf="@id/tvNome"
-        android:layout_marginTop="@dimen/login_margin_edit_top"
-        android:hint="@string/name_hint"
-        android:textColorHint="@color/grey"
-        android:paddingHorizontal="@dimen/login_padding"
-        />
-
-    <TextView
-        android:id="@+id/tvSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/senha"
-        android:textSize="@dimen/singup_text_size_1"
-        app:layout_constraintTop_toBottomOf="@id/etNome"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginTop="@dimen/signup_margin_text_top"
-        />
-
-    <EditText
-        android:id="@+id/etSenha"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/login_edit_text_height"
-        android:background="@drawable/edit_shape"
-        android:textColor="@color/black"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginEnd="@dimen/login_margin_text_start"
-        app:layout_constraintTop_toBottomOf="@id/tvSenha"
-        android:layout_marginTop="@dimen/login_margin_edit_top"
-        android:inputType="textPassword"
-        android:hint="@string/senha_hint"
-        android:textColorHint="@color/grey"
-        android:paddingHorizontal="@dimen/login_padding"
-        />
-
-    <TextView
-        android:id="@+id/tvEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/email"
-        android:textSize="@dimen/singup_text_size_1"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etSenha"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginTop="@dimen/login_margin_text_top"
-        />
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/login_edit_text_height"
-        android:background="@drawable/edit_shape"
-        android:textColor="@color/black"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginEnd="@dimen/login_margin_text_start"
-        app:layout_constraintTop_toBottomOf="@id/tvEmail"
-        android:layout_marginTop="@dimen/login_margin_edit_top"
-        android:hint="@string/email_hint"
-        android:textColorHint="@color/grey"
-        android:paddingHorizontal="@dimen/login_padding"
-        />
-
-    <TextView
-        android:id="@+id/tvCpf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/cpf"
-        android:textSize="@dimen/singup_text_size_1"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etEmail"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginTop="@dimen/login_margin_text_top"
-        />
-
-    <EditText
-        android:id="@+id/etCpf"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/login_edit_text_height"
-        android:background="@drawable/edit_shape"
-        android:textColor="@color/black"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginEnd="@dimen/login_margin_text_start"
-        app:layout_constraintTop_toBottomOf="@id/tvCpf"
-        android:layout_marginTop="@dimen/login_margin_edit_top"
-        android:hint="@string/cpf_hint"
-        android:textColorHint="@color/grey"
-        android:paddingHorizontal="@dimen/login_padding"
-        />
-
-    <TextView
-        android:id="@+id/tvTelefone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/telefone"
-        android:textSize="@dimen/singup_text_size_1"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etCpf"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginTop="@dimen/login_margin_text_top"
-        />
-
-    <EditText
-        android:id="@+id/etTelefone"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/login_edit_text_height"
-        android:background="@drawable/edit_shape"
-        android:textColor="@color/black"
-        android:layout_marginStart="@dimen/login_margin_text_start"
-        android:layout_marginEnd="@dimen/login_margin_text_start"
-        app:layout_constraintTop_toBottomOf="@id/tvTelefone"
-        android:layout_marginTop="@dimen/login_margin_edit_top"
-        android:hint="@string/telefone_hint"
-        android:textColorHint="@color/grey"
-        android:paddingHorizontal="@dimen/login_padding"
-        />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btAddress"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/login_button_height"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/black"
-        android:text="Adicionar Endereço"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/etTelefone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivFoto"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="@dimen/signup_margin_text_top"
+            android:src="@drawable/account_circle"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilName"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/login_margin_text_start"
+            android:layout_marginTop="@dimen/login_margin_edit_top"
+            android:layout_marginEnd="@dimen/login_margin_text_start"
+            android:includeFontPadding="false"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/red"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/ivFoto">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:inputType="text"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                app:hintTextColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPass"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/login_margin_text_start"
+            android:layout_marginTop="@dimen/login_margin_edit_top"
+            android:layout_marginEnd="@dimen/login_margin_text_start"
+            android:includeFontPadding="false"
+            app:errorEnabled="true"
+            app:endIconMode="password_toggle"
+            app:errorTextColor="@color/red"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tilName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/senha"
+                android:inputType="textPassword"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                app:hintTextColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmail"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/login_margin_text_start"
+            android:layout_marginTop="@dimen/login_margin_edit_top"
+            android:layout_marginEnd="@dimen/login_margin_text_start"
+            android:includeFontPadding="false"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/red"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tilPass">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                app:hintTextColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCpf"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/login_margin_text_start"
+            android:layout_marginTop="@dimen/login_margin_edit_top"
+            android:layout_marginEnd="@dimen/login_margin_text_start"
+            android:includeFontPadding="false"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/red"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tilEmail">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/cpf"
+                android:inputType="number"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                app:hintTextColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPhone"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/login_margin_text_start"
+            android:layout_marginTop="@dimen/login_margin_edit_top"
+            android:layout_marginEnd="@dimen/login_margin_text_start"
+            android:includeFontPadding="false"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/red"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tilCpf">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/telefone"
+                android:inputType="phone"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                app:hintTextColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btAddress"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_button_height"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/black"
+            android:text="Adicionar Endereço"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilPhone"
+            android:layout_marginBottom="32dp"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

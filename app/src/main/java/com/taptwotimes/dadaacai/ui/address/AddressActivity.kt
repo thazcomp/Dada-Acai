@@ -20,10 +20,7 @@ class AddressActivity: BaseActivity()  {
     }
 
     private fun setButtonsClickListener() {
-//        binding.btEntrar.setOnClickListener {
-//            val intent =  Intent(this, HomeActivity::class.java)
-//            startActivity(intent)
-//        }
+
     }
 
     private fun verifyButtonEnabled() {
