@@ -5,7 +5,9 @@ import com.example.coxinhaminha.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.taptwotimes.dadaacai.R
+import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.model.AcaiProductHome
+import com.taptwotimes.dadaacai.model.Address
 import com.taptwotimes.dadaacai.model.BebidasProductHome
 import com.taptwotimes.dadaacai.model.BoloProductHome
 import com.taptwotimes.dadaacai.model.CrepeProductHome
@@ -14,7 +16,7 @@ import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
 import kotlinx.coroutines.tasks.await
 
-class SignUpRepositoryImpl:SignUpRepository {
+class SignUpRepositoryImpl : SignUpRepository {
 
     val db = Firebase.firestore
     val usersCollection = db.collection("Users")
@@ -22,16 +24,48 @@ class SignUpRepositoryImpl:SignUpRepository {
     override suspend fun getUser(id: String): User {
         val collectionId = "Data"
 
-        val dataSnapshot = usersCollection.document(id).collection(collectionId).get().await()
-        val users = dataSnapshot.documents.map { dataDocument ->
-            User(
-                id = dataDocument.getString("id") ?: "",
-                nome = dataDocument.getString("name") ?: "",
-                email = dataDocument.getString("email") ?: "",
-                cpf = dataDocument.getString("cpf") ?: "",
-                phone = dataDocument.getString("phone") ?: ""
-            )
-        }
-        return users[0]
+        val dataSnapshot = usersCollection.document(id)
+            .collection(collectionId)
+            .document("dados")
+            .get().await()
+
+        return User(
+            id = dataSnapshot.getString("id") ?: "",
+            nome = dataSnapshot.getString("name") ?: "",
+            email = dataSnapshot.getString("email") ?: "",
+            cpf = dataSnapshot.getString("cpf") ?: "",
+            phone = dataSnapshot.getString("phone") ?: ""
+        )
+    }
+
+
+    override suspend fun saveAddress(address: Address, success: () -> Unit, error: () -> Unit) {
+        val collectionId = "Data"
+        val docId = "Endereco"
+        usersCollection.document(UserPrefs.getUserId()!!)
+            .collection(collectionId)
+            .document(docId)
+            .set(address)
+            .addOnSuccessListener {
+                success()
+            }
+            .addOnFailureListener {
+                error()
+            }
+    }
+
+    override suspend fun saveUser(user: User, success: () -> Unit, error: () -> Unit) {
+        val collectionId = "Data"
+        val docId = "Dados"
+        usersCollection.document(user.id)
+            .collection(collectionId)
+            .document(docId)
+            .set(user)
+            .addOnSuccessListener {
+                success()
+            }
+            .addOnFailureListener {
+                error()
+            }
     }
 }

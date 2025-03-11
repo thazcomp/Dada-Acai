@@ -3,15 +3,20 @@ package com.taptwotimes.dadaacai.ui.address
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.example.coxinhaminha.model.User
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.databinding.ActivityAddressBinding
+import com.taptwotimes.dadaacai.model.Address
 import com.taptwotimes.dadaacai.ui.base.BaseActivity
 import com.taptwotimes.dadaacai.ui.caddone.CadDoneActivity
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class AddressActivity: BaseActivity()  {
     private lateinit var binding: ActivityAddressBinding
     private val viewModel:AddressViewModel by viewModels()
+    private lateinit var address: Address
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +30,27 @@ class AddressActivity: BaseActivity()  {
     private fun setButtonsClickListener() {
         binding.btAddress.setOnClickListener {
             if(!hasError()){
-                goToCadDoneActivity()
+                viewModel.saveUser(
+                    User(UserPrefs.getUserId()!!,
+                        UserPrefs.getUserName()!!,
+                        UserPrefs.getUserEmail()!!,
+                        UserPrefs.getUserCpf()!!,
+                        UserPrefs.getUserPhone()!!),
+                    ::saveAddress,
+                    ::showError
+                )
             }
         }
+    }
+
+    private fun showError() {
+
+    }
+
+    private fun saveAddress(){
+        viewModel.saveAddress(address,
+            ::goToCadDoneActivity,
+            ::showError)
     }
 
     private fun goToCadDoneActivity() {
@@ -40,27 +63,35 @@ class AddressActivity: BaseActivity()  {
     }
 
     private fun hasError(): Boolean {
-
+        var bairro = ""
+        var rua = ""
+        var num = ""
+        var comp = ""
         if(hasBairro()){
             binding.tilBairro.editText?.error = null
             UserPrefs.setUserBairro(binding.tilBairro.editText?.text.toString())
+            bairro = binding.tilBairro.editText?.text.toString()
         }else{
             binding.tilBairro.editText?.error = "Digite o nome do seu Bairro"
         }
         if(hasRua()){
             binding.tilRua.editText?.error = null
             UserPrefs.setUserRua(binding.tilRua.editText?.text.toString())
+            rua = binding.tilRua.editText?.text.toString()
         }else{
             binding.tilRua.editText?.error = "Digite o nome da sua Rua"
         }
         if(hasNum()){
             binding.tilNum.editText?.error = null
             UserPrefs.setUserNum(binding.tilNum.editText?.text.toString())
+            num = binding.tilNum.editText?.text.toString()
         }else{
             binding.tilNum.editText?.error = "Digite o número da sua casa"
         }
 
         UserPrefs.setUserComp(binding.tilComp.editText?.text.toString())
+        comp = binding.tilComp.editText?.text.toString()
+        address = Address(rua, bairro, num, comp)
         return (!hasBairro()) or (!hasRua()) or (!hasNum())
     }
 

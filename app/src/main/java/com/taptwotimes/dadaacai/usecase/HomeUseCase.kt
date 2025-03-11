@@ -23,10 +23,12 @@ class HomeUseCase @Inject constructor(private val homeRepository: HomeRepository
 
     suspend fun getUser(id:String, success:()->Unit){
         val user = homeRepository.getUser(id)
-        user?.let{
+        user.let{
             UserPrefs.setUserId(it.id)
             UserPrefs.setUserName(it.nome)
             UserPrefs.setUserEmail(it.email)
+            UserPrefs.setUserCpf(it.cpf)
+            UserPrefs.setUserPhone(it.phone)
             success()
         }
     }

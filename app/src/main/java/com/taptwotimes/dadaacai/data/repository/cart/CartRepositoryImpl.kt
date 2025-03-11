@@ -15,7 +15,7 @@ class CartRepositoryImpl:CartRepository {
 
     @Suppress("UNCHECKED_CAST")
     override suspend fun getCart(): ArrayList<FirebaseCartItem> {
-        var userId = "User"
+        var userId = UserPrefs.getUserId()!!
         UserPrefs.getUserId()?.let{
             userId = it
         }
@@ -33,7 +33,7 @@ class CartRepositoryImpl:CartRepository {
     }
 
     override suspend fun delete(id: Int) {
-        val userId = "User"
+        val userId = UserPrefs.getUserId()!!
         val cartId = "Cart"
         val cartSnapshot = usersCollection.document(userId).collection(cartId).get().await()
         val writeBatch = db.batch()
@@ -47,7 +47,7 @@ class CartRepositoryImpl:CartRepository {
     }
 
     override suspend fun clean() {
-        val userId = "User"
+        val userId = UserPrefs.getUserId()!!
         val cartId = "Cart"
         val cartSnapshot = usersCollection.document(userId).collection(cartId).get().await()
         val writeBatch = db.batch()

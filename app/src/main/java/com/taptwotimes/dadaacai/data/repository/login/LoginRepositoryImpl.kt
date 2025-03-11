@@ -24,7 +24,6 @@ import kotlin.coroutines.coroutineContext
 class LoginRepositoryImpl() : LoginRepository {
 
     private lateinit var auth: FirebaseAuth
-    val db = Firebase.firestore
 
     override suspend fun doLogin(email: String, pass: String, activity: BaseActivity, success:()->Unit, error:() -> Unit) {
         auth = Firebase.auth

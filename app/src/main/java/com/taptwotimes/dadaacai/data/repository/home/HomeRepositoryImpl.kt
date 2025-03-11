@@ -5,6 +5,7 @@ import com.example.coxinhaminha.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.taptwotimes.dadaacai.R
+import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.model.AcaiProductHome
 import com.taptwotimes.dadaacai.model.BebidasProductHome
 import com.taptwotimes.dadaacai.model.BoloProductHome
@@ -106,7 +107,7 @@ class HomeRepositoryImpl:HomeRepository {
     override suspend fun saveToCart(id: Int, product: ProductHome, toppings:ArrayList<String>){
         val cartItem = FirebaseCartItem(id, product.title, toppings, product.basePrice)
 
-        db.collection("Users").document("User").collection("Cart").add(cartItem)
+        db.collection("Users").document(UserPrefs.getUserId()!!).collection("Cart").add(cartItem)
             .addOnSuccessListener {
                 Log.d("Firestore", "DocumentSnapshot successfully written!")
             }.addOnFailureListener { e->
