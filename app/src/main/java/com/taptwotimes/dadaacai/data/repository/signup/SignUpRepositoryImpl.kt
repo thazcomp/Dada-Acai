@@ -1,5 +1,6 @@
 package com.taptwotimes.dadaacai.data.repository.signup
 
+import android.graphics.Bitmap
 import android.util.Log
 import com.example.coxinhaminha.model.User
 import com.google.android.gms.tasks.Task
@@ -8,6 +9,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import com.google.firebase.storage.storage
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.model.AcaiProductHome
@@ -19,6 +21,7 @@ import com.taptwotimes.dadaacai.model.FirebaseCartItem
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
 import kotlinx.coroutines.tasks.await
+import java.io.ByteArrayOutputStream
 
 class SignUpRepositoryImpl : SignUpRepository {
 
@@ -77,5 +80,33 @@ class SignUpRepositoryImpl : SignUpRepository {
     override suspend fun createUser(email:String, password:String, success:(AuthResult)->Unit, error:(Exception)->Unit ) {
         auth = Firebase.auth
         auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(success).addOnFailureListener(error)
+    }
+
+    override suspend fun uploadImageAndStoreURL(imageBitmap: Bitmap, documentId: String) {
+        val storage = Firebase.storage
+        val storageRef = storage.reference
+        val imagesRef = storageRef.child("images") // Criando uma pasta 'images'
+        val imageRef = imagesRef.child("$documentId.jpg") // Nome do arquivo, pode ser alterado
+
+        val baos = ByteArrayOutputStream()
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+        try {
+            val uploadTask = imageRef.putBytes(data)
+            val downloadUrl = uploadTask.await().storage.downloadUrl.await()
+
+            val db = Firebase.firestore
+            val docRef = db.collection("Users").document(documentId)
+                            .collection("Data").document("Dados")
+            val imageData = hashMapOf(
+                "photo" to downloadUrl.toString()
+            )
+            docRef.set(imageData).await()
+
+            println("Image uploaded successfully! URL: ${downloadUrl.toString()}")
+        } catch (e: Exception) {
+            println("Error uploading image: ${e.message}")
+        }
     }
 }

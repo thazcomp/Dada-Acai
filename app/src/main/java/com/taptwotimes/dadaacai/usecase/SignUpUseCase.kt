@@ -1,5 +1,6 @@
 package com.taptwotimes.dadaacai.usecase
 
+import android.graphics.Bitmap
 import com.example.coxinhaminha.model.User
 import com.google.firebase.auth.AuthResult
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
@@ -23,5 +24,9 @@ class SignUpUseCase @Inject constructor(private val signUpRepository: SignUpRepo
 
     suspend fun createUser(email:String, pass:String, success: (AuthResult) -> Unit, error: (Exception) -> Unit){
         signUpRepository.createUser(email, pass, success, error)
+    }
+
+    suspend fun savePhoto(bitmap: Bitmap, documentId:String){
+        signUpRepository.uploadImageAndStoreURL(bitmap, documentId)
     }
 }

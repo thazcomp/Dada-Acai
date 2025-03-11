@@ -1,7 +1,10 @@
 package com.taptwotimes.dadaacai.ui.address
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.activity.viewModels
 import com.example.coxinhaminha.model.User
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
@@ -48,6 +51,8 @@ class AddressActivity: BaseActivity()  {
     }
 
     private fun saveAddress(){
+        val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(UserPrefs.getUserPhoto()!!))
+        viewModel.savePhoto(bitmap)
         viewModel.saveAddress(address,
             ::goToCadDoneActivity,
             ::showError)

@@ -3,6 +3,7 @@ package com.taptwotimes.dadaacai.data.preferences
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import com.google.gson.GsonBuilder
 
 object UserPrefs {
@@ -79,7 +80,7 @@ object UserPrefs {
         return get<String>(USER_PHOTO)
     }
 
-    fun setUserPhoto(uri:String){
+    fun setUserPhoto(uri: String){
         put(uri, USER_PHOTO)
     }
 

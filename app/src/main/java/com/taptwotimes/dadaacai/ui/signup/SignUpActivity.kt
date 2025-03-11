@@ -3,6 +3,7 @@ package com.taptwotimes.dadaacai.ui.signup
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
@@ -42,6 +43,7 @@ class SignUpActivity: BaseActivity()  {
             imageUri = uri
             binding.ivFoto.setImageURI(uri)
             saveImageToFile(uri)
+            UserPrefs.setUserPhoto(uri.toString())
         }
     }
 
