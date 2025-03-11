@@ -122,7 +122,7 @@ class HomeRepositoryImpl:HomeRepository {
         val users = dataSnapshot.documents.map { dataDocument ->
             User(
                 id = dataDocument.getString("id") ?: "",
-                nome = dataDocument.getString("name") ?: "",
+                nome = dataDocument.getString("nome") ?: "",
                 email = dataDocument.getString("email") ?: "",
                 cpf = dataDocument.getString("cpf") ?: "",
                 phone = dataDocument.getString("phone") ?: ""
