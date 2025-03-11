@@ -131,4 +131,11 @@ class HomeRepositoryImpl:HomeRepository {
         val user = users[0]
         return user
     }
+
+    override suspend fun isReviwed(id: String, success: (Boolean) -> Unit) {
+        val dataSnapshot = usersCollection.document(id).get().await()
+
+        val reviwed = dataSnapshot.getBoolean("revisado") ?: false
+        success(reviwed)
+    }
 }

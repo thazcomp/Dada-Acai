@@ -1,6 +1,7 @@
 package com.taptwotimes.dadaacai.usecase
 
 import com.example.coxinhaminha.model.User
+import com.google.firebase.auth.AuthResult
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.data.repository.home.HomeRepository
 import com.taptwotimes.dadaacai.data.repository.signup.SignUpRepository
@@ -12,21 +13,15 @@ import javax.inject.Inject
 
 class SignUpUseCase @Inject constructor(private val signUpRepository: SignUpRepository) {
 
-    suspend fun getUser(id:String, success:()->Unit){
-        val user = signUpRepository.getUser(id)
-        user?.let{
-            UserPrefs.setUserId(it.id)
-            UserPrefs.setUserName(it.nome)
-            UserPrefs.setUserEmail(it.email)
-            success()
-        }
-    }
-
     suspend fun saveAddress(address: Address, success: () -> Unit, error: () -> Unit){
         signUpRepository.saveAddress(address, success, error)
     }
 
     suspend fun saveUser(user: User, success: () -> Unit, error: () -> Unit){
         signUpRepository.saveUser(user, success, error)
+    }
+
+    suspend fun createUser(email:String, pass:String, success: (AuthResult) -> Unit, error: (Exception) -> Unit){
+        signUpRepository.createUser(email, pass, success, error)
     }
 }

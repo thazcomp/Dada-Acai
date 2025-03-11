@@ -21,5 +21,4 @@ class AddressViewModel @Inject constructor(private val signupUseCase: SignUpUseC
     fun saveUser(user:User, success:()->Unit, error:()->Unit) = viewModelScope.launch {
         signupUseCase.saveUser(user, success, error)
     }
-
 }

@@ -2,7 +2,11 @@ package com.taptwotimes.dadaacai.data.repository.signup
 
 import android.util.Log
 import com.example.coxinhaminha.model.User
+import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
@@ -18,6 +22,7 @@ import kotlinx.coroutines.tasks.await
 
 class SignUpRepositoryImpl : SignUpRepository {
 
+    private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
     val usersCollection = db.collection("Users")
 
@@ -61,11 +66,16 @@ class SignUpRepositoryImpl : SignUpRepository {
             .collection(collectionId)
             .document(docId)
             .set(user)
-            .addOnSuccessListener {
+            .addOnSuccessListener{
                 success()
             }
             .addOnFailureListener {
                 error()
             }
+    }
+
+    override suspend fun createUser(email:String, password:String, success:(AuthResult)->Unit, error:(Exception)->Unit ) {
+        auth = Firebase.auth
+        auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(success).addOnFailureListener(error)
     }
 }

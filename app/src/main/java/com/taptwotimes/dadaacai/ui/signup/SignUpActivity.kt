@@ -8,21 +8,26 @@ import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
+import com.google.firebase.auth.AuthResult
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.databinding.ActivitySignupBinding
 import com.taptwotimes.dadaacai.ui.address.AddressActivity
 import com.taptwotimes.dadaacai.ui.base.BaseActivity
 import com.taptwotimes.dadaacai.util.CpfUtil
 import com.taptwotimes.dadaacai.util.Mask
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-
+@AndroidEntryPoint
 class SignUpActivity: BaseActivity()  {
 
     private lateinit var binding: ActivitySignupBinding
+    private val viewModel:SignUpViewModel by viewModels()
+
     private var nameError:Boolean = false
     private var emailError:Boolean = false
     private var passError:Boolean = false
@@ -109,7 +114,11 @@ class SignUpActivity: BaseActivity()  {
             verifyPhoto()
 
             if(!hasError()){
-                goToAdressActivity()
+                viewModel.createUser(binding.tilEmail.editText?.text.toString(),
+                                binding.tilPass.editText?.text.toString(),
+                    ::goToAdressActivity,
+                    ::showError
+                )
             }
 
         }
@@ -118,7 +127,12 @@ class SignUpActivity: BaseActivity()  {
         }
     }
 
-    private fun goToAdressActivity() {
+    private fun showError(exception: Exception) {
+
+    }
+
+    private fun goToAdressActivity(auth:AuthResult) {
+        UserPrefs.setUserId(auth.user!!.uid)
         val intent =  Intent(this, AddressActivity::class.java)
         startActivity(intent)
     }

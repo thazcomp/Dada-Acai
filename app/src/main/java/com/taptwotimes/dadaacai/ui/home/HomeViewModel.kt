@@ -109,4 +109,8 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
         homeUseCase.getUser(UserPrefs.getUserId()!!, success)
     }
 
+    fun isReviwed(success:(Boolean) -> Unit) = viewModelScope.launch{
+        homeUseCase.isReviwed(UserPrefs.getUserId()!!, success)
+    }
+
 }

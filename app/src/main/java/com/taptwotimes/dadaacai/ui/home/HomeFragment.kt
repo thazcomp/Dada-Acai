@@ -1,5 +1,6 @@
 package com.taptwotimes.dadaacai.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
 import com.taptwotimes.dadaacai.ui.base.BaseFragment
+import com.taptwotimes.dadaacai.ui.caddone.CadDoneActivity
 import com.taptwotimes.dadaacai.ui.cart.CartFragment
 import com.taptwotimes.dadaacai.ui.home.adapters.HomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,9 +40,24 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        viewModel.getHome()
 
-        binding = FragmentHomeBinding.inflate(layoutInflater)
+        viewModel.isReviwed { reviwed ->
+            if(reviwed){
+                createHomeLayout()
+            }else{
+                goToCadDoneActivity()
+            }
+        }
+        return binding.root
+    }
+
+    private fun goToCadDoneActivity() {
+        val intent =  Intent(activity, CadDoneActivity::class.java)
+        activity?.startActivity(intent)
+    }
+
+    private fun createHomeLayout() {
+        viewModel.getHome()
         observeItemHome()
 
         ProductPrefs.clear()
@@ -68,7 +85,6 @@ class HomeFragment : BaseFragment() {
         }
 
         getToppings()
-        return binding.root
     }
 
     private fun getToppings() {

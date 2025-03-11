@@ -4,7 +4,6 @@ import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.data.repository.home.HomeRepository
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
-import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
 class HomeUseCase @Inject constructor(private val homeRepository: HomeRepository) {
@@ -31,5 +30,9 @@ class HomeUseCase @Inject constructor(private val homeRepository: HomeRepository
             UserPrefs.setUserPhone(it.phone)
             success()
         }
+    }
+
+    suspend fun isReviwed(id:String, success:(Boolean) -> Unit){
+        homeRepository.isReviwed(id, success)
     }
 }
