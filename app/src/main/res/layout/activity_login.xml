@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/TextInputLayoutStyle"
     android:background="@color/white">
 
     <ImageView
@@ -28,7 +29,7 @@
         android:layout_marginStart="@dimen/login_margin_text_start"
         android:layout_marginEnd="@dimen/login_margin_text_start"
         android:layout_marginTop="@dimen/vertical_margin_logo_1"
-        app:hintTextColor="@color/black"
+        android:textColorHint="@color/grey"
         app:errorTextColor="@color/red"
         >
 
@@ -39,6 +40,7 @@
             android:inputType="textEmailAddress"
             android:textColorHint="@color/black"
             android:textSize="16sp"
+            android:textColor="@color/black"
             app:hintTextColor="@color/black" />
 
 
@@ -56,6 +58,7 @@
         android:layout_marginTop="@dimen/login_margin_edit_top"
         app:hintTextColor="@color/black"
         app:errorEnabled="true"
+        android:textColorHint="@color/grey"
         app:errorTextColor="@color/red"
         app:endIconMode="password_toggle"
         >
@@ -65,6 +68,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:hint="@string/senha"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             app:hintTextColor="@color/black"
             android:inputType="textPassword"

@@ -104,6 +104,7 @@
             app:errorEnabled="true"
             app:errorTextColor="@color/red"
             app:hintTextColor="@color/black"
+            android:textColorHint="@color/grey"
             app:layout_constraintTop_toBottomOf="@id/ivFoto">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -111,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
                 android:inputType="text"
+                android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="16sp"
                 app:hintTextColor="@color/black" />
@@ -128,6 +130,7 @@
             app:errorEnabled="true"
             app:endIconMode="password_toggle"
             app:errorTextColor="@color/red"
+            android:textColorHint="@color/grey"
             app:hintTextColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/tilName">
 
@@ -138,6 +141,7 @@
                 android:inputType="textPassword"
                 android:textColorHint="@color/black"
                 android:textSize="16sp"
+                android:textColor="@color/black"
                 app:hintTextColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,6 +156,7 @@
             android:includeFontPadding="false"
             app:errorEnabled="true"
             app:errorTextColor="@color/red"
+            android:textColorHint="@color/grey"
             app:hintTextColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/tilPass">
 
@@ -161,6 +166,7 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/black"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:hintTextColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -177,6 +183,7 @@
             android:includeFontPadding="false"
             app:errorEnabled="true"
             app:errorTextColor="@color/red"
+            android:textColorHint="@color/grey"
             app:hintTextColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/tilEmail">
 
@@ -187,6 +194,7 @@
                 android:inputType="number"
                 android:textColorHint="@color/black"
                 android:textSize="16sp"
+                android:textColor="@color/black"
                 app:hintTextColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -201,6 +209,7 @@
             android:includeFontPadding="false"
             app:errorEnabled="true"
             app:errorTextColor="@color/red"
+            android:textColorHint="@color/grey"
             app:hintTextColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/tilCpf">
 
@@ -210,6 +219,7 @@
                 android:hint="@string/telefone"
                 android:inputType="phone"
                 android:textColorHint="@color/black"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:hintTextColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>

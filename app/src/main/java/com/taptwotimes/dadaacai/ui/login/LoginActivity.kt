@@ -30,7 +30,11 @@ class LoginActivity : BaseActivity() {
     }
 
     fun isValidEmail(target: CharSequence?): Boolean {
-        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+        target?.let{
+            return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+        }?:run{
+            return false
+        }
     }
 
     private fun setButtonsClickListener() {
