@@ -20,9 +20,6 @@ class SplashActivity: BaseActivity(){
 
     private lateinit var binding:ActivitySplashBinding
 
-    private val STORAGE_PERMISSION_CODE = 101
-    private val LOCATION_PERMISSION_CODE = 102
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,53 +29,11 @@ class SplashActivity: BaseActivity(){
         playSound(R.raw.som_double_click, 850)
         playSound(R.raw.som_magic_shine, 2400)
 
-        requestStoragePermission()
-    }
-
-    private fun requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), STORAGE_PERMISSION_CODE)
-        }else{
-            requestLocationPermission()
+        val animation:AnimationDrawable = binding.ivSplash.background as AnimationDrawable
+        animation.start().also {
+            goToMainActivity()
         }
     }
-
-    private fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_PERMISSION_CODE)
-        }else{
-            val animation:AnimationDrawable = binding.ivSplash.background as AnimationDrawable
-            animation.start().also {
-                goToMainActivity()
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
-            STORAGE_PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    requestLocationPermission()
-                } else {
-                    requestStoragePermission()
-                }
-            }
-            LOCATION_PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    val animation:AnimationDrawable = binding.ivSplash.background as AnimationDrawable
-                    animation.start().also {
-                        goToMainActivity()
-                    }
-                }else{
-                    requestLocationPermission()
-                }
-            }
-        }
-    }
-
 
     private fun goToMainActivity() {
         val handler = Handler(this@SplashActivity.mainLooper)
@@ -94,6 +49,5 @@ class SplashActivity: BaseActivity(){
     override fun onBackPressed() {
 
     }
-
 
 }
