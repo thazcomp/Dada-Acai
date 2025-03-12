@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Dada Acai</string>
     <string name="content_description_acai_logo">Açaí Mania - Logo da Marca: Dinheiro não compra felicidade, mas compra Açaí.</string>
-    <string name="email">Email:</string>
+    <string name="email">Email</string>
     <string name="email_hint">usuario@email.com</string>
     <string name="senha">Senha</string>
     <string name="pass_hint">********</string>
@@ -20,13 +20,28 @@
     <string name="total16">Total: R$16,00</string>
     <string name="total14">Total: R$14,00</string>
     <string name="name_hint">João da Silva Sauro</string>
-    <string name="name">Nome:</string>
-    <string name="cpf">Cpf:</string>
+    <string name="name">Nome</string>
+    <string name="cpf">Cpf</string>
     <string name="cpf_hint">000.000.000-00</string>
-    <string name="telefone">Telefone:</string>
+    <string name="telefone">Telefone</string>
     <string name="telefone_hint">(53)99999-9999</string>
     <string name="nav_open">Menu Aberto</string>
     <string name="nav_close">Menu Fechado</string>
     <string name="r_0_00">+R$0,00</string>
     <string name="r_2_00">+R$2,00</string>
+    <string name="senha_hint">************</string>
+    <string name="rua">Rua:</string>
+    <string name="rua_hint">Rua Julio de Castilhos</string>
+    <string name="numero">Número:</string>
+    <string name="numero_hint">89</string>
+    <string name="clique_para_adicionar">Clique para Adicionar</string>
+    <string name="sim">Sim</string>
+    <string name="n_o">Não</string>
+    <string name="cad_done_title">Recebemos os seus dados de cadastro. Você receberá uma notificação assim que seu cadastro for concluído.</string>
+    <string name="insira_os_seus_dados_de_endere_o_para_o_cadastro">Insira os seus dados de endereço para o cadastro:</string>
+    <string name="ser_o_aceitos_apenas_endere_os_da_cidade_de_npedro_os_rio">Serão aceitos apenas endereços da cidade de:\nPedro Osório</string>
+    <string name="bairro">Bairro</string>
+    <string name="n_mero">Número</string>
+    <string name="complemento">Complemento</string>
+    <string name="adicionar_endere_o">Adicionar Endereço</string>
 </resources>

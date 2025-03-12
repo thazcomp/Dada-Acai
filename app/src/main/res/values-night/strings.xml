@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="content_description_acai_logo">Açaí Mania - Logo da Marca: Dinheiro não compra felicidade, mas compra Açaí.</string>
-    <string name="email_hint">usuario@email.com</string>
-    <string name="senha">Senha</string>
-    <string name="pass_hint">********</string>
-    <string name="login_button_text">Entrar</string>
-    <string name="criar_conta">Criar conta</string>
-    <string name="esqueceu_senha">Esqueceu a senha?</string>
-    <string name="name">Nome:</string>
-    <string name="cpf">000.000.000-00</string>
-    <string name="telefone">Telefone:</string>
-    <string name="telefone_hint">(53)99999-9999</string>
-    <string name="nav_open">Menu Aberto</string>
-    <string name="nav_close">Menu Fechado</string>
-    <string name="r_0_00">+R$0,00</string>
+    <string name="app_name">Dada Acai</string>
+
 </resources>

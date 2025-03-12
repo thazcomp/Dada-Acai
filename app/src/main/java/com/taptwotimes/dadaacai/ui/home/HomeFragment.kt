@@ -1,107 +1,205 @@
 package com.taptwotimes.dadaacai.ui.home
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.taptwotimes.dadaacai.R
+import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
 import com.taptwotimes.dadaacai.databinding.FragmentHomeBinding
-import com.taptwotimes.dadaacai.model.ItemHome
-import com.taptwotimes.dadaacai.model.Options
+import com.taptwotimes.dadaacai.model.AcaiProductHome
+import com.taptwotimes.dadaacai.model.BebidasProductHome
+import com.taptwotimes.dadaacai.model.BoloProductHome
+import com.taptwotimes.dadaacai.model.CrepeProductHome
+import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
+import com.taptwotimes.dadaacai.ui.base.BaseFragment
+import com.taptwotimes.dadaacai.ui.caddone.CadDoneActivity
+import com.taptwotimes.dadaacai.ui.cart.CartFragment
 import com.taptwotimes.dadaacai.ui.home.adapters.HomeAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeFragment : Fragment() {
+@AndroidEntryPoint
+class HomeFragment : BaseFragment() {
+    private lateinit var binding: FragmentHomeBinding
+    private var topOptions: ArrayList<Topping> = arrayListOf()
+    private var bottomOptions: ArrayList<Topping> = arrayListOf()
+    private var position = 0
 
-    private lateinit var binding:FragmentHomeBinding
-    private lateinit var layoutManager: RecyclerView.LayoutManager
-    private lateinit var adapter:RecyclerView.Adapter<HomeAdapter.ItemHomeViewHolder>
-    private lateinit var itemList:ArrayList<ItemHome>
-    private var position:Boolean = false
+    private val viewModel: HomeViewModel by viewModels()
 
-    fun createItemList(){
-        activity?.let{
-            itemList = arrayListOf<ItemHome>()
-            itemList.add(
-                ItemHome(
-                    "Açaí Mania",
-                    "Refresque o seu dia com o melhor Açaí da cidade!",
-                    arrayListOf<Options>(
-                        Options("Topping 1:", arrayListOf<Topping>(
-                            Topping("Leite Condensado", 0.00)
-                        )),
-                        Options("Topping 2:", arrayListOf<Topping>(
-                            Topping("Morango", 0.00)
-                        )),
-                        Options("Topping 1:", arrayListOf<Topping>(
-                            Topping("Paçoca", 0.00)
-                        ))
-                    ),
-                    AppCompatResources.getDrawable(it, R.drawable.acai1),
-                    15.00
-                ),
-
-            )
-
-            itemList.add(
-                ItemHome(
-                    "Crepe Mania",
-                    "Subtitulo!!",
-                    arrayListOf<Options>(
-                        Options("Recheio:", arrayListOf<Topping>(
-                            Topping("Presunto e Queijo", 0.00)
-                        )),
-                        Options("B. Recheadas:", arrayListOf<Topping>(
-                            Topping("B. Recheadas: Sim", 5.00)
-                        ))
-                    ),
-                    AppCompatResources.getDrawable(it, R.drawable.crepe),
-                    15.00
-                ),
-
-                )
-        }
-    }
+    private var selectedProduct: ProductHome? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        createItemList()
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        binding.rvRecycler.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = HomeAdapter(itemList)
-            set3DItem(false)
-            setIntervalRatio(.7f)
-            setOrientation(RecyclerView.HORIZONTAL)
+
+        viewModel.isReviwed { reviwed ->
+            if(reviwed){
+                createHomeLayout()
+            }else{
+                goToCadDoneActivity()
+            }
         }
+        return binding.root
+    }
+
+    private fun goToCadDoneActivity() {
+        val intent =  Intent(activity, CadDoneActivity::class.java)
+        activity?.startActivity(intent)
+    }
+
+    private fun createHomeLayout() {
+        viewModel.getHome()
+        observeItemHome()
+
+        ProductPrefs.clear()
 
         binding.ivEsquerda.setOnClickListener {
-            if(position){
-                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(0)
-                position = false
-            }else{
-                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(1)
-                position = true
-            }
+            if (position > 0) position--
+            binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(position)
+
+            topOptions.clear()
+            bottomOptions.clear()
+            viewModel.clearTopOptions()
+            viewModel.clearBottomOptions()
+            getToppings()
         }
 
         binding.ivDireita.setOnClickListener {
-            if(position){
-                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(0)
-                position = false
-            }else{
-                binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(1)
-                position = true
+            if (position < 3) position++
+            binding.rvRecycler.getCarouselLayoutManager().scrollToPosition(position)
+
+            topOptions.clear()
+            bottomOptions.clear()
+            viewModel.clearTopOptions()
+            viewModel.clearBottomOptions()
+            getToppings()
+        }
+
+        getToppings()
+    }
+
+    private fun getToppings() {
+        when (position) {
+            0 -> { createAcaiToppings() }
+            1 -> { createCrepeToppings() }
+            2 -> {}
+            3 -> {}
+        }
+    }
+
+    private fun createAcaiToppings() {
+        topOptions.clear()
+        bottomOptions.clear()
+        viewModel.clearTopOptions()
+        viewModel.clearBottomOptions()
+        createToppingList("Acai", "Coberturas", "Cobertura", "Frutas")
+    }
+
+    private fun createBoloToppings() {
+        topOptions.clear()
+        bottomOptions.clear()
+        viewModel.clearTopOptions()
+        viewModel.clearBottomOptions()
+    }
+
+    private fun createBebidasToppings() {
+        topOptions.clear()
+        bottomOptions.clear()
+        viewModel.clearTopOptions()
+        viewModel.clearBottomOptions()
+    }
+
+    private fun createCrepeToppings() {
+        topOptions.clear()
+        bottomOptions.clear()
+        viewModel.clearTopOptions()
+        viewModel.clearBottomOptions()
+        createToppingList("Crepes", "Recheios", "Salgados", "Doces")
+    }
+
+    private fun observeItemHome() {
+
+        viewModel.topOptions.observe(viewLifecycleOwner) { response ->
+            topOptions.addAll(response)
+        }
+
+        viewModel.bottomOptions.observe(viewLifecycleOwner) { response ->
+            bottomOptions.addAll(response)
+        }
+
+        val myLinearLayoutManager = object : LinearLayoutManager(activity) {
+            override fun canScrollHorizontally(): Boolean {
+                return false
             }
         }
 
+        viewModel.home.observe(viewLifecycleOwner) { response ->
+            binding.rvRecycler.apply {
 
-        return binding.root
+                val acai = response.get(0) as AcaiProductHome
+                val bebidas = response.get(1) as BebidasProductHome
+                val bolo = response.get(2) as BoloProductHome
+                val crepe = response.get(3) as CrepeProductHome
+                val list = arrayListOf<ProductHome>()
+                list.add(0, acai)
+                list.add(1, crepe)
+                list.add(2, bolo)
+                list.add(3, bebidas)
+
+                layoutManager = myLinearLayoutManager
+                adapter = HomeAdapter(
+                    context,
+                    activity?.supportFragmentManager,
+                    viewModel,
+                    viewLifecycleOwner,
+                    list,
+                    topOptions,
+                    bottomOptions
+                )
+                set3DItem(false)
+                setIntervalRatio(.7f)
+                setIsScrollingEnabled(false)
+                setOrientation(RecyclerView.HORIZONTAL)
+            }
+            selectedProduct = response[0]
+
+            when (selectedProduct) {
+                is AcaiProductHome -> {
+                    createAcaiToppings()
+                }
+
+                is CrepeProductHome -> {
+                    createCrepeToppings()
+                }
+
+                is BoloProductHome -> {
+                    createBoloToppings()
+                }
+
+                is BebidasProductHome -> {
+                    createBebidasToppings()
+                }
+            }
+        }
+
+    }
+
+    private fun createToppingList(
+        id: String,
+        name: String,
+        topCategory: String,
+        bottomCategory: String
+    ) {
+        viewModel.getTopOptions(id, name, topCategory)
+        viewModel.getBottomOptions(id, name, bottomCategory)
     }
 }

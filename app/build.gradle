@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.plugin.serialization'
     id("com.google.gms.google-services")
     id("com.google.dagger.hilt.android")
 }
@@ -80,6 +81,8 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.android.gms:play-services-auth:21.3.0")
+    implementation 'com.google.firebase:firebase-firestore-ktx:25.1.2'
+    implementation("com.google.firebase:firebase-storage-ktx")
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.16.0'
@@ -92,6 +95,11 @@ dependencies {
 
     //google button color change
     implementation 'com.github.shobhitpuri:custom-google-signin-button:2.0.0'
+
+    implementation 'androidx.fragment:fragment-ktx:1.8.6'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+
+    <item
+        android:duration="100"
+        android:drawable="@drawable/ssevai_000"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_001"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_002"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_003"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_004"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_005"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_006"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_007"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_008"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_009"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_010"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_011"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_012"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_013"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_014"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_015"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_016"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_017"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_018"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_019"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_020"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_021"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_022"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_023"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_024"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_025"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_026"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_027"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_028"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_029"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_030"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_031"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_032"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_033"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_034"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_035"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_036"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_037"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_038"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_039"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_040"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_041"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_042"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_043"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_044"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_045"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_046"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_047"/>
+
+    <item
+        android:duration="75"
+        android:drawable="@drawable/ssevai_048"/>
+
+</animation-list>

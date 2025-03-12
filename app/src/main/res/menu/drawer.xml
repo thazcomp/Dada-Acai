@@ -10,6 +10,9 @@
         <item
             android:id="@+id/pedidos_nav_menu"
             android:title="Pedidos" />
+        <item
+            android:id="@+id/fale_nav_menu"
+            android:title="Fale Com a Gente" />
     </group>
 
     <item
