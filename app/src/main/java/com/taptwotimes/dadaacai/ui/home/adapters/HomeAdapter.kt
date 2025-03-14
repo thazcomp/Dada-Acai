@@ -5,9 +5,13 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
@@ -16,6 +20,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
 import com.taptwotimes.dadaacai.databinding.ItemHomeBinding
@@ -230,7 +235,8 @@ class HomeAdapter(
             adapter = CategoryAdapter(
                 list,
                 viewModel,
-                item
+                item,
+                ::animateCopinho
             )
             setRecyclerView(recycler, adapter)
 
@@ -265,7 +271,8 @@ class HomeAdapter(
             adapter = CategoryAdapter(
                 list,
                 viewModel,
-                item
+                item,
+                ::animateCopinho
             )
 
             setRecyclerView(recycler, adapter)
@@ -295,71 +302,63 @@ class HomeAdapter(
             acaiAlertDialog?.show()
         }
 
-//        private fun createCheckboxListener(
-//            product: ProductHome,
-//            context: Context,
-//            copo: ImageView
-//        ): MaterialCheckBox.OnCheckedStateChangedListener {
-//            return MaterialCheckBox.OnCheckedStateChangedListener { checkBox, state ->
-//                if (checkBox.isChecked) {
-//                    if (selectionCounter < maxCounter) {
-//                        selectionCounter++
-//                        if (product is AcaiProductHome) {
-//                            animateCopinho(copo, context)
-//                        } else {
-//                            copo.visibility = View.GONE
-//                        }
-//                    }
-//                } else {
-//                    if (selectionCounter > 0) {
-//                        selectionCounter--
-//                        if (product is AcaiProductHome) {
-//                            animateCopinho(copo, context)
-//                        } else {
-//                            copo.visibility = View.GONE
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        private fun animateCopinho(copo: ImageView, context: Context) {
-//            when (selectionCounter) {
-//                0 -> {
-//                    copo.visibility = View.GONE
-//                }
-//
-//                1 -> {
-//                    copo.visibility = View.VISIBLE
-//                    Glide.with(context)
-//                        .load(context.getDrawable(R.drawable.copinho_parte_baixo))
-//                        .into(copo)
-//                }
-//
-//                2 -> {
-//                    copo.visibility = View.VISIBLE
-//                    Glide.with(context)
-//                        .load(context.getDrawable(R.drawable.copinho_parte_meio))
-//                        .into(copo)
-//                }
-//
-//                3 -> {
-//                    copo.visibility = View.VISIBLE
-//                    Glide.with(context)
-//                        .load(context.getDrawable(R.drawable.copinho_parte_topo))
-//                        .into(copo)
-//                }
-//            }
-//            playSound(R.raw.plaft, 0)
-//        }
-//
-//        fun playSound(sound: Int, time: Long) {
-//            val handler = Handler(context.mainLooper)
-//            handler.postDelayed({
-//                player = MediaPlayer.create(context, sound)
-//                player.start()
-//            }, time)
-//        }
+        private fun animateCopinho(selectionCounter:Int) {
+            val copo = dialogView.findViewById<ImageView>(R.id.ivCopinho)
+            when (selectionCounter) {
+                0 -> {
+                    copo.visibility = View.GONE
+                }
+
+                1 -> {
+                    Glide.with(context)
+                        .load(context.getDrawable(R.drawable.copinho_parte_baixo))
+                        .into(copo)
+                    copo.visibility = View.VISIBLE
+                    fadeOutAndHideImage(copo)
+                }
+
+                2 -> {
+                    Glide.with(context)
+                        .load(context.getDrawable(R.drawable.copinho_parte_meio))
+                        .into(copo)
+                    copo.visibility = View.VISIBLE
+                    fadeOutAndHideImage(copo)
+                }
+
+                3 -> {
+                    Glide.with(context)
+                        .load(context.getDrawable(R.drawable.copinho_parte_topo))
+                        .into(copo)
+                    copo.visibility = View.VISIBLE
+                    fadeOutAndHideImage(copo)
+                }
+            }
+        }
+
+        private fun fadeOutAndHideImage(img: ImageView) {
+            val fadeOut = AlphaAnimation(1F, 0F)
+            fadeOut.setInterpolator(AccelerateInterpolator())
+            fadeOut.setDuration(1000)
+
+            fadeOut.setAnimationListener(object: Animation.AnimationListener {
+                override fun onAnimationEnd(animation:Animation) {
+                    img.setVisibility(View.GONE)
+                }
+                override fun onAnimationRepeat(animation:Animation) {}
+                override  fun onAnimationStart(animation:Animation) {
+                    playSound(R.raw.plaft, 0)
+                }
+            })
+            img.startAnimation(fadeOut)
+        }
+
+        fun playSound(sound: Int, time: Long) {
+            val handler = Handler(context.mainLooper)
+            handler.postDelayed({
+                player = MediaPlayer.create(context, sound)
+                player.start()
+            }, time)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHomeViewHolder {

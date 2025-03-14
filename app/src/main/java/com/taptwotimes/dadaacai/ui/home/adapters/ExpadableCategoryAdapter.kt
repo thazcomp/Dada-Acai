@@ -1,7 +1,9 @@
 package com.taptwotimes.dadaacai.ui.home.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
 import com.taptwotimes.dadaacai.databinding.CustomToppingBinding
@@ -15,14 +17,16 @@ class ExpadableCategoryAdapter(
     open val toppings: ArrayList<Topping>,
     open val viewModel:HomeViewModel,
     open val product:ProductHome,
-    open val refresh: () -> Unit
+    open val refresh: () -> Unit,
+    open val animateCopinho:(selectionCounter:Int) -> Unit
 ): RecyclerView.Adapter<ExpadableCategoryAdapter.InnerViewHolder>() {
 
     class InnerViewHolder(
         open val refresh: () -> Unit,
         open val product: ProductHome,
         open val binding: CustomToppingBinding,
-        open val viewModel: HomeViewModel
+        open val viewModel: HomeViewModel,
+        open val animateCopinho:(selectionCounter:Int) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -92,14 +96,17 @@ class ExpadableCategoryAdapter(
             if (!ProductPrefs.hasAcaiTopping1()) {
                 ProductPrefs.setAcaiTopping1(item)
                 viewModel.setSelectedAcaiTopping1(item)
+                animateCopinho(1)
             } else {
                 if (!ProductPrefs.hasAcaiTopping2()) {
                     ProductPrefs.setAcaiTopping2(item)
                     viewModel.setSelectedAcaiTopping2(item)
+                    animateCopinho(2)
                 } else {
                     if (!ProductPrefs.hasAcaiTopping3()) {
                         ProductPrefs.setAcaiTopping3(item)
                         viewModel.setSelectedAcaiTopping3(item)
+                        animateCopinho(3)
                         refresh()
                     }
                 }
@@ -110,11 +117,14 @@ class ExpadableCategoryAdapter(
         fun removeAcaiTopping(item: Topping) {
             if (ProductPrefs.hasAcaiTopping3()) {
                 removeAcaiTopping3(item)
+                animateCopinho(2)
             }else{
                 if (ProductPrefs.hasAcaiTopping2()) {
                     removeAcaiTopping2(item)
+                    animateCopinho(1)
                 } else {
                     removeAcaiTopping1(item)
+                    animateCopinho(0)
                 }
             }
             ProductPrefs.decreaseAcaiSelectionCounter()
@@ -218,7 +228,7 @@ class ExpadableCategoryAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerViewHolder {
         val binding =
             CustomToppingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return InnerViewHolder(refresh, product, binding, viewModel)
+        return InnerViewHolder(refresh, product, binding, viewModel, animateCopinho)
     }
 
     override fun getItemCount(): Int {

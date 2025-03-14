@@ -1,8 +1,10 @@
 package com.taptwotimes.dadaacai.ui.home.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.taptwotimes.dadaacai.R
@@ -20,13 +22,15 @@ class CategoryAdapter(
     open val list: ArrayList<CategoryItem>,
     open val viewModel: HomeViewModel,
     open val product: ProductHome,
+    open val animateCopinho:(selectionCounter:Int) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ToppingViewHolder>() {
 
     class ToppingViewHolder(
         open val refresh: () -> Unit,
         open val product: ProductHome,
         open val binding: ExpandableSelectToppingBinding,
-        open val viewModel: HomeViewModel
+        open val viewModel: HomeViewModel,
+        open val animateCopinho:(selectionCounter:Int) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -36,7 +40,8 @@ class CategoryAdapter(
                 item.toppings,
                 viewModel,
                 product,
-                refresh
+                refresh,
+                animateCopinho
             )
             binding.rvCategoria.apply {
                 layoutManager = LinearLayoutManager(context)
@@ -61,7 +66,7 @@ class CategoryAdapter(
             ExpandableSelectToppingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ToppingViewHolder({
             notifyDataSetChanged()
-        }, product, binding, viewModel)
+        }, product, binding, viewModel, animateCopinho)
     }
 
     override fun getItemCount(): Int {
