@@ -91,15 +91,15 @@ class ExpadableCategoryAdapter(
         fun addAcaiTopping(item: Topping) {
             if (!ProductPrefs.hasAcaiTopping1()) {
                 ProductPrefs.setAcaiTopping1(item)
-                viewModel.setSelectedAcaiTopping1()
+                viewModel.setSelectedAcaiTopping1(item)
             } else {
                 if (!ProductPrefs.hasAcaiTopping2()) {
                     ProductPrefs.setAcaiTopping2(item)
-                    viewModel.setSelectedAcaiTopping2()
+                    viewModel.setSelectedAcaiTopping2(item)
                 } else {
                     if (!ProductPrefs.hasAcaiTopping3()) {
                         ProductPrefs.setAcaiTopping3(item)
-                        viewModel.setSelectedAcaiTopping3()
+                        viewModel.setSelectedAcaiTopping3(item)
                         refresh()
                     }
                 }
@@ -109,24 +109,62 @@ class ExpadableCategoryAdapter(
 
         fun removeAcaiTopping(item: Topping) {
             if (ProductPrefs.hasAcaiTopping3()) {
-                ProductPrefs.setAcaiTopping3(null)
-                viewModel.setSelectedAcaiTopping3()
-                refresh()
-            } else {
+                removeAcaiTopping3(item)
+            }else{
                 if (ProductPrefs.hasAcaiTopping2()) {
-                    ProductPrefs.setAcaiTopping2(null)
-                    viewModel.setSelectedAcaiTopping2()
+                    removeAcaiTopping2(item)
                 } else {
-                    if (ProductPrefs.hasAcaiTopping1()) {
-                        ProductPrefs.setAcaiTopping1(null)
-                        viewModel.setSelectedAcaiTopping1()
-                    }
+                    removeAcaiTopping1(item)
                 }
             }
-            item.isChecked = false
             ProductPrefs.decreaseAcaiSelectionCounter()
         }
 
+        private fun removeAcaiTopping3(item:Topping) {
+            if(ProductPrefs.getAcaiTopping3()!!.name == item.name){
+                ProductPrefs.setAcaiTopping3(null)
+                viewModel.clearSelectedAcaiTopping3()
+            }else if(ProductPrefs.hasAcaiTopping2()) {
+                if(ProductPrefs.getAcaiTopping2()!!.name == item.name){
+                    ProductPrefs.setAcaiTopping2(null)
+                    viewModel.clearSelectedAcaiTopping2()
+                }
+            }else if(ProductPrefs.hasAcaiTopping1()) {
+                if(ProductPrefs.getAcaiTopping1()!!.name == item.name){
+                    ProductPrefs.setAcaiTopping1(null)
+                    viewModel.clearSelectedAcaiTopping1()
+                }
+            }
+            item.isChecked = false
+            refresh()
+        }
+
+        private fun removeAcaiTopping2(item:Topping) {
+            if(ProductPrefs.hasAcaiTopping2()) {
+                if(ProductPrefs.getAcaiTopping2()!!.name == item.name){
+                    ProductPrefs.setAcaiTopping2(null)
+                    viewModel.clearSelectedAcaiTopping2()
+                }
+            }else if(ProductPrefs.hasAcaiTopping1()) {
+                if(ProductPrefs.getAcaiTopping1()!!.name == item.name){
+                    ProductPrefs.setAcaiTopping1(null)
+                    viewModel.clearSelectedAcaiTopping1()
+                }
+            }
+            item.isChecked = false
+            refresh()
+        }
+
+        private fun removeAcaiTopping1(item:Topping) {
+            if(ProductPrefs.hasAcaiTopping1()) {
+                if(ProductPrefs.getAcaiTopping1()!!.name == item.name){
+                    ProductPrefs.setAcaiTopping1(null)
+                    viewModel.clearSelectedAcaiTopping1()
+                }
+            }
+            item.isChecked = false
+            refresh()
+        }
 
         fun addCrepeTopping(item: Topping) {
             if (!ProductPrefs.hasCrepeTopping1()) {
@@ -144,17 +182,36 @@ class ExpadableCategoryAdapter(
 
         fun removeCrepeTopping(item: Topping) {
             if (ProductPrefs.hasCrepeTopping2()) {
-                ProductPrefs.setCrepeTopping2(null)
-                viewModel.setSelectedCrepeTopping2()
-                refresh()
+                removeCrepeTopping2(item)
             } else {
-                if (ProductPrefs.hasCrepeTopping1()) {
+                removeCrepeTopping1(item)
+            }
+            ProductPrefs.decreaseCrepeSelectionCounter()
+        }
+
+        private fun removeCrepeTopping1(item: Topping) {
+            if (ProductPrefs.hasCrepeTopping1()) {
+                if(ProductPrefs.getCrepeTopping1()!!.name == item.name){
                     ProductPrefs.setCrepeTopping1(null)
-                    viewModel.setSelectedCrepeTopping1()
+                    viewModel.clearSelectedCrepeTopping1()
                 }
             }
             item.isChecked = false
-            ProductPrefs.decreaseCrepeSelectionCounter()
+            refresh()
+        }
+
+        private fun removeCrepeTopping2(item: Topping) {
+            if(ProductPrefs.getCrepeTopping2()!!.name == item.name){
+                ProductPrefs.setCrepeTopping2(null)
+                viewModel.clearSelectedCrepeTopping2()
+            }else if (ProductPrefs.hasCrepeTopping1()) {
+                if(ProductPrefs.getCrepeTopping1()!!.name == item.name){
+                    ProductPrefs.setCrepeTopping1(null)
+                    viewModel.clearSelectedCrepeTopping1()
+                }
+            }
+            item.isChecked = false
+            refresh()
         }
     }
 

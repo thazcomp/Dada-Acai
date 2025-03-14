@@ -96,6 +96,14 @@ class HomeAdapter(
             }
 
             binding.clCard1.setOnClickListener {
+                when(item){
+                    is AcaiProductHome -> {
+                        createAcaiCustomAlertDialog(context, topList, bottomList, item)
+                    }
+                    is CrepeProductHome -> {
+                        createCrepeCustomAlertDialog(context, topList, bottomList, item)
+                    }
+                }
                 showCustomAlertDialog()
             }
 

@@ -44,28 +44,36 @@ class HomeViewModel @Inject constructor(private val homeUseCase: HomeUseCase): V
         _home.value = homeUseCase.getHome()
     }
 
-    fun setSelectedAcaiTopping1() = viewModelScope.launch {
-        ProductPrefs.getAcaiTopping1()?.let{
-            _selectedAcaiTopping1.value = it
-        }?:run{
-            _selectedAcaiTopping1.value = null
-        }
+    fun setSelectedAcaiTopping1(item:Topping) = viewModelScope.launch {
+        _selectedAcaiTopping1.value = item
     }
 
-    fun setSelectedAcaiTopping2() = viewModelScope.launch {
-        ProductPrefs.getAcaiTopping2()?.let{
-            _selectedAcaiTopping2.value = it
-        }?:run{
-            _selectedAcaiTopping2.value = null
-        }
+    fun setSelectedAcaiTopping2(item:Topping) = viewModelScope.launch {
+        _selectedAcaiTopping2.value = item
     }
 
-    fun setSelectedAcaiTopping3() = viewModelScope.launch {
-        ProductPrefs.getAcaiTopping3()?.let{
-            _selectedAcaiTopping3.value = it
-        }?:run{
-            _selectedAcaiTopping3.value = null
-        }
+    fun setSelectedAcaiTopping3(item: Topping) = viewModelScope.launch {
+        _selectedAcaiTopping3.value = item
+    }
+
+    fun clearSelectedAcaiTopping3()  = viewModelScope.launch {
+        _selectedAcaiTopping3.value = null
+    }
+
+    fun clearSelectedAcaiTopping2()  = viewModelScope.launch {
+        _selectedAcaiTopping2.value = null
+    }
+
+    fun clearSelectedAcaiTopping1()  = viewModelScope.launch {
+        _selectedAcaiTopping1.value = null
+    }
+
+    fun clearSelectedCrepeTopping2()  = viewModelScope.launch {
+        _selectedCrepeTopping2.value = null
+    }
+
+    fun clearSelectedCrepeTopping1()  = viewModelScope.launch {
+        _selectedCrepeTopping1.value = null
     }
 
     fun setSelectedCrepeTopping1() = viewModelScope.launch {
