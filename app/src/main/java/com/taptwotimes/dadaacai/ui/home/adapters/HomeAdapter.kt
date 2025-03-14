@@ -258,10 +258,9 @@ class HomeAdapter(
             builder = AlertDialog.Builder(context)
             val inflater =
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            dialogView = inflater.inflate(R.layout.custom_select_topping, null)
+            dialogView = inflater.inflate(R.layout.custom_select_topping, binding.root)
 
             val recycler = dialogView.findViewById<RecyclerView>(R.id.rvCategoria)
-            val copo = dialogView.findViewById<ImageView>(R.id.ivCopo)
             val btOk = dialogView.findViewById<AppCompatButton>(R.id.btOk)
 
             var adapter: CategoryAdapter? = null
