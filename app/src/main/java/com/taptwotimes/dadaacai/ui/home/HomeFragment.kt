@@ -129,11 +129,23 @@ class HomeFragment : BaseFragment() {
     private fun observeItemHome() {
 
         viewModel.topOptions.observe(viewLifecycleOwner) { response ->
-            topOptions.addAll(response)
+            val auxList = arrayListOf<Topping>()
+            for(r in response){ //Verifica dados duplicados
+                if(!topOptions.contains(r)){
+                    auxList.add(r)
+                }
+            }
+            topOptions.addAll(auxList)
         }
 
         viewModel.bottomOptions.observe(viewLifecycleOwner) { response ->
-            bottomOptions.addAll(response)
+            val auxList = arrayListOf<Topping>()
+            for(r in response){ //Verifica dados duplicados
+                if(!bottomOptions.contains(r)){
+                    auxList.add(r)
+                }
+            }
+            bottomOptions.addAll(auxList)
         }
 
         val myLinearLayoutManager = object : LinearLayoutManager(activity) {

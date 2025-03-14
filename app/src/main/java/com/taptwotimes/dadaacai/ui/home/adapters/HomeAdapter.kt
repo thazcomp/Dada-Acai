@@ -22,6 +22,7 @@ import com.taptwotimes.dadaacai.databinding.ItemHomeBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
 import com.taptwotimes.dadaacai.model.BebidasProductHome
 import com.taptwotimes.dadaacai.model.BoloProductHome
+import com.taptwotimes.dadaacai.model.CategoryItem
 import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
@@ -211,33 +212,19 @@ class HomeAdapter(
             dialogView = inflater.inflate(R.layout.custom_select_topping, null)
 
             // Customizando o AlertDialog
-            val title = dialogView.findViewById<TextView>(R.id.tvTitle)
-            val sub = dialogView.findViewById<TextView>(R.id.tvCategoria)
-            val sub2 = dialogView.findViewById<TextView>(R.id.tvCategoria2)
             val recycler = dialogView.findViewById<RecyclerView>(R.id.rvCategoria)
-            val recycler2 = dialogView.findViewById<RecyclerView>(R.id.rvCategoria2)
             val copo = dialogView.findViewById<ImageView>(R.id.ivCopo)
             val btOk = dialogView.findViewById<AppCompatButton>(R.id.btOk)
 
-            var adapterTop: CategoryAdapter? = null
-            var adapterBottom: CategoryAdapter? = null
+            var adapter: CategoryAdapter? = null
+            val list = arrayListOf(CategoryItem("Coberturas", topList), CategoryItem("Frutas", bottomList))
 
-            title.text = "Toppings"
-            sub.text = "Coberturas"
-            sub2.text = "Frutas"
-
-            adapterTop = CategoryAdapter(
-                topList,
+            adapter = CategoryAdapter(
+                list,
                 viewModel,
                 item
             )
-            adapterBottom = CategoryAdapter(
-                bottomList,
-                viewModel,
-                item
-            )
-
-            setRecyclerView(recycler, recycler2, adapterTop, adapterBottom)
+            setRecyclerView(recycler, adapter)
 
             builder.setView(dialogView)
             acaiAlertDialog = builder.create()
@@ -259,35 +246,21 @@ class HomeAdapter(
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             dialogView = inflater.inflate(R.layout.custom_select_topping, null)
 
-            // Customizando o AlertDialog
-            val title = dialogView.findViewById<TextView>(R.id.tvTitle)
-            val sub = dialogView.findViewById<TextView>(R.id.tvCategoria)
-            val sub2 = dialogView.findViewById<TextView>(R.id.tvCategoria2)
             val recycler = dialogView.findViewById<RecyclerView>(R.id.rvCategoria)
-            val recycler2 = dialogView.findViewById<RecyclerView>(R.id.rvCategoria2)
             val copo = dialogView.findViewById<ImageView>(R.id.ivCopo)
             val btOk = dialogView.findViewById<AppCompatButton>(R.id.btOk)
 
-            var adapterTop: CategoryAdapter? = null
-            var adapterBottom: CategoryAdapter? = null
+            var adapter: CategoryAdapter? = null
+            val list = arrayListOf(CategoryItem("Coberturas", topList), CategoryItem("Frutas", bottomList))
 
-            title.text = "Recheios"
-            title.text = "Recheios"
-            sub.text = "Salgados"
-            sub2.text = "Doces"
 
-            adapterTop = CategoryAdapter(
-                topList,
-                viewModel,
-                item
-            )
-            adapterBottom = CategoryAdapter(
-                bottomList,
+            adapter = CategoryAdapter(
+                list,
                 viewModel,
                 item
             )
 
-            setRecyclerView(recycler, recycler2, adapterTop, adapterBottom)
+            setRecyclerView(recycler, adapter)
 
             builder.setView(dialogView)
             acaiAlertDialog = builder.create()
@@ -300,19 +273,12 @@ class HomeAdapter(
 
         private fun setRecyclerView(
             recycler: RecyclerView,
-            recycler2: RecyclerView,
-            adapterTop: CategoryAdapter?,
-            adapterBottom: CategoryAdapter?
+            adapter: CategoryAdapter?
         ) {
             recycler.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = adapterTop
+                this.adapter = adapter
             }
-            recycler2.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = adapterBottom
-            }
-
         }
 
         private fun showCustomAlertDialog() {
