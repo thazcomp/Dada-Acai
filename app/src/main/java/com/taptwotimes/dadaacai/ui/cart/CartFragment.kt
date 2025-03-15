@@ -22,6 +22,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.taptwotimes.dadaacai.R
+import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.databinding.FragmentCartBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
@@ -81,16 +82,16 @@ class CartFragment : Fragment() {
         radioGroup1.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.radioPix1 -> {
-                    // Lógica para Pix 1
+                    UserPrefs.setPaymentMethod("Pix")
                 }
                 R.id.radioCredito1 -> {
-                    // Lógica para Cartão-Crédito 1
+                    UserPrefs.setPaymentMethod("Cartão-Crédito")
                 }
                 R.id.radioDebito1 -> {
-                    // Lógica para Cartão-Débito 1
+                    UserPrefs.setPaymentMethod("Cartão-Débito")
                 }
                 R.id.radioDinheiro1 -> {
-                    // Lógica para Dinheiro 1
+                    UserPrefs.setPaymentMethod("Dinheiro")
                 }
             }
         }
@@ -108,7 +109,7 @@ class CartFragment : Fragment() {
         val btPagamento = dialogView.findViewById<AppCompatButton>(R.id.btPagamento)
         btPagamento.setOnClickListener {
             confirmAlertDialog?.dismiss()
-//            viewModel.cratePedidoFirebase(itens)
+            viewModel.cratePedidoFirebase(itens)
             viewModel.clean()
         }
 

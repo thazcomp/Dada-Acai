@@ -114,7 +114,7 @@ class HomeRepositoryImpl : HomeRepository {
     override suspend fun saveToCart(id: Int, product: ProductHome, toppings: ArrayList<String>) {
         val cartItem = FirebaseCartItem(id, product.title, toppings, product.basePrice)
 
-        db.collection("Users").document(UserPrefs.getUserId()!!).collection("Cart").add(cartItem)
+        usersCollection.document(UserPrefs.getUserId()!!).collection("Cart").add(cartItem)
             .addOnSuccessListener {
                 Log.d("Firestore", "DocumentSnapshot successfully written!")
             }.addOnFailureListener { e ->

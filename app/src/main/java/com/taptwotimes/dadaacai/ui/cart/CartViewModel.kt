@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
+import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.model.FirebaseCartItem
 import com.taptwotimes.dadaacai.usecase.CartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,5 +30,10 @@ class CartViewModel @Inject constructor(private val cartUseCase: CartUseCase):Vi
     fun delete(id:Int) = viewModelScope.launch {
         ProductPrefs.decreaseCartCounter()
         cartUseCase.delete(id)
+    }
+
+    fun cratePedidoFirebase(itens:ArrayList<FirebaseCartItem>) = viewModelScope.launch {
+        cartUseCase.createPedido(itens)
+        clean()
     }
 }

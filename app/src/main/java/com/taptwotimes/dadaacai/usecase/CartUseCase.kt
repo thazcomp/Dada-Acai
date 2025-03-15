@@ -21,4 +21,8 @@ class CartUseCase @Inject constructor(private val repository: CartRepository) {
     suspend fun delete(id:Int){
         return repository.delete(id)
     }
+
+    suspend fun createPedido(itens: ArrayList<FirebaseCartItem>) {
+        return repository.createPedidos(itens)
+    }
 }

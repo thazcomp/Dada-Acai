@@ -6,4 +6,5 @@ interface CartRepository {
     suspend fun getCart():ArrayList<FirebaseCartItem>
     suspend fun delete(id:Int)
     suspend fun clean()
+    suspend fun createPedidos(itens: ArrayList<FirebaseCartItem>)
 }
