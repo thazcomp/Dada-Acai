@@ -47,6 +47,7 @@ class HomeActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         viewModel.getUserData {
             nameView.text = UserPrefs.getUserName()
             emailView.text = UserPrefs.getUserEmail()
+            viewModel.getUserAddress{}
 
             try{
                 loadImageFromFile(photo)

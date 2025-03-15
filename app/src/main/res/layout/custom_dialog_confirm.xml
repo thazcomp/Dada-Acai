@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/startLine"
+            android:layout_marginStart="8dp"
+            android:text="Pedido: "
+            android:textColor="@color/black"/>
+
+        <View
+            android:id="@+id/startLine"
+            android:layout_width="16dp"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:background="@color/black"
+            />
+
+        <View
+            android:id="@+id/endtLine"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvTitle"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/tvItensTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Itens:"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/startLine"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/tvItensTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_pedidos_cart" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/total18"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvPrice"
+            app:layout_constraintStart_toEndOf="@id/startLine"
+            android:layout_marginStart="12dp"
+            android:text="Endereço: "
+            android:textColor="@color/black"/>
+
+        <View
+            android:id="@+id/startALine"
+            android:layout_width="16dp"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/tvPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"
+            android:background="@color/black"
+            />
+
+        <View
+            android:id="@+id/endAtLine"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/tvPrice"
+            app:layout_constraintStart_toEndOf="@id/tvAddress"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/tvNameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvAddress"
+            app:layout_constraintStart_toEndOf="@id/startLine"
+            android:layout_marginStart="12dp"
+            android:text="Nome: "
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvAddress"
+            app:layout_constraintStart_toEndOf="@id/tvNameTitle"
+            android:layout_marginStart="8dp"
+            android:text="Thiago Azevedo Alves"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvBairro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvNameTitle"
+            app:layout_constraintStart_toEndOf="@id/startLine"
+            android:layout_marginStart="12dp"
+            android:text="Centro"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvRua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvBairro"
+            app:layout_constraintStart_toEndOf="@id/startLine"
+            android:layout_marginStart="12dp"
+            android:text="Júlio de Castilhos, 89"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvComp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvRua"
+            app:layout_constraintStart_toEndOf="@id/startLine"
+            android:layout_marginStart="12dp"
+            android:text="Fundos"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvComp"
+            app:layout_constraintStart_toEndOf="@id/startLine"
+            android:layout_marginStart="12dp"
+            android:text="Método de Pagamento:"
+            android:textColor="@color/black"/>
+
+        <View
+            android:id="@+id/startPLine"
+            android:layout_width="16dp"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/tvComp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"
+            android:background="@color/black"
+            />
+
+        <View
+            android:id="@+id/endPtLine"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/tvComp"
+            app:layout_constraintStart_toEndOf="@id/tvPayment"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/black"
+            />
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/startPLine"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radioPix1"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:buttonTint="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Pix" />
+
+            <RadioButton
+                android:id="@+id/radioCredito1"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:buttonTint="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Cartão-Crédito" />
+
+            <RadioButton
+                android:id="@+id/radioDebito1"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:buttonTint="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Cartão-Débito" />
+
+            <RadioButton
+                android:id="@+id/radioDinheiro1"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:buttonTint="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Dinheiro" />
+
+        </RadioGroup>
+
+        <View
+            android:id="@+id/separator1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/radioGroup1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvMessage"
+            android:layout_marginTop="8dp"
+            android:background="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/separator1"
+            app:layout_constraintBottom_toTopOf="@id/separator2"
+            android:text="O pagamento será realizado sempre na entrega"
+            android:textColor="@color/red"/>
+
+        <View
+            android:id="@+id/separator2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/tvMessage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btPagamento"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/black"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btPagamento"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_button_height"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/black"
+            android:text="Confirmar Pedido"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@id/separator2"
+            app:layout_constraintBottom_toTopOf="@id/btTrocar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btTrocar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_button_height"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:text="Trocar Endereço"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@id/btPagamento"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

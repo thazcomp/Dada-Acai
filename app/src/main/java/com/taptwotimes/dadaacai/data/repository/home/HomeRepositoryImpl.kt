@@ -7,6 +7,7 @@ import com.google.firebase.firestore.firestore
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.model.AcaiProductHome
+import com.taptwotimes.dadaacai.model.Address
 import com.taptwotimes.dadaacai.model.BebidasProductHome
 import com.taptwotimes.dadaacai.model.BoloProductHome
 import com.taptwotimes.dadaacai.model.CrepeProductHome
@@ -15,7 +16,7 @@ import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
 import kotlinx.coroutines.tasks.await
 
-class HomeRepositoryImpl:HomeRepository {
+class HomeRepositoryImpl : HomeRepository {
 
     val db = Firebase.firestore
     val usersCollection = db.collection("Users")
@@ -39,12 +40,14 @@ class HomeRepositoryImpl:HomeRepository {
 
             document = productsSnapshot.documents[1]
             data = document.data
-            itemList.add(BebidasProductHome(
-                title = data?.get("title") as String,
-                subtitle = data?.get("subtitle") as String,
-                image = R.drawable.bebidas,
-                basePrice = data?.get("basePrice") as String
-            ))
+            itemList.add(
+                BebidasProductHome(
+                    title = data?.get("title") as String,
+                    subtitle = data?.get("subtitle") as String,
+                    image = R.drawable.bebidas,
+                    basePrice = data?.get("basePrice") as String
+                )
+            )
 
             document = productsSnapshot.documents[2]
             data = document.data
@@ -81,7 +84,7 @@ class HomeRepositoryImpl:HomeRepository {
             .collection("Cobertura")
 
         val toppinsSnapshot = toppingsCollection.get().await()
-        return  toppinsSnapshot.documents.map { toppingDocument ->
+        return toppinsSnapshot.documents.map { toppingDocument ->
             Topping(
                 name = toppingDocument.getString("name") ?: "",
                 price = toppingDocument.getString("price") ?: ""
@@ -89,14 +92,18 @@ class HomeRepositoryImpl:HomeRepository {
         } as ArrayList<Topping>
     }
 
-    override suspend fun getToppings(id: String, name:String, category:String): java.util.ArrayList<Topping> {
+    override suspend fun getToppings(
+        id: String,
+        name: String,
+        category: String
+    ): java.util.ArrayList<Topping> {
         val toppingsCollection = productsCollection.document(id)
             .collection(name)
             .document("Categorias")
             .collection(category)
 
         val toppinsSnapshot = toppingsCollection.get().await()
-        return  toppinsSnapshot.documents.map { toppingDocument ->
+        return toppinsSnapshot.documents.map { toppingDocument ->
             Topping(
                 name = toppingDocument.getString("name") ?: "",
                 price = toppingDocument.getString("price") ?: ""
@@ -104,32 +111,48 @@ class HomeRepositoryImpl:HomeRepository {
         } as ArrayList<Topping>
     }
 
-    override suspend fun saveToCart(id: Int, product: ProductHome, toppings:ArrayList<String>){
+    override suspend fun saveToCart(id: Int, product: ProductHome, toppings: ArrayList<String>) {
         val cartItem = FirebaseCartItem(id, product.title, toppings, product.basePrice)
 
         db.collection("Users").document(UserPrefs.getUserId()!!).collection("Cart").add(cartItem)
             .addOnSuccessListener {
                 Log.d("Firestore", "DocumentSnapshot successfully written!")
-            }.addOnFailureListener { e->
+            }.addOnFailureListener { e ->
                 Log.w("Firestore", "Error writing document", e)
             }
     }
 
     override suspend fun getUser(id: String): User {
-        val collectionId = "Data"
 
-        val dataSnapshot = usersCollection.document(id).collection(collectionId).get().await()
-        val users = dataSnapshot.documents.map { dataDocument ->
+        val dataSnapshot = usersCollection.document(id)
+            .collection("Data")
+            .document("Dados")
+            .get().await()
+
+        val user =
             User(
-                id = dataDocument.getString("id") ?: "",
-                nome = dataDocument.getString("nome") ?: "",
-                email = dataDocument.getString("email") ?: "",
-                cpf = dataDocument.getString("cpf") ?: "",
-                phone = dataDocument.getString("phone") ?: ""
+                id = dataSnapshot.getString("id") ?: "",
+                nome = dataSnapshot.getString("nome") ?: "",
+                email = dataSnapshot.getString("email") ?: "",
+                cpf = dataSnapshot.getString("cpf") ?: "",
+                phone = dataSnapshot.getString("phone") ?: ""
             )
-        }
-        val user = users[0]
         return user
+    }
+
+    override suspend fun getUserAddress(id: String): Address {
+        val dataSnapshot = usersCollection.document(id)
+            .collection("Data")
+            .document("Endereco")
+            .get().await()
+
+        val address = Address(
+            rua = dataSnapshot.getString("rua") ?: "",
+            bairro = dataSnapshot.getString("bairro") ?: "",
+            numero = dataSnapshot.getString("numero") ?: "",
+            complemento = dataSnapshot.getString("complemento") ?: ""
+        )
+        return address
     }
 
     override suspend fun isReviwed(id: String, success: (Boolean) -> Unit) {

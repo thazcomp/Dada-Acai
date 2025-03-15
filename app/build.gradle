@@ -59,6 +59,7 @@ dependencies {
 
     //hilt
     implementation(libs.hilt.android)
+    implementation libs.androidx.material3.android
     kapt(libs.hilt.compiler)
     annotationProcessor libs.hilt.compiler
 
