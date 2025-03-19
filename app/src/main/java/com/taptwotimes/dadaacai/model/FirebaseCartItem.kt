@@ -7,5 +7,5 @@ data class FirebaseCartItem(
     val id:Int,
     val itemName: String,
     val toppings: ArrayList<String>,
-    val totalPrice: String,
+    val totalPrice: String
 )

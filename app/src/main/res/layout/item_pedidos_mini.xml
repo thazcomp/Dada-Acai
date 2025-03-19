@@ -114,12 +114,12 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btTrocar"
+            app:layout_constraintBottom_toTopOf="@id/btDetalhes"
             android:textStyle="bold"
             />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btTrocar"
+            android:id="@+id/btDetalhes"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_button_height"
             android:layout_marginTop="8dp"

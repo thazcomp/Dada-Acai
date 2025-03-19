@@ -19,6 +19,7 @@ import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.databinding.ActivityHomeBinding
 import com.taptwotimes.dadaacai.ui.base.BaseActivity
 import com.taptwotimes.dadaacai.ui.cart.CartFragment
+import com.taptwotimes.dadaacai.ui.pedidos.PedidosFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.lang.NullPointerException
@@ -27,8 +28,6 @@ import java.lang.NullPointerException
 @AndroidEntryPoint
 class HomeActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityHomeBinding
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navView: NavigationView
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +35,9 @@ class HomeActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.bottomNav.selectedItemId = R.id.home_menu
-        drawerLayout = binding.myDrawerLayout
-        navView = binding.navView
+        binding.navView
 
-        val header = navView.getHeaderView(0)
+        val header = binding.navView.getHeaderView(0)
         val nameView = header.findViewById<TextView>(R.id.tvName)
         val emailView = header.findViewById<TextView>(R.id.tvEmail)
         val photo :ImageView = header.findViewById<ImageView>(R.id.ivImage)
@@ -55,16 +53,16 @@ class HomeActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
                 e.printStackTrace()
             }
         }
-        navView.setNavigationItemSelectedListener(this)
+        binding.navView.setNavigationItemSelectedListener(this)
 
         binding.bottomNav.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.home_menu -> replaceFragment(HomeFragment())
                 R.id.drawer_menu -> {
-                    if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                        drawerLayout.openDrawer(GravityCompat.START)
+                    if (!binding.myDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        binding.myDrawerLayout.openDrawer(GravityCompat.START)
                     } else {
-                        drawerLayout.closeDrawer(GravityCompat.END)
+                        binding.myDrawerLayout.closeDrawer(GravityCompat.END)
                     }
                 }
                 R.id.carrinho_menu -> replaceFragment(CartFragment())
@@ -79,8 +77,8 @@ class HomeActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
     private fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout, fragment).commit()
-        navView.setCheckedItem(R.id.home_nav_menu)
-        drawerLayout.closeDrawer(navView)
+        binding.navView.setCheckedItem(R.id.home_nav_menu)
+        binding.myDrawerLayout.closeDrawer(binding.navView)
     }
 
     private fun loadImageFromFile(imageView: ImageView) {
@@ -92,12 +90,18 @@ class HomeActivity: BaseActivity(), NavigationView.OnNavigationItemSelectedListe
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
             R.id.home_nav_menu -> supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_view, HomeFragment()).commit()
+                .replace(R.id.frameLayout, HomeFragment()).commit()
+
             R.id.profile_nav_menu -> supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_view, CartFragment()).commit()
+                .replace(R.id.frameLayout, CartFragment()).commit()
+
+            R.id.pedidos_nav_menu -> supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, PedidosFragment()).commit()
+
         }
-        drawerLayout.closeDrawer(GravityCompat.END)
+        binding.myDrawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 

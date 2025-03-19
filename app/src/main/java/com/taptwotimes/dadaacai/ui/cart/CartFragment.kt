@@ -10,28 +10,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
-import androidx.compose.material3.RadioButton
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.taptwotimes.dadaacai.R
-import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.databinding.FragmentCartBinding
-import com.taptwotimes.dadaacai.model.AcaiProductHome
-import com.taptwotimes.dadaacai.model.CategoryItem
 import com.taptwotimes.dadaacai.model.FirebaseCartItem
-import com.taptwotimes.dadaacai.model.Topping
 import com.taptwotimes.dadaacai.ui.cart.adapter.CartAdapter
 import com.taptwotimes.dadaacai.ui.cart.adapter.CartConfirmAdapter
-import com.taptwotimes.dadaacai.ui.home.adapters.CategoryAdapter
+import com.taptwotimes.dadaacai.ui.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -111,6 +102,7 @@ class CartFragment : Fragment() {
             confirmAlertDialog?.dismiss()
             viewModel.cratePedidoFirebase(itens)
             viewModel.clean()
+            goToHome()
         }
 
         val btTrocar = dialogView.findViewById<AppCompatButton>(R.id.btTrocar)
@@ -135,6 +127,12 @@ class CartFragment : Fragment() {
         confirmAlertDialog = builder.create()
         confirmAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         confirmAlertDialog?.show()
+    }
+
+    private fun goToHome(){
+        fragmentManager?.beginTransaction()?.
+        replace(R.id.frameLayout, HomeFragment())?.
+        commit()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

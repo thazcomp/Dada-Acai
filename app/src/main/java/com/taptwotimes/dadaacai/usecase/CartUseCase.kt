@@ -23,6 +23,8 @@ class CartUseCase @Inject constructor(private val repository: CartRepository) {
     }
 
     suspend fun createPedido(itens: ArrayList<FirebaseCartItem>) {
-        return repository.createPedidos(itens)
+        return repository.createPedidos(itens).also {
+            clean()
+        }
     }
 }

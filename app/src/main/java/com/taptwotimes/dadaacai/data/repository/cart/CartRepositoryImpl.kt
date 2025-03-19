@@ -14,24 +14,23 @@ class CartRepositoryImpl : CartRepository {
 
     val db = Firebase.firestore
     val usersCollection = db.collection("Users")
+    val pedidosCollection = db.collection("Pedidos")
 
     @Suppress("UNCHECKED_CAST")
     override suspend fun getCart(): ArrayList<FirebaseCartItem> {
-        var userId = UserPrefs.getUserId()!!
-        UserPrefs.getUserId()?.let {
-            userId = it
-        }
+        var userId = UserPrefs.getUserId()
         val cartId = "Cart"
-        val cartSnapshot = usersCollection.document(userId).collection(cartId).get().await()
+            val cartSnapshot = usersCollection.document(userId!!).collection(cartId).get().await()
 
-        return cartSnapshot.documents.map { cartDocument ->
-            FirebaseCartItem(
-                id = cartDocument.getLong("id")?.toInt() ?: -1,
-                itemName = cartDocument.getString("itemName") ?: "",
-                toppings = (cartDocument.get("toppings") as ArrayList<String>),
-                totalPrice = cartDocument.getString("totalPrice") ?: ""
-            )
-        } as ArrayList<FirebaseCartItem>
+            return cartSnapshot.documents.map { cartDocument ->
+                FirebaseCartItem(
+                    id = cartDocument.getLong("id")?.toInt() ?: -1,
+                    itemName = cartDocument.getString("itemName") ?: "",
+                    toppings = (cartDocument.get("toppings") as ArrayList<String>),
+                    totalPrice = cartDocument.getString("totalPrice") ?: ""
+                )
+            } as ArrayList<FirebaseCartItem>
+
     }
 
     override suspend fun delete(id: Int) {
@@ -60,12 +59,18 @@ class CartRepositoryImpl : CartRepository {
     }
 
     override suspend fun createPedidos(itens: ArrayList<FirebaseCartItem>) {
-        val pedido = Pedido(UserPrefs.getPaymentMethod()!!, itens)
+        val pedido = Pedido("", UserPrefs.getPaymentMethod()!!, "RECEBIDO", itens)
         usersCollection.document(UserPrefs.getUserId()!!)
             .collection("Pedidos")
             .add(pedido)
             .addOnSuccessListener {
-                Log.d("Firestore", "DocumentSnapshot successfully written!")
+                pedido.id = it.id
+                val atualizacoes = mapOf("id" to it.id)
+                usersCollection.document(UserPrefs.getUserId()!!)
+                    .collection("Pedidos")
+                    .document(it.id)
+                    .update(atualizacoes)
+                pedidosCollection.document(it.id).set(pedido)
             }.addOnFailureListener { e ->
                 Log.w("Firestore", "Error writing document", e)
             }
