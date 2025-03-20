@@ -5,6 +5,6 @@ import com.taptwotimes.dadaacai.model.FirebaseCartItem
 interface CartRepository {
     suspend fun getCart():ArrayList<FirebaseCartItem>
     suspend fun delete(id:Int)
-    suspend fun clean()
+    suspend fun cleanCart()
     suspend fun createPedidos(itens: ArrayList<FirebaseCartItem>)
 }

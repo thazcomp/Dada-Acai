@@ -25,10 +25,11 @@ import com.taptwotimes.dadaacai.ui.cart.CartViewModel
 import com.taptwotimes.dadaacai.ui.cart.adapter.CartConfirmAdapter
 import com.taptwotimes.dadaacai.ui.pedidos.PedidosViewModel
 
-class PedidosAdapter(val list:ArrayList<Pedido>,
-                     val cartViewModel:CartViewModel,
-                     val context: Context
-):RecyclerView.Adapter<PedidosAdapter.PedidoViewHolder>() {
+class PedidosAdapter(
+    val list: ArrayList<Pedido>,
+    val cartViewModel: CartViewModel,
+    val context: Context
+) : RecyclerView.Adapter<PedidosAdapter.PedidoViewHolder>() {
 
     private var confirmAlertDialog: AlertDialog? = null
     private lateinit var dialogView: View
@@ -36,19 +37,25 @@ class PedidosAdapter(val list:ArrayList<Pedido>,
 
     class PedidoViewHolder(
         val createDialog: (Pedido) -> Unit,
-        val binding:ItemPedidosMiniBinding,
-        val cartViewModel:CartViewModel,
-    ):RecyclerView.ViewHolder(binding.root){
+        val binding: ItemPedidosMiniBinding,
+        val cartViewModel: CartViewModel,
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Pedido){
-            loadContent(item)
+        fun bind(item: Pedido) {
+            if ((item.status == "RECEBIDO") ||
+                (item.status == "EM PREPARO") ||
+                (item.status == "ENTREGA")
+            ){
+                loadContent(item)
+            }
         }
 
         private fun loadContent(item: Pedido) {
             binding.tvId.text = item.id
             binding.tvStatusTitle.text = "STATUS: ${item.status}"
             binding.tvName.text = UserPrefs.getUserName()
-            binding.tvEndereco.text = "${UserPrefs.getUserRua()},${UserPrefs.getUserNum()} - ${UserPrefs.getUserBairro()}"
+            binding.tvEndereco.text =
+                "${UserPrefs.getUserRua()},${UserPrefs.getUserNum()} - ${UserPrefs.getUserBairro()}"
             binding.tvPrice.text = item.payment
 
             binding.btDetalhes.setOnClickListener {
@@ -90,12 +97,13 @@ class PedidosAdapter(val list:ArrayList<Pedido>,
         }
 
         var adapter: CartConfirmAdapter? = null
-        val itens:ArrayList<FirebaseCartItem> = item.itens
+        val itens: ArrayList<FirebaseCartItem> = item.itens
 
         adapter = CartConfirmAdapter(
             itens,
             cartViewModel,
-            context)
+            context
+        )
 
         recycler.apply {
             layoutManager = LinearLayoutManager(context)
@@ -109,7 +117,8 @@ class PedidosAdapter(val list:ArrayList<Pedido>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PedidoViewHolder {
-        val binding = ItemPedidosMiniBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemPedidosMiniBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PedidoViewHolder(
             ::createConfirmDialog,
             binding,

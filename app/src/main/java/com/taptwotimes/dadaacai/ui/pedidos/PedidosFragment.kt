@@ -1,5 +1,6 @@
 package com.taptwotimes.dadaacai.ui.pedidos
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taptwotimes.dadaacai.databinding.FragmentPedidosBinding
+import com.taptwotimes.dadaacai.model.FirebaseCartItem
+import com.taptwotimes.dadaacai.model.Pedido
 import com.taptwotimes.dadaacai.ui.base.BaseFragment
 import com.taptwotimes.dadaacai.ui.cart.CartViewModel
 import com.taptwotimes.dadaacai.ui.cart.adapter.CartAdapter
@@ -55,11 +58,16 @@ class PedidosFragment:BaseFragment() {
             binding.list.apply {
                 layoutManager = myLinearLayoutManager
                 adapter = PedidosAdapter(
-                    viewModel.pedidos.value!!,
+                    getLista(),
                     cartViewModel,
                     context
                 )
             }
         }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun getLista(): ArrayList<Pedido>{
+        return viewModel.pedidos.value!!
     }
 }

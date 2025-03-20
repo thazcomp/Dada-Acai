@@ -22,7 +22,7 @@ class CartConfirmAdapter(val list:ArrayList<FirebaseCartItem>,
         open val viewModel: CartViewModel
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item:FirebaseCartItem, position: Int){
+        fun bind(item:FirebaseCartItem){
             binding.tvTitle.text = item.itemName
             binding.tvPrice.text = item.totalPrice
             try{
@@ -62,7 +62,24 @@ class CartConfirmAdapter(val list:ArrayList<FirebaseCartItem>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position], position)
+        var item:FirebaseCartItem? = null
+        var hash:HashMap<String, Any?> = hashMapOf()
+        try{
+            item = list[position]
+            holder.bind(item)
+        }catch (e:ClassCastException){
+            hash = (list[position] as HashMap<String, Any?>)
+            val item2 = FirebaseCartItem(0, "", arrayListOf(), "")
+            for ((key, value) in hash) {
+                when(key){
+                    "id" -> { item2.id = (value as Long).toInt() }
+                    "itemName" -> { item2.itemName = value as String }
+                    "toppings" -> { item2.toppings = value as ArrayList<String> }
+                    "totalPrice" -> { item2.totalPrice = value as String}
+                }
+            }
+            holder.bind(item2)
+        }
     }
 
 }

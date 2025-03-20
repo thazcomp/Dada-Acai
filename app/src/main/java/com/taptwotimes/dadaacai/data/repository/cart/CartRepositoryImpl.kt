@@ -47,15 +47,16 @@ class CartRepositoryImpl : CartRepository {
         writeBatch.commit().await()
     }
 
-    override suspend fun clean() {
+    override suspend fun cleanCart() {
         val userId = UserPrefs.getUserId()!!
         val cartId = "Cart"
-        val cartSnapshot = usersCollection.document(userId).collection(cartId).get().await()
         val writeBatch = db.batch()
-        cartSnapshot.documents.map { cartDocument ->
-            writeBatch.delete(cartDocument.reference)
+        usersCollection.document(userId).collection(cartId).get().addOnSuccessListener {
+            it.documents.map { cartDocument ->
+                writeBatch.delete(cartDocument.reference)
+            }
+            writeBatch.commit()
         }
-        writeBatch.commit().await()
     }
 
     override suspend fun createPedidos(itens: ArrayList<FirebaseCartItem>) {

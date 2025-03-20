@@ -7,6 +7,7 @@ import com.taptwotimes.dadaacai.model.FirebaseCartItem
 import com.taptwotimes.dadaacai.model.Pedido
 import kotlinx.coroutines.tasks.await
 
+@Suppress("UNCHECKED_CAST")
 class PedidosRepositoryImpl: PedidosRepository {
 
     val db = Firebase.firestore
@@ -24,7 +25,7 @@ class PedidosRepositoryImpl: PedidosRepository {
                 id = pedidoDoc.id,
                 payment = pedidoDoc.getString("payment") ?: "",
                 status = pedidoDoc.getString("status") ?: "",
-                itens = (pedidoDoc.get("itens") as ArrayList<FirebaseCartItem>)
+                itens = pedidoDoc.get("itens") as ArrayList<FirebaseCartItem>
             )
         } as ArrayList<Pedido>
     }

@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.auth.User
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.databinding.FragmentCartBinding
@@ -70,6 +71,8 @@ class CartFragment : Fragment() {
         val recycler = dialogView.findViewById<RecyclerView>(R.id.list)
         val radioGroup1: RadioGroup = dialogView.findViewById(R.id.radioGroup1)
 
+
+        UserPrefs.setPaymentMethod("Pix")
         radioGroup1.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.radioPix1 -> {
@@ -101,7 +104,6 @@ class CartFragment : Fragment() {
         btPagamento.setOnClickListener {
             confirmAlertDialog?.dismiss()
             viewModel.cratePedidoFirebase(itens)
-            viewModel.clean()
             goToHome()
         }
 

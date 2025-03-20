@@ -34,6 +34,6 @@ class CartViewModel @Inject constructor(private val cartUseCase: CartUseCase):Vi
 
     fun cratePedidoFirebase(itens:ArrayList<FirebaseCartItem>) = viewModelScope.launch {
         cartUseCase.createPedido(itens)
-        clean()
+        cartUseCase.clean()
     }
 }
