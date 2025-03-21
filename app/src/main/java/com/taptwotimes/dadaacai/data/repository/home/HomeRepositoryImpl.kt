@@ -135,7 +135,8 @@ class HomeRepositoryImpl : HomeRepository {
                 nome = dataSnapshot.getString("nome") ?: "",
                 email = dataSnapshot.getString("email") ?: "",
                 cpf = dataSnapshot.getString("cpf") ?: "",
-                phone = dataSnapshot.getString("phone") ?: ""
+                phone = dataSnapshot.getString("phone") ?: "",
+                token = dataSnapshot.getString("token") ?: ""
             )
         return user
     }
@@ -160,5 +161,18 @@ class HomeRepositoryImpl : HomeRepository {
 
         val reviwed = dataSnapshot.getBoolean("revisado") ?: false
         success(reviwed)
+    }
+
+    override suspend fun setToken(token: String) {
+        usersCollection.document(UserPrefs.getUserId()!!)
+            .collection("Data")
+            .document("Dados")
+            .set(hashMapOf("token" to token,
+                            "cpf" to UserPrefs.getUserCpf(),
+                            "email" to UserPrefs.getUserEmail(),
+                            "id" to UserPrefs.getUserId(),
+                            "nome" to UserPrefs.getUserName(),
+                            "phone" to UserPrefs.getUserPhone()))
+            .await()
     }
 }

@@ -47,4 +47,8 @@ class HomeUseCase @Inject constructor(private val homeRepository: HomeRepository
     suspend fun isReviwed(id:String, success:(Boolean) -> Unit){
         homeRepository.isReviwed(id, success)
     }
+
+    suspend fun setToken(token:String){
+        homeRepository.setToken(token)
+    }
 }

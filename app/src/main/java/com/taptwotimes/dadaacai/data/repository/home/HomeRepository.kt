@@ -13,4 +13,5 @@ interface HomeRepository {
     suspend fun getUser(id: String): User
     suspend fun getUserAddress(id: String): Address
     suspend fun isReviwed(id: String, success: (Boolean) -> Unit)
+    suspend fun setToken(token:String)
 }

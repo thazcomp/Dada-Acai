@@ -42,7 +42,8 @@ class SignUpRepositoryImpl : SignUpRepository {
             nome = dataSnapshot.getString("name") ?: "",
             email = dataSnapshot.getString("email") ?: "",
             cpf = dataSnapshot.getString("cpf") ?: "",
-            phone = dataSnapshot.getString("phone") ?: ""
+            phone = dataSnapshot.getString("phone") ?: "",
+            token = dataSnapshot.getString("token") ?: ""
         )
     }
 

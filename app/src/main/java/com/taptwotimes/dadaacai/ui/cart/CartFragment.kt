@@ -16,7 +16,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.auth.User
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.databinding.FragmentCartBinding
@@ -69,9 +68,57 @@ class CartFragment : Fragment() {
         dialogView = inflater.inflate(R.layout.custom_dialog_confirm, null)
 
         val recycler = dialogView.findViewById<RecyclerView>(R.id.list)
+        configureRadioButtons()
+        configureTexts()
+        configureButtons(itens)
+
+        val adapter: CartConfirmAdapter?
+        adapter = CartConfirmAdapter(
+            itens,
+            viewModel,
+            context)
+
+        recycler.apply {
+            layoutManager = LinearLayoutManager(context)
+            this.adapter = adapter
+        }
+
+        builder.setView(dialogView)
+        confirmAlertDialog = builder.create()
+        confirmAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        confirmAlertDialog?.show()
+    }
+
+    private fun configureButtons(itens: ArrayList<FirebaseCartItem>) {
+        val btPagamento = dialogView.findViewById<AppCompatButton>(R.id.btPagamento)
+        btPagamento.setOnClickListener {
+            confirmAlertDialog?.dismiss()
+            viewModel.cratePedidoFirebase(itens)
+            UserPrefs.getUserToken()?.let{token->
+                viewModel.sendNotificationToMe(token, "Açaí Mania", "Recebemos o seu pedido. Enviaremos no seu endereço em breve!")
+            }
+            goToHome()
+        }
+
+        val btTrocar = dialogView.findViewById<AppCompatButton>(R.id.btTrocar)
+        btTrocar.setOnClickListener {
+            confirmAlertDialog?.dismiss()
+        }
+    }
+
+    private fun configureTexts() {
+        val name = dialogView.findViewById<TextView>(R.id.tvName)
+        name.text = UserPrefs.getUserName()
+        val rua = dialogView.findViewById<TextView>(R.id.tvRua)
+        rua.text = "${UserPrefs.getUserRua()}, ${UserPrefs.getUserNum()}"
+        val bairro = dialogView.findViewById<TextView>(R.id.tvBairro)
+        bairro.text = UserPrefs.getUserBairro()
+        val comp = dialogView.findViewById<TextView>(R.id.tvComp)
+        comp.text = UserPrefs.getUserComp()
+    }
+
+    private fun configureRadioButtons() {
         val radioGroup1: RadioGroup = dialogView.findViewById(R.id.radioGroup1)
-
-
         UserPrefs.setPaymentMethod("Pix")
         radioGroup1.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
@@ -89,46 +136,6 @@ class CartFragment : Fragment() {
                 }
             }
         }
-
-
-        val name = dialogView.findViewById<TextView>(R.id.tvName)
-        name.text = UserPrefs.getUserName()
-        val rua = dialogView.findViewById<TextView>(R.id.tvRua)
-        rua.text = "${UserPrefs.getUserRua()}, ${UserPrefs.getUserNum()}"
-        val bairro = dialogView.findViewById<TextView>(R.id.tvBairro)
-        bairro.text = UserPrefs.getUserBairro()
-        val comp = dialogView.findViewById<TextView>(R.id.tvComp)
-        comp.text = UserPrefs.getUserComp()
-
-        val btPagamento = dialogView.findViewById<AppCompatButton>(R.id.btPagamento)
-        btPagamento.setOnClickListener {
-            confirmAlertDialog?.dismiss()
-            viewModel.cratePedidoFirebase(itens)
-            goToHome()
-        }
-
-        val btTrocar = dialogView.findViewById<AppCompatButton>(R.id.btTrocar)
-        btTrocar.setOnClickListener {
-            confirmAlertDialog?.dismiss()
-        }
-
-        var adapter: CartConfirmAdapter? = null
-
-
-        adapter = CartConfirmAdapter(
-            itens,
-            viewModel,
-            context)
-
-        recycler.apply {
-            layoutManager = LinearLayoutManager(context)
-            this.adapter = adapter
-        }
-
-        builder.setView(dialogView)
-        confirmAlertDialog = builder.create()
-        confirmAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        confirmAlertDialog?.show()
     }
 
     private fun goToHome(){
