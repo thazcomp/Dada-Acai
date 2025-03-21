@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.provider.MediaStore
 import androidx.activity.viewModels
 import com.example.coxinhaminha.model.User
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.databinding.ActivityAddressBinding
 import com.taptwotimes.dadaacai.model.Address
@@ -33,17 +35,29 @@ class AddressActivity: BaseActivity()  {
     private fun setButtonsClickListener() {
         binding.btAddress.setOnClickListener {
             if(!hasError()){
+                createFirebaseMessageToken()
                 viewModel.saveUser(
                     User(UserPrefs.getUserId()!!,
                         UserPrefs.getUserName()!!,
                         UserPrefs.getUserEmail()!!,
                         UserPrefs.getUserCpf()!!,
-                        UserPrefs.getUserPhone()!!),
+                        UserPrefs.getUserPhone()!!,
+                        UserPrefs.getUserToken()!!),
                     ::saveAddress,
                     ::showError
                 )
             }
         }
+    }
+
+    private fun createFirebaseMessageToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+            val token = task.result
+            UserPrefs.setUserToken(token)
+        })
     }
 
     private fun showError() {

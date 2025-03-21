@@ -5,9 +5,13 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
@@ -16,12 +20,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
 import com.taptwotimes.dadaacai.databinding.ItemHomeBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
 import com.taptwotimes.dadaacai.model.BebidasProductHome
 import com.taptwotimes.dadaacai.model.BoloProductHome
+import com.taptwotimes.dadaacai.model.CategoryItem
 import com.taptwotimes.dadaacai.model.CrepeProductHome
 import com.taptwotimes.dadaacai.model.ProductHome
 import com.taptwotimes.dadaacai.model.Topping
@@ -95,6 +101,14 @@ class HomeAdapter(
             }
 
             binding.clCard1.setOnClickListener {
+                when(item){
+                    is AcaiProductHome -> {
+                        createAcaiCustomAlertDialog(context, topList, bottomList, item)
+                    }
+                    is CrepeProductHome -> {
+                        createCrepeCustomAlertDialog(context, topList, bottomList, item)
+                    }
+                }
                 showCustomAlertDialog()
             }
 
@@ -211,33 +225,20 @@ class HomeAdapter(
             dialogView = inflater.inflate(R.layout.custom_select_topping, null)
 
             // Customizando o AlertDialog
-            val title = dialogView.findViewById<TextView>(R.id.tvTitle)
-            val sub = dialogView.findViewById<TextView>(R.id.tvCategoria)
-            val sub2 = dialogView.findViewById<TextView>(R.id.tvCategoria2)
             val recycler = dialogView.findViewById<RecyclerView>(R.id.rvCategoria)
-            val recycler2 = dialogView.findViewById<RecyclerView>(R.id.rvCategoria2)
             val copo = dialogView.findViewById<ImageView>(R.id.ivCopo)
             val btOk = dialogView.findViewById<AppCompatButton>(R.id.btOk)
 
-            var adapterTop: CategoryAdapter? = null
-            var adapterBottom: CategoryAdapter? = null
+            var adapter: CategoryAdapter? = null
+            val list = arrayListOf(CategoryItem("Coberturas", topList), CategoryItem("Frutas", bottomList))
 
-            title.text = "Toppings"
-            sub.text = "Coberturas"
-            sub2.text = "Frutas"
-
-            adapterTop = CategoryAdapter(
-                topList,
+            adapter = CategoryAdapter(
+                list,
                 viewModel,
-                item
+                item,
+                ::animateCopinho
             )
-            adapterBottom = CategoryAdapter(
-                bottomList,
-                viewModel,
-                item
-            )
-
-            setRecyclerView(recycler, recycler2, adapterTop, adapterBottom)
+            setRecyclerView(recycler, adapter)
 
             builder.setView(dialogView)
             acaiAlertDialog = builder.create()
@@ -259,35 +260,20 @@ class HomeAdapter(
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             dialogView = inflater.inflate(R.layout.custom_select_topping, null)
 
-            // Customizando o AlertDialog
-            val title = dialogView.findViewById<TextView>(R.id.tvTitle)
-            val sub = dialogView.findViewById<TextView>(R.id.tvCategoria)
-            val sub2 = dialogView.findViewById<TextView>(R.id.tvCategoria2)
             val recycler = dialogView.findViewById<RecyclerView>(R.id.rvCategoria)
-            val recycler2 = dialogView.findViewById<RecyclerView>(R.id.rvCategoria2)
-            val copo = dialogView.findViewById<ImageView>(R.id.ivCopo)
             val btOk = dialogView.findViewById<AppCompatButton>(R.id.btOk)
 
-            var adapterTop: CategoryAdapter? = null
-            var adapterBottom: CategoryAdapter? = null
+            var adapter: CategoryAdapter? = null
+            val list = arrayListOf(CategoryItem("Coberturas", topList), CategoryItem("Frutas", bottomList))
 
-            title.text = "Recheios"
-            title.text = "Recheios"
-            sub.text = "Salgados"
-            sub2.text = "Doces"
-
-            adapterTop = CategoryAdapter(
-                topList,
+            adapter = CategoryAdapter(
+                list,
                 viewModel,
-                item
-            )
-            adapterBottom = CategoryAdapter(
-                bottomList,
-                viewModel,
-                item
+                item,
+                ::animateCopinho
             )
 
-            setRecyclerView(recycler, recycler2, adapterTop, adapterBottom)
+            setRecyclerView(recycler, adapter)
 
             builder.setView(dialogView)
             acaiAlertDialog = builder.create()
@@ -300,19 +286,12 @@ class HomeAdapter(
 
         private fun setRecyclerView(
             recycler: RecyclerView,
-            recycler2: RecyclerView,
-            adapterTop: CategoryAdapter?,
-            adapterBottom: CategoryAdapter?
+            adapter: CategoryAdapter?
         ) {
             recycler.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = adapterTop
+                this.adapter = adapter
             }
-            recycler2.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = adapterBottom
-            }
-
         }
 
         private fun showCustomAlertDialog() {
@@ -321,71 +300,63 @@ class HomeAdapter(
             acaiAlertDialog?.show()
         }
 
-//        private fun createCheckboxListener(
-//            product: ProductHome,
-//            context: Context,
-//            copo: ImageView
-//        ): MaterialCheckBox.OnCheckedStateChangedListener {
-//            return MaterialCheckBox.OnCheckedStateChangedListener { checkBox, state ->
-//                if (checkBox.isChecked) {
-//                    if (selectionCounter < maxCounter) {
-//                        selectionCounter++
-//                        if (product is AcaiProductHome) {
-//                            animateCopinho(copo, context)
-//                        } else {
-//                            copo.visibility = View.GONE
-//                        }
-//                    }
-//                } else {
-//                    if (selectionCounter > 0) {
-//                        selectionCounter--
-//                        if (product is AcaiProductHome) {
-//                            animateCopinho(copo, context)
-//                        } else {
-//                            copo.visibility = View.GONE
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        private fun animateCopinho(copo: ImageView, context: Context) {
-//            when (selectionCounter) {
-//                0 -> {
-//                    copo.visibility = View.GONE
-//                }
-//
-//                1 -> {
-//                    copo.visibility = View.VISIBLE
-//                    Glide.with(context)
-//                        .load(context.getDrawable(R.drawable.copinho_parte_baixo))
-//                        .into(copo)
-//                }
-//
-//                2 -> {
-//                    copo.visibility = View.VISIBLE
-//                    Glide.with(context)
-//                        .load(context.getDrawable(R.drawable.copinho_parte_meio))
-//                        .into(copo)
-//                }
-//
-//                3 -> {
-//                    copo.visibility = View.VISIBLE
-//                    Glide.with(context)
-//                        .load(context.getDrawable(R.drawable.copinho_parte_topo))
-//                        .into(copo)
-//                }
-//            }
-//            playSound(R.raw.plaft, 0)
-//        }
-//
-//        fun playSound(sound: Int, time: Long) {
-//            val handler = Handler(context.mainLooper)
-//            handler.postDelayed({
-//                player = MediaPlayer.create(context, sound)
-//                player.start()
-//            }, time)
-//        }
+        private fun animateCopinho(selectionCounter:Int) {
+            val copo = dialogView.findViewById<ImageView>(R.id.ivCopinho)
+            when (selectionCounter) {
+                0 -> {
+                    copo.visibility = View.GONE
+                }
+
+                1 -> {
+                    Glide.with(context)
+                        .load(context.getDrawable(R.drawable.copinho_parte_baixo))
+                        .into(copo)
+                    copo.visibility = View.VISIBLE
+                    fadeOutAndHideImage(copo)
+                }
+
+                2 -> {
+                    Glide.with(context)
+                        .load(context.getDrawable(R.drawable.copinho_parte_meio))
+                        .into(copo)
+                    copo.visibility = View.VISIBLE
+                    fadeOutAndHideImage(copo)
+                }
+
+                3 -> {
+                    Glide.with(context)
+                        .load(context.getDrawable(R.drawable.copinho_parte_topo))
+                        .into(copo)
+                    copo.visibility = View.VISIBLE
+                    fadeOutAndHideImage(copo)
+                }
+            }
+        }
+
+        private fun fadeOutAndHideImage(img: ImageView) {
+            val fadeOut = AlphaAnimation(1F, 0F)
+            fadeOut.setInterpolator(AccelerateInterpolator())
+            fadeOut.setDuration(1000)
+
+            fadeOut.setAnimationListener(object: Animation.AnimationListener {
+                override fun onAnimationEnd(animation:Animation) {
+                    img.setVisibility(View.GONE)
+                }
+                override fun onAnimationRepeat(animation:Animation) {}
+                override  fun onAnimationStart(animation:Animation) {
+                    playSound(R.raw.plaft, 0)
+                }
+            })
+            img.startAnimation(fadeOut)
+        }
+
+        fun playSound(sound: Int, time: Long) {
+            val handler = Handler(context.mainLooper)
+            handler.postDelayed({
+                player = MediaPlayer.create(context, sound)
+                player.start()
+            }, time)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHomeViewHolder {

@@ -7,5 +7,6 @@ data class User(
     val nome:String,
     val email:String,
     val cpf:String,
-    val phone:String
+    val phone:String,
+    var token:String
 )

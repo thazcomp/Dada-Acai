@@ -81,6 +81,10 @@ object ProductPrefs {
         cartCounter--
     }
 
+    fun clearCartCounter(){
+        cartCounter = 0
+    }
+
     fun increaseCrepeSelectionCounter(){
         crepeSelectionCounter++
     }
@@ -101,6 +105,7 @@ object ProductPrefs {
         preferences.edit().clear().apply()
         acaiSelectionCounter = 0
         crepeSelectionCounter = 0
+        cartCounter = 0
     }
 
     fun hasAcaiTopping1():Boolean {

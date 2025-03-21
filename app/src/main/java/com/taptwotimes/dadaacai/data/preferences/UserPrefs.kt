@@ -20,6 +20,9 @@ object UserPrefs {
     private val USER_RUA: String = "user_rua"
     private val USER_NUM: String = "user_num"
     private val USER_COMP: String = "user_comp"
+    private val PAYMENT_METHOD: String = "paymnet_method"
+    private val USER_TOKEN: String = "user_token"
+
 
     fun with(application: Application) {
         preferences = application.getSharedPreferences(
@@ -34,6 +37,22 @@ object UserPrefs {
     inline fun <reified T> get(key: String): T? {
         val value = preferences.getString(key, null)
         return GsonBuilder().create().fromJson(value, T::class.java)
+    }
+
+    fun getUserToken():String?{
+        return get<String>(USER_TOKEN)
+    }
+
+    fun setUserToken(token:String){
+        put(token, USER_TOKEN)
+    }
+
+    fun getPaymentMethod():String?{
+        return get<String>(PAYMENT_METHOD)
+    }
+
+    fun setPaymentMethod(paymentMethod:String){
+        put(paymentMethod, PAYMENT_METHOD)
     }
 
     fun getUserId():String?{

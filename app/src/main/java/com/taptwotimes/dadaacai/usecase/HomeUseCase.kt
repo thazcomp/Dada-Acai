@@ -28,11 +28,27 @@ class HomeUseCase @Inject constructor(private val homeRepository: HomeRepository
             UserPrefs.setUserEmail(it.email)
             UserPrefs.setUserCpf(it.cpf)
             UserPrefs.setUserPhone(it.phone)
+            UserPrefs.setUserBairro(it.phone)
+            success()
+        }
+    }
+
+    suspend fun getUserAddress(id:String, success:()->Unit){
+        val user = homeRepository.getUserAddress(id)
+        user.let{
+            UserPrefs.setUserRua(it.rua)
+            UserPrefs.setUserBairro(it.bairro)
+            UserPrefs.setUserNum(it.numero)
+            UserPrefs.setUserComp(it.complemento)
             success()
         }
     }
 
     suspend fun isReviwed(id:String, success:(Boolean) -> Unit){
         homeRepository.isReviwed(id, success)
+    }
+
+    suspend fun setToken(token:String){
+        homeRepository.setToken(token)
     }
 }

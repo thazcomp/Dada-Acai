@@ -1,11 +1,15 @@
 package com.taptwotimes.dadaacai.ui.splash
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.AnimationDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.databinding.ActivitySplashBinding
 import com.taptwotimes.dadaacai.ui.base.BaseActivity
@@ -29,10 +33,7 @@ class SplashActivity: BaseActivity(){
         animation.start().also {
             goToMainActivity()
         }
-
     }
-
-
 
     private fun goToMainActivity() {
         val handler = Handler(this@SplashActivity.mainLooper)
@@ -48,6 +49,5 @@ class SplashActivity: BaseActivity(){
     override fun onBackPressed() {
 
     }
-
 
 }

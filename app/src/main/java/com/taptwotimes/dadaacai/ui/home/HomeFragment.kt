@@ -9,8 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.ktx.messaging
 import com.taptwotimes.dadaacai.R
 import com.taptwotimes.dadaacai.data.preferences.ProductPrefs
+import com.taptwotimes.dadaacai.data.preferences.UserPrefs
 import com.taptwotimes.dadaacai.databinding.FragmentHomeBinding
 import com.taptwotimes.dadaacai.model.AcaiProductHome
 import com.taptwotimes.dadaacai.model.BebidasProductHome
@@ -49,6 +54,22 @@ class HomeFragment : BaseFragment() {
             }
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        createFirebaseMessageToken()
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun createFirebaseMessageToken() {
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+            val token = task.result
+            UserPrefs.setUserToken(token)
+        })
     }
 
     private fun goToCadDoneActivity() {
@@ -129,11 +150,23 @@ class HomeFragment : BaseFragment() {
     private fun observeItemHome() {
 
         viewModel.topOptions.observe(viewLifecycleOwner) { response ->
-            topOptions.addAll(response)
+            val auxList = arrayListOf<Topping>()
+            for(r in response){ //Verifica dados duplicados
+                if(!topOptions.contains(r)){
+                    auxList.add(r)
+                }
+            }
+            topOptions.addAll(auxList)
         }
 
         viewModel.bottomOptions.observe(viewLifecycleOwner) { response ->
-            bottomOptions.addAll(response)
+            val auxList = arrayListOf<Topping>()
+            for(r in response){ //Verifica dados duplicados
+                if(!bottomOptions.contains(r)){
+                    auxList.add(r)
+                }
+            }
+            bottomOptions.addAll(auxList)
         }
 
         val myLinearLayoutManager = object : LinearLayoutManager(activity) {

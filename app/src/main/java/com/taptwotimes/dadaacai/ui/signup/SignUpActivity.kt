@@ -1,8 +1,19 @@
 package com.taptwotimes.dadaacai.ui.signup
 
+import android.Manifest
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.READ_MEDIA_IMAGES
+import android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
+import android.app.Activity
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Patterns
@@ -10,6 +21,8 @@ import android.view.View
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.google.firebase.auth.AuthResult
 import com.taptwotimes.dadaacai.data.preferences.UserPrefs
@@ -22,6 +35,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 
 @AndroidEntryPoint
 class SignUpActivity: BaseActivity()  {
@@ -35,16 +50,22 @@ class SignUpActivity: BaseActivity()  {
     private var cpfError:Boolean = false
     private var phoneError:Boolean = false
     private var hasPhoto:Boolean = false
+    private var hasPermissions = false
 
     private var imageUri: Uri? = null
 
-    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        if (uri != null) {
+    private val getContent = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
+        uri?.let {
             imageUri = uri
             binding.ivFoto.setImageURI(uri)
-            saveImageToFile(uri)
+            saveImageToMediaStore(this, uri, "acai_mania_profile_photo.jpg")
             UserPrefs.setUserPhoto(uri.toString())
         }
+
+    }
+
+    fun selectFile() {
+        getContent.launch(arrayOf("image/*"))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,21 +109,37 @@ class SignUpActivity: BaseActivity()  {
         return text.length>10
     }
 
-    private fun saveImageToFile(uri: Uri) {
-        val inputStream = contentResolver.openInputStream(uri)
-        val file = File(filesDir, "selected_image.jpg") // Salva no armazenamento interno
+    fun saveImageToMediaStore(context: Context, imageUri: Uri, fileName: String) {
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+            put(MediaStore.MediaColumns.MIME_TYPE, context.contentResolver.getType(imageUri)) // Obter o MIME type da Uri
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+            }
+        }
 
-        try {
-            val outputStream = FileOutputStream(file)
-            inputStream?.copyTo(outputStream)
-            inputStream?.close()
-            outputStream.close()
-            binding.tvPhotoError.visibility = View.GONE
-            hasPhoto = true
-            // Agora você tem o arquivo salvo em 'file'
-        } catch (e: IOException) {
-            hasPhoto = false
-            e.printStackTrace()
+        val targetUri: Uri? = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+        targetUri?.let {
+            try {
+                val inputStream: InputStream? = context.contentResolver.openInputStream(imageUri)
+                val outputStream: OutputStream? = context.contentResolver.openOutputStream(it)
+
+                if (inputStream != null && outputStream != null) {
+                    inputStream.use { input ->
+                        outputStream.use { output ->
+                            input.copyTo(output)
+                        }
+                    }
+                }
+                binding.tvPhotoError.visibility = View.GONE
+                hasPhoto = true
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                binding.tvPhotoError.visibility = View.VISIBLE
+                hasPhoto = false
+            }
         }
     }
 
@@ -124,8 +161,33 @@ class SignUpActivity: BaseActivity()  {
             }
 
         }
+
+        val requestPermissions = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+            results.forEach { (permission, granted) ->
+                if (granted) {
+                    hasPermissions = true
+                } else {
+                    hasPermissions = false
+                }
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            requestPermissions.launch(arrayOf(READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED))
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions.launch(arrayOf(READ_MEDIA_IMAGES))
+        } else {
+            requestPermissions.launch(arrayOf(READ_EXTERNAL_STORAGE))
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 123) // Código de requisição
+        }
+
         binding.ivFoto.setOnClickListener {
-            pickImage.launch("image/*")
+            if(hasPermissions){
+                selectFile()
+            }
         }
     }
 

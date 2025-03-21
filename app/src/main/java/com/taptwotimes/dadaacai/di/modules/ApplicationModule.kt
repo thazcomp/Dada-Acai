@@ -8,11 +8,14 @@ import com.taptwotimes.dadaacai.data.repository.home.HomeRepository
 import com.taptwotimes.dadaacai.data.repository.home.HomeRepositoryImpl
 import com.taptwotimes.dadaacai.data.repository.login.LoginRepository
 import com.taptwotimes.dadaacai.data.repository.login.LoginRepositoryImpl
+import com.taptwotimes.dadaacai.data.repository.pedidos.PedidosRepository
+import com.taptwotimes.dadaacai.data.repository.pedidos.PedidosRepositoryImpl
 import com.taptwotimes.dadaacai.data.repository.signup.SignUpRepository
 import com.taptwotimes.dadaacai.data.repository.signup.SignUpRepositoryImpl
 import com.taptwotimes.dadaacai.usecase.CartUseCase
 import com.taptwotimes.dadaacai.usecase.HomeUseCase
 import com.taptwotimes.dadaacai.usecase.LoginUseCase
+import com.taptwotimes.dadaacai.usecase.PedidosUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,6 +55,11 @@ object ApplicationModule {
     }
 
     @Provides
+    fun providePedidosUseCase(): PedidosUseCase {
+        return PedidosUseCase(providePedidosRepository())
+    }
+
+    @Provides
     fun provideHomeRepository():HomeRepository{
         return HomeRepositoryImpl()
     }
@@ -64,5 +72,10 @@ object ApplicationModule {
     @Provides
     fun provideSignUpRepository(): SignUpRepository {
         return SignUpRepositoryImpl()
+    }
+
+    @Provides
+    fun providePedidosRepository(): PedidosRepository {
+        return PedidosRepositoryImpl()
     }
 }
